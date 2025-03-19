@@ -1,0 +1,115 @@
+name: Build single ref
+
+on:
+  push:
+  pull_request:
+  workflow_call:
+    inputs:
+      package:
+        type: string
+        required: true
+      version:
+        type: string
+        required: true
+      folder:
+        type: string
+        required: false
+      upload:
+        type: boolean
+        required: false
+        default: false
+    secrets:
+      FILEN_EMAIL:
+        description: 'Email to authenticate with FileN'
+        required: true
+      FILEN_PASSWORD:
+        description: 'Password to authenticate with FileN'
+        required: true
+
+  workflow_dispatch:
+    inputs:
+      package:
+        type: string
+        required: true
+      version:
+        type: string
+        required: true
+      folder:
+        type: string
+        required: false
+      upload:
+        type: boolean
+        required: false
+        default: false
+
+env:
+  PACKAGE: ${{ inputs.package || 'zlib' }}
+  VERSION: ${{ inputs.version || '1.3.1' }}
+  REF: ${{ inputs.package || 'zlib' }}/${{ inputs.version || '1.3.1' }}
+
+jobs:
+  find-folder:
+    if: ${{ !inputs.folder }}
+    runs-on: ubuntu-latest
+    outputs:
+      result: ${{ steps.get_folder.outputs.result }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: recipes/${{ env.PACKAGE }}/config.yml
+      - id: get_folder
+        uses: mikefarah/yq@v4.45.1
+        with:
+          cmd: yq '.versions."${{ env.VERSION }}".folder' 'recipes/${{ env.PACKAGE }}/config.yml'
+
+  build:
+    if: ${{ always() }}
+    needs: find-folder
+    env:
+      FOLDER: recipes/${{ inputs.package || 'zlib' }}/${{ inputs.folder || needs.find-folder.outputs.result }}
+      SHARED: ${{ matrix.shared }}
+      BUILD_TYPE: ${{ matrix.build_type }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-2022, macos-14]
+        shared: ["False", "True"]
+        build_type: [Release]
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github
+            requirements.txt
+            ${{ env.FOLDER }}
+
+      - uses: ./.github/actions/setup-conan
+        with:
+          filen-email: ${{ secrets.FILEN_EMAIL }}
+          filen-password: ${{ secrets.FILEN_PASSWORD }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: conan export --version=$VERSION --no-remote ${{ env.FOLDER }}
+
+      - run: |
+          code=0
+          set +o pipefail
+          conan install --require=$REF -sbuild_type=$BUILD_TYPE -o*/*:shared=$SHARED --build=missing --build=$REF --format=json > create.json  -c:a tools.system.package_manager:mode=install -c:a tools.system.package_manager:sudo=True || code=$?
+          echo "CODE=$code" >> "$GITHUB_OUTPUT"
+          if [ $code == 6 ]
+          then
+            exit 0
+          fi
+          exit "$code"
+        id: conan_install
+        name: Conan Install
+
+      - run: |
+          conan test ${{ env.FOLDER }}/test_package/conanfile.py $REF -sbuild_type=$BUILD_TYPE -o*/*:shared=$SHARED  -c:a tools.system.package_manager:mode=install -c:a tools.system.package_manager:sudo=True
+        if: ${{ steps.conan_install.outputs.CODE != 6 }}
+      - run: conan upload -r community $REF --confirm || conan upload -r community $REF --confirm 
+        if: ${{ steps.conan_install.outputs.CODE != 6 && inputs.upload }}

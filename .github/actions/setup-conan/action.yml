@@ -1,0 +1,58 @@
+inputs:
+  filen-email:
+    description: 'Email to authenticate with FileN'
+    required: false
+  filen-password:
+    description: 'Password to authenticate with FileN'
+    required: false
+  github-token:
+    description: 'Token to authenticate with GitHub'
+    required: false
+name: 'Setup Conan'
+runs:
+  using: "composite"
+  steps:
+    - uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: latest
+        scope: ${{ github.repository_owner }}
+        registry-url: "https://npm.pkg.github.com/"
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.13"
+        cache: 'pip'
+        cache-dependency-path: 'requirements.txt'
+    - run: pip3 install -r requirements.txt
+      working-directory: .
+      shell: bash
+
+    - if: ${{ runner.os == 'Windows' }}
+      run: echo "CONAN_HOME=${{ runner.temp }}\\.c2" >> $GITHUB_ENV
+      shell: bash
+
+    - run: conan profile detect --force
+      shell: bash
+
+    - run: conan remote remove "*"
+      shell: bash
+
+    - run: bun install @ericlemanissier/cocoserver
+      env:
+        BUN_AUTH_TOKEN: ${{ inputs.github-token }}
+      shell: bash
+
+    - run: |
+        bun run --bun cocoserver --owner ${{ github.repository_owner }} --repo ${GITHUB_REPOSITORY#*/} --folder cocoremote &
+        sleep 5
+      env:
+        FILEN_EMAIL: ${{ inputs.filen-email }}
+        FILEN_PASSWORD: ${{ inputs.filen-password }}
+      shell: bash
+
+    - run: |
+        conan remote add community http://localhost:9595
+        conan remote auth community
+      env:
+        CONAN_LOGIN_USERNAME_COMMUNITY: ${{ github.repository_owner }}
+        CONAN_PASSWORD_COMMUNITY: ${{ inputs.github-token }}
+      shell: bash
