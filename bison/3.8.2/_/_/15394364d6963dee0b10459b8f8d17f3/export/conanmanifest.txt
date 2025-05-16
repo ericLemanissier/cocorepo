@@ -1,0 +1,6 @@
+1747421706
+conandata.yml: cf3fb8806031988196ab14e330a8fab0
+conanfile.py: 2a4615696372d66c8e0b985c6ff4d08d
+export_source/patches/0001-3.8-create_pipe-uses-O_TEXT-not-O_BINARY-mode.patch: 0482ff92692623f981fa37922819e329
+export_source/patches/0002-3.7.6-open-source-file-in-binary-mode-MS-ftell-bug-ks-68337.patch: 07a93ee79502da51b6ed8baff948cfb9
+export_source/patches/0005-gnulib-limit-search-range-of-_setmaxstdio.patch: 00ad1589dddab5651f73a14850607131
