@@ -1,0 +1,7 @@
+1747410720
+conandata.yml: d7bb0b886257fa3057a17aaacf71f674
+conanfile.py: d24c0f02bafb7d27f4d62f034465f27f
+export_source/patches/1.4.19-0001-open-files-in-binary-mode.patch: c4cbb541e496ff1be8872b59b3b19d56
+export_source/patches/1.4.19-0002-ar-lib.patch: c00ed888233bcddc1eb90c6c207c7046
+export_source/patches/1.4.19-0003-msvc-debug-assertion.patch: accc6b762972b8606d1c91d25467bc53
+export_source/patches/1.4.19-0004-disable-hardening-in-source.patch: 91977cc7531e34066676d2945231ef76
