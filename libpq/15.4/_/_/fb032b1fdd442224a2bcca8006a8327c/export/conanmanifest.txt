@@ -1,0 +1,5 @@
+1747418932
+conandata.yml: 9f14b172646f82819fea0402c4a9c422
+conanfile.py: bba38d8f531d14990a9d9ebab63ed650
+export_source/patches/15/0001-Use-BIO_-get-set-_app_data-instead-of-BIO_-get-se.patch: 1460e2d76ce9dfabb74f18d3463c1983
+export_source/patches/15/001-mingw-build-static-libraries.patch: ddca2f479c0d5f7f228c212fb2ab30aa
