@@ -1,0 +1,4 @@
+1747414673
+conandata.yml: b367a170cf501e138350fcad6fed65fa
+conanfile.py: 16c3761e2bfaaff0d63e5ce9c4ea83c3
+export_source/patches/darwin-newer-versions.patch: 1e525f42691febbd342452cab0867e72
