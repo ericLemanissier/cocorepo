@@ -1,0 +1,6 @@
+1747416345
+conandata.yml: 300c28a83b586c2c866659ac97d69ff8
+conanfile.py: 0913ff96541256cb98ae30028b97ef9b
+export_source/patches/0003-fix-missing-include-3.6.patch: 1359cd55af039c08cd456e068924fa89
+export_source/patches/0004-libsepol-src-Makefile-fix-reallocarray-detection.patch: 540d7a9f5e8332b799d83e180e0880e9
+export_source/patches/0005-libselinux-libsepol-Add-CFLAGS-and-LDFLAGS.patch: 3b4fde8dbf11912fe11de8973d55e67a
