@@ -1,0 +1,6 @@
+1747417242
+conandata.yml: a35e402a0bb65014bac836d394691200
+conanfile.py: c4a8a6cbbb8a3ce9fa75e7236d5fdca4
+export_source/patches/0.21-clang-16-noreturn-attribute-warning.patch: 09ed0648ac110a192f6635e5b9f437a2
+export_source/patches/0.21-include-stdlib_h.patch: 97000484a81b22414983dc610f295298
+export_source/patches/0004-autopoint-relocatable.patch: ac256486569c0cf137e588edcf843be6
