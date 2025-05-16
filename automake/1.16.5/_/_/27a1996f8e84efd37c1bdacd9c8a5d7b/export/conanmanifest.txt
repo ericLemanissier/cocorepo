@@ -1,0 +1,6 @@
+1747412366
+conandata.yml: 4cc7ea4a13129bec17fe748e3fc6e589
+conanfile.py: f6acc96ce814cd5db2bfccdec014ea45
+export_source/patches/0001-help2man-no-discard-stderr-1.16.5.patch: e123af98a8d8c67fb1aac1e7015dc952
+export_source/patches/0002-no-perl-path-in-shebang-1.16.5.patch: bf3d05c5c5f1a42546fa6ef3309f5ec8
+export_source/patches/0003-relocatable-automake-1.16.5.patch: cee6d28c526274214d1e6aa3d6acb023
