@@ -13,11 +13,15 @@ jobs:
       - uses: actions/github-script@v6
         id: find_modified_refs
         with:
-          script: |   
+          script: |
+            let before = context.payload.before;
+            if (before === "0000000000000000000000000000000000000000")
+              before = "HEAD"
+            const after = context.payload.after;
             const { data: comparison } = await github.rest.repos.compareCommitsWithBasehead({
               owner: context.issue.owner,
               repo: context.issue.repo,
-              basehead: `${context.payload.before}...${context.payload.after}`
+              basehead: `${before}...${after}`
               });
             core.debug(comparison)
             
