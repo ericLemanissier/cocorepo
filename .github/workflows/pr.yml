@@ -54,6 +54,7 @@ jobs:
 
   build_refs:
     needs: find_modified_refs
+    if: ${{ needs.find_modified_refs.outputs.references != '[]' }}
     strategy:
       fail-fast: false
       matrix:
