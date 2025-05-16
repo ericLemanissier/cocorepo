@@ -58,7 +58,7 @@ jobs:
         with:
           sparse-checkout: recipes/${{ env.PACKAGE }}/config.yml
       - id: get_folder
-        uses: mikefarah/yq@v4.45.1
+        uses: mikefarah/yq@v4.45.4
         with:
           cmd: yq '.versions."${{ env.VERSION }}".folder' 'recipes/${{ env.PACKAGE }}/config.yml'
 
