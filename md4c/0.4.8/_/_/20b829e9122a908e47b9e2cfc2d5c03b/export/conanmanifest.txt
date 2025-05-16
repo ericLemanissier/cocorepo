@@ -1,0 +1,4 @@
+1747420521
+conandata.yml: 512f48c68695efb913870d5d8265ab8a
+conanfile.py: a68630724c3715a2f5f9d21c2d54611c
+export_source/patches/0.4.8-0001-honor-vc-runtime.patch: 4b82d035a1d2358f524c6728a715f4b1
