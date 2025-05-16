@@ -1,0 +1,5 @@
+1747401821
+conandata.yml: 6ac421b36e7843cd96c0b413c112db6b
+conanfile.py: 5d66f22d474eeb44692c429da9a982d9
+export_source/patches/2.13.0-0001-meson-Use-the-standard-dependency-mechanism-to-find-.patch: 785d3f70c64753f3c10031116fc84fba
+export_source/patches/2.13.0-0002-meson-Fix-static-windows.patch: d7147f8fd63a532620bd0ba7f0ea4e6b
