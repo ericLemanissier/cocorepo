@@ -1,0 +1,6 @@
+1747411297
+conandata.yml: 08c70029349d19fbff2bb51031907bb8
+conanfile.py: b601da64ca057cb866b82e2f426754f4
+export_source/patches/2.71-0001-relocatable-autoconf.patch: 0ccf48ccb011e0d758d4fb6e0781d3a4
+export_source/patches/2.71-0002-no-perl-path-in-shebang.patch: 0f80ccb95df8132dee1b293bbb238d26
+export_source/patches/2.71-0003-disable-man-regeneration.patch: 50ebaa73ad5d8a1b55e27f0e30de68ed
