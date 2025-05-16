@@ -1,0 +1,4 @@
+1747420154
+conandata.yml: b2a3ed32448caa29e5768cfcf92634cb
+conanfile.py: 841d4984f43ba5dd3b953911b4d8f809
+export_source/patches/0001-duplicated-get-connection.patch: a7f62ac6d6a19b193dd8acc07b6ce52c
