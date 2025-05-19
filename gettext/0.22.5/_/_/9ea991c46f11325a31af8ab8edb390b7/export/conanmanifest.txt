@@ -1,0 +1,5 @@
+1747649850
+conandata.yml: a35e402a0bb65014bac836d394691200
+conanfile.py: c4a8a6cbbb8a3ce9fa75e7236d5fdca4
+export_source/patches/0.22.5-0001-fix-macos-crossbuild.patch: a4f38473ac4ae5a6544a207b1d23da14
+export_source/patches/0004-autopoint-relocatable.patch: ac256486569c0cf137e588edcf843be6
