@@ -1,0 +1,25 @@
+name: Clean old binaries
+
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: '15 14 * * *'
+
+jobs:
+  clean-binaries:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github
+            requirements.txt
+
+      - uses: ./.github/actions/setup-conan
+        with:
+          filen-email: ${{ secrets.FILEN_EMAIL }}
+          filen-password: ${{ secrets.FILEN_PASSWORD }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: conan remove "*#!latest" -r community
