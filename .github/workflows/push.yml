@@ -69,6 +69,6 @@ jobs:
       package: ${{ matrix.package }}
       version: ${{ matrix.version }}
       folder: ${{ matrix.folder }}
-      upload: true
+      upload: false
     secrets: inherit
           

@@ -14,20 +14,20 @@ jobs:
         id: find_modified_refs
         with:
           script: |   
-            files = await github.rest.pulls.listFiles({
-              owner: context.issue.owner,
-              repo: context.issue.repo,
-              pull_number: context.issue.number,
-            });
-            
-            recipes = new Set()
-            for (file of files.data) {
-              filepath = file.filename.split("/")
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+                owner: context.issue.owner,
+                repo: context.issue.repo,
+                pull_number: context.issue.number,
+              },
+              (response) => response.data.map((file) => file.filename.split("/"))
+            );
+            recipes = new Set();
+            for (filepath of files) {
               if (filepath.length < 4){
                 core.debug(`ignore file path too short : ${filepath}`)
                 continue
               }
-              if (filepath[0] != "recipes") {
+              if (filepath[0] !== "recipes") {
                 core.debug(`ignore file path not in recipes : ${filepath}`)
                 continue
               }
