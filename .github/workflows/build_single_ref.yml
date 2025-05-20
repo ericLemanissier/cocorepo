@@ -121,15 +121,30 @@ jobs:
       - run: conan export --version=$VERSION --no-remote ${{ env.FOLDER }}
 
       - run: |
-          code=0
-          set +o pipefail
-          conan install --require=$REF -sbuild_type=$BUILD_TYPE -o*/*:shared=$SHARED --build=missing --build=$REF --format=json > create.json  -c:a tools.system.package_manager:mode=install -c:a tools.system.package_manager:sudo=True || code=$?
-          echo "CODE=$code" >> "$GITHUB_OUTPUT"
-          if [ $code == 6 ]
-          then
-            exit 0
-          fi
-          exit "$code"
+          CONAN_PATH=$(conan config home)
+          PROFILE_PATH=$(conan profile path default)
+          COMPILER=$(awk -F "=" '/^compiler=/ {print $2}' $PROFILE_PATH)
+          CPP_STDS=$(python3 -c "import yaml;import sys;print(*yaml.safe_load(sys.stdin)['compiler']['$COMPILER']['cppstd'])" < $CONAN_PATH/settings.yml)
+          for cpp_std in $CPP_STDS; do
+            if [ "$cpp_std" = "None" ]; then
+              ARG=""
+            else
+              ARG="-s compiler.cppstd=$cpp_std"
+            fi
+            set +e
+            conan install $ARG --require=$REF -sbuild_type=$BUILD_TYPE -o*/*:shared=$SHARED --build=missing --build=$REF --format=json > create.json  -c:a tools.system.package_manager:mode=install -c:a tools.system.package_manager:sudo=True
+            code=$?
+            set -e
+            echo "CODE=$code" >> "$GITHUB_OUTPUT"
+
+            if [ $code -ne 6 ]; then
+              if [ "$cpp_std" != "None" ]; then
+                echo "compiler.cppstd=$cpp_std" >> $PROFILE_PATH
+              fi
+              exit "$code"
+            fi
+          done
+              
         id: conan_install
         name: Conan Install
 
