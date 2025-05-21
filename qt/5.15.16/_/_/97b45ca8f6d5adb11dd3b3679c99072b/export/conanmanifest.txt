@@ -1,0 +1,14 @@
+1747826211
+conandata.yml: 15bfb37d6603a5750514967696c2619d
+conanfile.py: 861d11d5fe2247dca23b4c28b5df5230
+export_source/patches/0001-Find-fontconfig-using-pkg-config.patch: 1b7b4b7a59222bfba348475f873efee3
+export_source/patches/5.15.14-macos-chromium-newer-sdks.patch: bc12c31d8d178062590f3c776e602140
+export_source/patches/5.15.14-macos-qtlocation-utility-header.patch: 03a3b17f7a4fb4139e277b2f5de7e4cf
+export_source/patches/5.15.14-macos-qtwebengine-rpath-link.patch: 738deaed781237b842eaeeedd192aec8
+export_source/patches/5.15.14-qtwebengine-missing-deps.patch: a6f39c3b029762dba2461e2cc7ac84cf
+export_source/patches/aa2a39dea5.diff: 8587541c16f0eebeb61760f19665d92a
+export_source/patches/android-openssl.diff: 8938dbd51f9a7c1d2a410c172e226cc1
+export_source/patches/c72097e.diff: 24f1bfa35518e7c7f286e4fe9e67a256
+export_source/patches/ffmpeg-x86-optimization.patch: a75bd290922e3fde7257c07381be61c8
+export_source/patches/fix-macdeployqt.diff: 3896af55e513fec4b76f6bb192cf7284
+qtmodules5.15.16.conf: c5bdf645623d9c82e9817a8b0cc2e85d
