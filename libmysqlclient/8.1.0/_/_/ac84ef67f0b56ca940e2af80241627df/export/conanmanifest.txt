@@ -1,0 +1,4 @@
+1747829013
+conandata.yml: 1c8897eafd2ccd006ef8309cf9271974
+conanfile.py: f4dbd0f61d3bfa8bbc3cd614e4533579
+export_source/patches/0006-fix-cpp20-build-8.1.0.patch: 55057267e85900fb81a32da8768a6d5f
