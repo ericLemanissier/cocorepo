@@ -1,0 +1,5 @@
+1747829136
+conandata.yml: 7032dc97dd293916478ec93ec616e797
+conanfile.py: 87002603656a6b67d7401452ba98916b
+export_source/patches/1.5.2-cmake-remove-asm-except-x86_64.patch: 15a54c5df06815b450eb4964cc162a36
+export_source/patches/1.5.5-qnx_support.patch: 8fd76ed733fcd1a2ba4631eb797493f8
