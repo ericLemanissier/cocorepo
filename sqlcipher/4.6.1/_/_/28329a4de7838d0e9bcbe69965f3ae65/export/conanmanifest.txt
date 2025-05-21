@@ -1,0 +1,6 @@
+1747816489
+conandata.yml: 8860206503694305a5e049d9d988e6eb
+conanfile.py: e1b4c5d86b9b175c80dc39774e71e340
+export_source/patches/Makefile.in-v4.6.1.patch: ece19995d0f14c970a30f8b9d8b15770
+export_source/patches/Makefile.msc-v4.6.1.patch: 7e8bcdeeeea8eb4aa57bafe812919e50
+export_source/patches/fix_configure-v4.5.7.patch: 9c564922d5a37c448ac09d4b5d8cac5a
