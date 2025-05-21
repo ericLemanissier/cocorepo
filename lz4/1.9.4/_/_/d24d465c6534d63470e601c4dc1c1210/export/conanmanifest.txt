@@ -1,0 +1,4 @@
+1747829456
+conandata.yml: 3f1f8917eac3dafa9f3b1c82e2ae1173
+conanfile.py: 2bd4772523bcad02663ee52213b7d5a6
+export_source/patches/0004-Added-namespace-declaration-for-xxhash-in-CMake.patch: 0c1d9b72c4b20f0ca0831669dc35ffad
