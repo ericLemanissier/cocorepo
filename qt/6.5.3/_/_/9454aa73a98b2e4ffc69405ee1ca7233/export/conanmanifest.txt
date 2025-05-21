@@ -1,0 +1,7 @@
+1747826218
+conandata.yml: c13e3b331ddc004d705211b156a5a6b8
+conanfile.py: bf02c6d37ea0e69486a5577ccafb3515
+export_source/patches/32fa63f_6.5.0.patch: a326b111b4ccfe6de159ccce412c006e
+export_source/patches/c72097e.diff: 082130a0dcb6a31e4339fc19e3433f7c
+export_source/patches/fix-long-path-on-windows_6.5.3.patch: c0a1bb2ee0e6f1ae1d9a25f0f3932b09
+qtmodules6.5.3.conf: 44294891feb1503f5340587f3ed9a1fd
