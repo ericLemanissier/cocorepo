@@ -70,5 +70,6 @@ jobs:
       version: ${{ matrix.version }}
       folder: ${{ matrix.folder }}
       upload: false
-    secrets: inherit
-          
+    secrets:
+      FILEN_EMAIL: ${{ secrets.FILEN_EMAIL }}
+      FILEN_PASSWORD: ${{ secrets.FILEN_PASSWORD }}
