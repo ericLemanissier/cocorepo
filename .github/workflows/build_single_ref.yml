@@ -151,5 +151,5 @@ jobs:
       - run: |
           conan test ${{ env.FOLDER }}/test_package/conanfile.py $REF -sbuild_type=$BUILD_TYPE -o*/*:shared=$SHARED  -c:a tools.system.package_manager:mode=install -c:a tools.system.package_manager:sudo=True
         if: ${{ steps.conan_install.outputs.CODE != 6 }}
-      - run: conan upload -r community $REF --confirm || conan upload -r community $REF --confirm 
+      - run: conan upload -r community $REF --confirm
         if: ${{ steps.conan_install.outputs.CODE != 6 && inputs.upload }}
