@@ -1,0 +1,5 @@
+1748265685
+conanfile.py: 97416ef7e316ff8104ee33d3d596e5b7
+export_source/CMakeLists.txt: f0336bf2f761a6b1236351f50bfed1ae
+export_source/include/hello-conan.h: 5f49ca27b4301d1408ab504cc00c531f
+export_source/src/hello-conan.cpp: c11e59ac27277b9974a8e880daec4d3a
