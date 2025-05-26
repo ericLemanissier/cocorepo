@@ -1,0 +1,6 @@
+1748265687
+conandata.yml: f463086eb8266538d27337535a6f6345
+conanfile.py: b6f49015a240ce03d8ebdf28f63dc54b
+export_source/patches/0001-disable-static-on-shared.patch: e67a0ec3db9235fdb71144bae2cb578a
+export_source/patches/0002-disable-cpp11.patch: 3a494a72d48dbbeccc911ca023cdffa3
+export_source/patches/0003-replace-project-declaration.patch: f9019961827cd2e8df904b98c769aed5
