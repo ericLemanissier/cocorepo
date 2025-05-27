@@ -1,0 +1,4 @@
+1748349635
+conandata.yml: e0d69976e01888b144bd90a39ea5c43d
+conanfile.py: 6d180dd56ca9cfdf21aa1d735c9c807e
+export_source/patches/1.9.4-0001-enable-modern-compilers.patch: b2578ea9677272a2949c6fe23d6b0138
