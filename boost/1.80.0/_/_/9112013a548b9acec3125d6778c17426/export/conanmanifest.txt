@@ -1,0 +1,12 @@
+1748349675
+conandata.yml: 51549388fb044ba7ffacfccf44b7c753
+conanfile.py: 44a198cc6ad98ac7904b7e4bca877d8e
+dependencies/dependencies-1.80.0.yml: 1284c9686ed266c8e92ba61d9f42cf2e
+export_source/patches/1.80.0-0001-filesystem-win-fix-dir-it-net-share.patch: 0ee8ae7cd6f0518e2d75a5b0cb02fa18
+export_source/patches/1.80.0-0002-filesystem-fix-weakly-canonical-long-path.patch: a6eae0f93d2be9fe759405550b634b84
+export_source/patches/1.80.0-0003-unordered-valid-after-move.patch: 5f1a4d315d1fc029ba1cf00890d81d2f
+export_source/patches/1.80.0-0004-filesystem-posix-fix-no-at-apis-missing-include.patch: 78978f89c7b6e7cbcaab78118d992cf0
+export_source/patches/1.80.0-0005-config-libcpp15.patch: b45225ef98deedd4deb1d0282e501341
+export_source/patches/1.80.0-0006-unordered-msvc-rtcc.patch: f6adf8193305836ae45081edb4d0daf4
+export_source/patches/1.80.0-locale-fail-on-missing-backend.patch: 243e0ad33f2d77a62f593c0dadd926b5
+export_source/patches/boost_1_77_mpi_check.patch: d333d8a333de64a73eb650170697b96d
