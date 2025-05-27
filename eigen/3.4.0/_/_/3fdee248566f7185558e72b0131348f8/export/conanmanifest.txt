@@ -1,0 +1,4 @@
+1748351656
+conandata.yml: aec30b497e22cb135a7f94b0fbf285b7
+conanfile.py: cef1f60d2c0da1294b962be45cea194a
+export_source/patches/3.4.0-0001-vec-reduce-half.patch: 4bec0d75382e6644093d03048daef304
