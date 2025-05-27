@@ -1,0 +1,10 @@
+1748349609
+conandata.yml: 51549388fb044ba7ffacfccf44b7c753
+conanfile.py: 44a198cc6ad98ac7904b7e4bca877d8e
+dependencies/dependencies-1.78.0.yml: e622ea2f2cd86260ee65bfba20550997
+export_source/patches/1.69.0-locale-no-system.patch: 108de0d8eb5c07a2fc718c506947d5e1
+export_source/patches/1.77.0-fiber-mingw.patch: b3cd97b268969be8ceace42cbec05511
+export_source/patches/1.77.0-type_erasure-no-system.patch: a2e07cf5d6252a2ed9c82adb68781393
+export_source/patches/1.78.0-b2-fix-install.patch: 58c3fc245c8ed84e7cd56526c1f29bc6
+export_source/patches/boost_1_77_mpi_check.patch: d333d8a333de64a73eb650170697b96d
+export_source/patches/boost_locale_fail_on_missing_backend.patch: 3bf9f93aabb8b4204ae3383f4a33496f
