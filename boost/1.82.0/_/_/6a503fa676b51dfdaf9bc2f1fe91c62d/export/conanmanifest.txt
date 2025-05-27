@@ -1,0 +1,5 @@
+1748349457
+conandata.yml: 51549388fb044ba7ffacfccf44b7c753
+conanfile.py: 44a198cc6ad98ac7904b7e4bca877d8e
+dependencies/dependencies-1.82.0.yml: 2bffcb451eface68f251a1beeb299e84
+export_source/patches/1.82.0-locale-iconv-library-option.patch: dac512f4ad80ee71633c42ed81928c6a
