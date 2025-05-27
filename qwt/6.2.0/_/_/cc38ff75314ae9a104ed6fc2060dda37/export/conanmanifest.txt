@@ -1,0 +1,6 @@
+1748349493
+conandata.yml: c7a4b96e578fced220022cc2fe9d9752
+conanfile.py: 1903d7ec7c1c6f53e05724c2779930e0
+export_source/patches/0001-cmake-support.patch: 3c464c09439e261fa134d810b9d4458c
+export_source/patches/0002-cmake-support-patch.patch: 36a6e45a12bf5bbccbf82f17aeadc5fb
+export_source/patches/0003-Fix-Build-error-with-Qt6-which-requires-CPP-17.patch: eda7c792260c767ff5c422f3d07bf961
