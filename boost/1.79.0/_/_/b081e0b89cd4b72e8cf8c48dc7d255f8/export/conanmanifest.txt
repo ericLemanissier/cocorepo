@@ -1,0 +1,11 @@
+1748349315
+conandata.yml: 51549388fb044ba7ffacfccf44b7c753
+conanfile.py: 44a198cc6ad98ac7904b7e4bca877d8e
+dependencies/dependencies-1.79.0.yml: 47d1de0d238126141305e979f1cfab99
+export_source/patches/1.69.0-locale-no-system.patch: 108de0d8eb5c07a2fc718c506947d5e1
+export_source/patches/1.77.0-fiber-mingw.patch: b3cd97b268969be8ceace42cbec05511
+export_source/patches/1.79.0-0001-json-array-erase-relocate.patch: a39aa17f75fac98f7d7d07342ec47d1f
+export_source/patches/1.79.0-geometry_no_rtti.patch: 6ee9b99b4f782cb8f4fec3eefe64388a
+export_source/patches/1.79.0-smart_ptr_cw_ppc_msync.patch: 9b22ee3829c98b3f0a1c7a693e0cfaa4
+export_source/patches/boost_1_77_mpi_check.patch: d333d8a333de64a73eb650170697b96d
+export_source/patches/boost_locale_fail_on_missing_backend.patch: 3bf9f93aabb8b4204ae3383f4a33496f
