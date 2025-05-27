@@ -1,0 +1,4 @@
+1748351694
+conandata.yml: a2ef635ad915eefd3b4ec76ad486f4e5
+conanfile.py: 8e35d70f69ec0106401e804005298052
+export_source/patches/0001-add-msvc-cl-sh.patch: 62d8315711d02f96d3b14d358692fac6
