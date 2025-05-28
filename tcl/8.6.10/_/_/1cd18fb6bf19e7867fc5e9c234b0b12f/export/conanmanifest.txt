@@ -1,0 +1,4 @@
+1748430098
+conandata.yml: a52c103d61de0cb4a89c48eb1bc3551a
+conanfile.py: fa87ad97aa6f9639e7c350b7c7dd77ac
+export_source/patches/0001-8.6.10-no-read-only-data.patch: 4ae99f75e1b6d8fd1a79b1791abe454f
