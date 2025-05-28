@@ -1,0 +1,6 @@
+1748429660
+conandata.yml: 0396aa7027781676e9685473db9a3664
+conanfile.py: 428bf4304fcc9178d892c31d735d04cb
+export_source/patches/7.5.0-0001-fix-compile-error-cxx17.patch: 37bcd8abb58de45f2eb20d06bc6958d4
+export_source/patches/7.5.0-0002-fix-compile-error-cxx20.patch: 674e704078963348ac8928f864c069ad
+export_source/patches/7.5.0-0003-undefined-ref-ncollection-lerp.patch: caf2b0562403a3110ee95c904b5df9aa
