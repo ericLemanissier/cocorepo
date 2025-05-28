@@ -1,0 +1,7 @@
+1748433242
+conandata.yml: 843dfc6707422264bcbff34ee4185393
+conanfile.py: c19f6bed691555a4761526c349c67837
+export_source/patches/0001-Add-unix-conan-compatibility.patch: 7b66b06743aff1a946476994e6933da1
+export_source/patches/0002-Add-windows-conan-compatibility.patch: e624046ad1d02165b5b88c90419bfb70
+export_source/patches/0003-Patch-tkConfig.sh.patch: f1cb1092f2d85b00cf49b7453096e8e4
+export_source/patches/0004-Fix-msvc-shared-build.patch: 9e4f1d881200a3ef008696db5094c307
