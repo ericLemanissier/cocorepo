@@ -1,0 +1,4 @@
+1748432063
+conandata.yml: 0dfd8fd778a07c94a5bf2a5dcb92b736
+conanfile.py: e4b063abf09c9cd34bcfb214409029ac
+export_source/patches/0.2.0-0001-make-fast_float-external.patch: ac3d480ec156ea1f3061feeebfcc9f3d
