@@ -1,0 +1,6 @@
+1748447216
+conandata.yml: 675fa7733a8299ea14f446b90db4d4a7
+conanfile.py: b3dd3d80dd294a90662319e09424831f
+export_source/CMakeLists.txt: 00f777ca510f7bdc16dd9662c5b1102e
+export_source/patches/0001-add-missing-export.patch: 9a776793a7168d9f7e73f2719517d4f4
+export_source/patches/0002-fix-msvc-export.patch: add04b63055f16145be7aeb7ba093839
