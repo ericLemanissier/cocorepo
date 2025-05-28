@@ -1,0 +1,4 @@
+1748429847
+conandata.yml: f85d3696500a2c580c6fc07bbc68df6f
+conanfile.py: 2555fc99d43d2329aae610f7c8b42287
+export_source/patches/0001-install-and-allow-shared.patch: 75b9f3a36216066addc6941b4ecd00ae
