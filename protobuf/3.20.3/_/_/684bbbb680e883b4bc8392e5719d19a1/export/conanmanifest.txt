@@ -1,0 +1,5 @@
+1748449867
+conandata.yml: 4544e043766971ceda2e2fb810edbc0c
+conanfile.py: 91b55ad98570c65da7a1fccc6114d5b8
+export_source/patches/protobuf-3.20.0-upstream-macos-macros.patch: a17fe90411fc4504e232e07aa0f7717f
+export_source/src/protobuf-conan-protoc-target.cmake: 209e7d287803f0bd064be505e2c67573
