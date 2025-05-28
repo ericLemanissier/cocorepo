@@ -1,0 +1,4 @@
+1748429710
+conandata.yml: 151868a6fbf0688316e83003cd4ef496
+conanfile.py: ea649ef8abe3f4d9777c6bfca3f84556
+export_source/patches/0.4.0-001-remove-internal-c4core.patch: b79ef091b795a9494893f16dbac35122
