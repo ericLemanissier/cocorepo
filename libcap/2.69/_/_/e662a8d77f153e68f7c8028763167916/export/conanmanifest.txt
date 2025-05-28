@@ -1,0 +1,5 @@
+1748452634
+conandata.yml: 9a830e3424752ebddcbf81324b5205f8
+conanfile.py: 455d7e02d9d5d3c590395233ff375cc8
+export_source/patches/2.57/0001-libcap-Remove-hardcoded-fPIC.patch: 1329a4b61bcc658b066db63f5fd4eec1
+export_source/patches/2.57/0002-Make.Rules-Make-compile-tools-configurable.patch: 95b050e137d34cfde2586ad21cc0ba83
