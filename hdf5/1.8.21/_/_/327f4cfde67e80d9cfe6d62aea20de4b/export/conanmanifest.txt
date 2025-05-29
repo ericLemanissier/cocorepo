@@ -1,0 +1,6 @@
+1748513995
+conandata.yml: 1f0ab8c6c3a5e5ff8f717cd45b6b0f4a
+conanfile.py: 35d8cfa6ce515bf21885d0818070d0e3
+export_source/patches/conanize-link-szip-1.8.21.patch: e371a4154aa7e6c6cf99f7b6c915fa6e
+export_source/patches/mingw-cmake-size-type-checks-1.8.21.patch: aeebca0dc77800c259cae0e521a1822a
+export_source/patches/mingw-fix-prefix-lib.patch: 8aae29c889b121fa3058fff63597a6d3
