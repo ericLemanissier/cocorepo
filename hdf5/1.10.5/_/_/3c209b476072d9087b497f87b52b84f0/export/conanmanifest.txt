@@ -1,0 +1,8 @@
+1748513998
+conandata.yml: 1f0ab8c6c3a5e5ff8f717cd45b6b0f4a
+conanfile.py: 35d8cfa6ce515bf21885d0818070d0e3
+export_source/patches/conanize-link-szip-1.10.5+.patch: b9b6bd85ce4b3b416865f6ede1c8d77e
+export_source/patches/fix-missing-function-prototypes-1.10.5+.patch: ea9ed4e59b9aabee074b1b6d6992e61e
+export_source/patches/mingw-cmake-size-type-checks-1.10.5.patch: fc78dc9aa9b96b6220cf1975efd9e764
+export_source/patches/mingw-fix-prefix-lib.patch: 8aae29c889b121fa3058fff63597a6d3
+export_source/patches/mingw-unused-ellipses.patch: f1f4bd70e08595d58aa34b54afae852d
