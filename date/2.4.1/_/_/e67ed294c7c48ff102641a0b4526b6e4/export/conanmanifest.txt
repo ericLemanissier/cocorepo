@@ -1,0 +1,6 @@
+1748510453
+conandata.yml: 4c5dc53f212047b5c75b85d03063d17c
+conanfile.py: 21e983eaedccc6647cebbd94f0ab4ada
+export_source/patches/0001-fix-uwp.patch: b8edda6239f7b0a385ac29484b41784d
+export_source/patches/cmake.patch: 93cd930c63d07336f6e877676afd58a1
+export_source/patches/string_view.patch: a72d83797ae38413bd214e3e99f3b2df
