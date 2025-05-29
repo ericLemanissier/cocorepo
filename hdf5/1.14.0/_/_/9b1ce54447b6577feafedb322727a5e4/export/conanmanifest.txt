@@ -1,0 +1,4 @@
+1748513999
+conandata.yml: 1f0ab8c6c3a5e5ff8f717cd45b6b0f4a
+conanfile.py: 35d8cfa6ce515bf21885d0818070d0e3
+export_source/patches/conanize-link-szip-1.14.0+.patch: 9f65cc98ad80735f680b9aa333c576bb
