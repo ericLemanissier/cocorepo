@@ -1,0 +1,4 @@
+1748510443
+conandata.yml: b62090ede218959c45a6099b7f44d0d4
+conanfile.py: c081b80ece890eaa217d8dcd3adbe32b
+export_source/patches/1.5.19-0001-disable-werror.patch: 10407d348487b83ac3d9479715745075
