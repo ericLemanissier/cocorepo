@@ -1,0 +1,6 @@
+1748513999
+conandata.yml: 1f0ab8c6c3a5e5ff8f717cd45b6b0f4a
+conanfile.py: 35d8cfa6ce515bf21885d0818070d0e3
+export_source/patches/conanize-link-szip-1.10.5+.patch: b9b6bd85ce4b3b416865f6ede1c8d77e
+export_source/patches/fix-missing-function-prototypes-1.10.5+.patch: ea9ed4e59b9aabee074b1b6d6992e61e
+export_source/patches/fix-missing-function-prototypes-1.10.6.patch: 2aae3d22e2e94c69b6db3706c7358feb
