@@ -1,0 +1,4 @@
+1748535698
+conandata.yml: d7e8882cc71ab04016cc35ea144fe278
+conanfile.py: acdcccb0427c5ef01cdf74eb9a6421aa
+export_source/patches/0002-3.12.1-fix-gcc-7.0-7.3.patch: a483b6744beb5fd175b5d8ccdb00b440
