@@ -1,0 +1,7 @@
+1748596791
+conandata.yml: 49c550c20c9a88a2433a1d4b2bd771d4
+conanfile.py: 0217a492d0b4f25fc3ec3d5754662b11
+export_source/patches/0002-3.3-fix-libtool-path.patch: d7a952a52e0b34af6b8d1fc7e39b4165
+export_source/patches/0004-3.3-fix-complex-type-msvc.patch: 8c1f67c2f56e3e798146f05028a403e6
+export_source/patches/0005-3.3-do-not-install-libraries-to-arch-dependent-directories.patch: 0675fc1bbe0a416a2c69ab7b146628ac
+export_source/patches/0006-3.3-library-no-version-suffix.patch: 0b58175d42f7582fdac6711d28b34da3
