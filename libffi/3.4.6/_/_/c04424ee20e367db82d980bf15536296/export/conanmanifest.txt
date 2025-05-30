@@ -1,0 +1,8 @@
+1748596720
+conandata.yml: 49c550c20c9a88a2433a1d4b2bd771d4
+conanfile.py: 0217a492d0b4f25fc3ec3d5754662b11
+export_source/patches/0002-3.4.6-fix-libtool-path.patch: 9237aad73368eca1dbb3c72f01b69acf
+export_source/patches/0004-3.4.6-fix-complex-type-msvc.patch: 8e6dae3cdc921c603b3151b9c01ea573
+export_source/patches/0005-3.4.4-do-not-install-libraries-to-arch-dependent-directories.patch: 64c9cf493cff2162b7a4b613b6984355
+export_source/patches/0006-3.4.6-library-no-version-suffix.patch: c9f0e090ea1db383ce32e9b6f4859095
+export_source/patches/0008-3.4.6-invalid-CFI-advance_loc.patch: 4db24a12425d397326fbc57b0ff0cbcd
