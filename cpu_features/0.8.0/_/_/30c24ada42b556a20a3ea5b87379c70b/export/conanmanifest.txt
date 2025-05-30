@@ -1,0 +1,4 @@
+1748614690
+conandata.yml: b86ef563268600d2ecefdccdeae069fd
+conanfile.py: 0b284194fac3e25fe497f858793a5dd5
+export_source/patches/0.8.0-0001-support-aarch64-macos.patch: b926846c8152cd43b393bcb8cf73e185
