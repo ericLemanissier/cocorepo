@@ -131,6 +131,10 @@ jobs:
             else
               ARG="-s compiler.cppstd=$cpp_std"
             fi
+            if ! conan profile show $ARG -sbuild_type=$BUILD_TYPE -o*/*:shared=$SHARED  -c:a tools.system.package_manager:mode=install -c:a tools.system.package_manager:sudo=True
+            then
+              continue
+            fi
             set +e
             conan install $ARG --require=$REF -sbuild_type=$BUILD_TYPE -o*/*:shared=$SHARED --build=missing --build=$REF --format=json > create.json  -c:a tools.system.package_manager:mode=install -c:a tools.system.package_manager:sudo=True
             code=$?
