@@ -1,0 +1,103 @@
+name: Build all versions of package
+
+on:
+  push:
+    paths-ignore:
+      - 'recipes/**'
+  pull_request:
+    paths-ignore:
+      - 'recipes/**'
+  workflow_call:
+    inputs:
+      package:
+        type: string
+        required: true
+      folder:
+        type: string
+        required: false
+      upload:
+        type: boolean
+        required: false
+        default: false
+    secrets:
+      FILEN_EMAIL:
+        description: 'Email to authenticate with FileN'
+        required: true
+      FILEN_PASSWORD:
+        description: 'Password to authenticate with FileN'
+        required: true
+
+  workflow_dispatch:
+    inputs:
+      package:
+        type: string
+        required: true
+      folder:
+        type: string
+        required: false
+      upload:
+        type: boolean
+        required: false
+        default: false
+
+env:
+  PACKAGE: ${{ inputs.package || 'zlib' }}
+
+jobs:
+  find_versions:
+    name: Find Version of ${{ inputs.package || 'zlib' }}
+    runs-on: ubuntu-latest
+    outputs:
+      references: ${{ steps.find_versions.outputs.references }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/github-script@v7
+        id: find_versions
+        with:
+          script: |
+            const package = process.env.PACKAGE
+            const folder = core.getInput('folder')
+
+            let references = []
+            if(folder) {
+                let myOutput = '';
+                await exec.exec('yq', [`.versions | with_entries(select(.value.folder == "${folder}")) | keys`, `recipes/${package}/config.yml`, "--output-format=json"], {
+                listeners: {
+                    stdout: (data) => {
+                        myOutput += data.toString();
+                },
+                }});
+                core.debug(`yq on ${package} ${folder} returned ${myOutput}`)
+                for(const version of JSON.parse(myOutput))
+                    references.push({package,version,folder})
+            }
+            else {
+                let myOutput = '';
+                await exec.exec('yq', [".versions", `recipes/${package}/config.yml`, "--output-format=json"], {
+                listeners: {
+                    stdout: (data) => {
+                        myOutput += data.toString();
+                },
+                }});
+                core.debug(`yq on ${package} ${folder} returned ${myOutput}`)
+                for (const [version, info] of Object.entries(JSON.parse(myOutput)))
+                    references.push({package,version, folder:info.folder})
+            }
+
+            core.debug(`found references ${references}`)
+            core.setOutput('references', references);
+
+  build_refs:
+    needs: find_versions
+    if: ${{ needs.find_versions.outputs.references != '[]' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJson(needs.find_versions.outputs.references) }}
+    uses: ./.github/workflows/build_single_ref.yml
+    with:
+      package: ${{ matrix.package }}
+      version: ${{ matrix.version }}
+      folder: ${{ matrix.folder }}
+      upload: false
+    secrets: inherit

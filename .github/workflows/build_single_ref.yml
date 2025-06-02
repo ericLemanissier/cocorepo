@@ -2,7 +2,11 @@ name: Build single ref
 
 on:
   push:
+    paths-ignore:
+      - 'recipes/**'
   pull_request:
+    paths-ignore:
+      - 'recipes/**'
   workflow_call:
     inputs:
       package:
