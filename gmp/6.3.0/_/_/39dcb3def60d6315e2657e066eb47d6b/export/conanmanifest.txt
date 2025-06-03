@@ -1,0 +1,8 @@
+1748971610
+conandata.yml: e9cdcb97fe9082ae9128b7f44f7441cb
+conanfile.py: 8fe88d64f8fbbb2bf69d203599465c8e
+export_source/patches/0001-msvc-dumpbin-yasm-wrapper.patch: 1ecbeb9c28c3fd20d68ca2311adc4d37
+export_source/patches/6.x.x-0001-fix-MSVC-next-prime-error.patch: 59811e7b4e11059406e7bc44b044ef05
+export_source/patches/cpp23-unprototyped-functions.patch: 6ad3e4222d1a0f7f1734fa7e39474051
+export_source/patches/emscripten/0001-configure.patch: f7f89fbc40d6a2d576777ba91ab33bcc
+export_source/patches/emscripten/0002-gmp-mparam.h.patch: fb138348d47d4864691087da663acbdd
