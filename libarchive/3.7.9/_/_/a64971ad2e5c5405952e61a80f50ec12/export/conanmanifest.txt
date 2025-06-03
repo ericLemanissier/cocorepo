@@ -1,0 +1,6 @@
+1748971532
+conandata.yml: 0ee95d5d477cf34fbc4656ed0f0c922e
+conanfile.py: a36f7d5267be88f25b25b266241cb24f
+export_source/patches/0003-3.7.9-cmake.patch: 0787337b4c33e80e39900c1d17ebc54f
+export_source/patches/0005-3.7.9-try-compile-cmakedeps.patch: eb182405c887e40a512d733bc1ff60e7
+export_source/patches/0006-3.7.9-fix-msvc-build.patch: 4ad27b617445f4a19467e2b23fcace82
