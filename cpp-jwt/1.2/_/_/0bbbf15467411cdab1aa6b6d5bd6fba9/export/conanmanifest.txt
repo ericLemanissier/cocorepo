@@ -1,0 +1,4 @@
+1748972518
+conandata.yml: ac7b756a3ac7022e33fdd4b3cf21554b
+conanfile.py: 665fe87ebd1ccdc89d6f55adfe636fa8
+export_source/patches/001-fix-msvc-14-compilation.patch: ce7f661d9fa909e57250a524c7717913
