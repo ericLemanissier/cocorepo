@@ -1,0 +1,4 @@
+1748975077
+conandata.yml: 9feb1136e55e143efb1285616ba8c1ef
+conanfile.py: b8fca51bf69818a59e40d493a17c2074
+export_source/patches/0001-relocatable-shared-macos-2.3.1.patch: c7c6e5d7c4d93da2a7e8e60fe9158793
