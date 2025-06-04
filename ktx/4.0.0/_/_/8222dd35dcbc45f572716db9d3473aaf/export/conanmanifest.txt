@@ -1,0 +1,7 @@
+1749043994
+conandata.yml: 229cca3f9a00697ba1d55df3c8565989
+conanfile.py: e5ab8f3fecf83e2828ae9aa54a060f1e
+export_source/patches/4.0.0/0001-objutil-cxx-std.patch: 4bdf780b27e9bc307dfd46385aad84dc
+export_source/patches/4.0.0/0002-lodepng-no-export-symbols.patch: d7b80828c325925e4d32da7e26f0f427
+export_source/patches/4.0.0/0003-clamp-include-algorithm.patch: 96e1651ab7c897e3dcd70cc417231474
+export_source/patches/4.0.0/0004-unvendor-dependencies.patch: 3f3e120744c7b84714be75fef9c595f3
