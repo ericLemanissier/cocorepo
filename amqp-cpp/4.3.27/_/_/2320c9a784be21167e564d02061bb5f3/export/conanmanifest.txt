@@ -1,0 +1,4 @@
+1749035745
+conandata.yml: 8b4c4d950a92e94e22bc8b7b285cb5cd
+conanfile.py: 4e66ea5f162eac680caa4ba7f08bed6d
+export_source/patches/4.3.27-0001-cmake-link-openssl.patch: e0893c063e5abdae23ed1341438da41f
