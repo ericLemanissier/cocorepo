@@ -1,0 +1,6 @@
+1749043992
+conandata.yml: 38c240c3be465f0b7ce0e0988818ff08
+conanfile.py: 3bdab28eec02d58af0dc11f03d382a17
+export_source/patches/0001-no-tests.patch: 2c7afa713a182c9739361eb6d8f688bd
+export_source/patches/0002-disable_ksu_root.patch: bc55ab631050152bc6f3c448846eec66
+export_source/patches/0003-find-openssl-module.patch: 03ccecff8aec3fb76c7579cd6992ec7b
