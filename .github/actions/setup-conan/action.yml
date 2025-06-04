@@ -43,7 +43,11 @@ runs:
 
     - run: |
         bun run --bun cocoserver --owner ${{ github.repository_owner }} --repo ${GITHUB_REPOSITORY#*/} --folder cocoremote &
-        sleep 5
+        sleep 10
+        if [[ -z $(jobs -p) ]]; then
+            echo "No background processes running."
+            exit 1
+        fi
       env:
         FILEN_EMAIL: ${{ inputs.filen-email }}
         FILEN_PASSWORD: ${{ inputs.filen-password }}
@@ -51,7 +55,7 @@ runs:
 
     - run: |
         conan remote add community http://localhost:9595
-        conan remote auth community
+        conan remote auth community --format=json | pipx run yq ".community | has(\"error\")" | grep -q "false"
       env:
         CONAN_LOGIN_USERNAME_COMMUNITY: ${{ github.repository_owner }}
         CONAN_PASSWORD_COMMUNITY: ${{ inputs.github-token }}
