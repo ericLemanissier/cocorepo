@@ -1,0 +1,4 @@
+1749221744
+conandata.yml: 2fb553e906ab4698941c2dcb8211419c
+conanfile.py: 92737550f5688d5861d867f819104232
+export_source/patches/1.2.0-0001-asin-missing-limits.patch: 820da9857f312cd8d1d7d9eb9921aff9
