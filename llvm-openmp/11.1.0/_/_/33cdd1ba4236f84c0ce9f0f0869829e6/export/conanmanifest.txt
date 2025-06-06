@@ -1,0 +1,5 @@
+1749210511
+conandata.yml: 9e307952360a01ef151d316ee2932fa4
+conanfile.py: cf5330d5215df52a9c9bd4b2191a8703
+export_source/patches/11/0001-disable-build-testing.patch: 831a71bae2649f617d7a01f05f3d38a0
+export_source/patches/11/0002-fix-armv8-build.patch: 7d178ece1eb0579219334b0354439b97
