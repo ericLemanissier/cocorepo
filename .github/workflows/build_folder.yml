@@ -37,11 +37,12 @@ on:
         required: false
       upload:
         type: boolean
-        required: false
+        required: true
         default: false
 
 env:
   PACKAGE: ${{ inputs.package || 'zlib' }}
+  UPLOAD: ${{ inputs.upload || 'false' }}
 
 jobs:
   find_versions:
@@ -56,6 +57,7 @@ jobs:
         with:
           script: |
             const package = process.env.PACKAGE
+            const upload = process.env.UPLOAD
             const folder = core.getInput('folder')
 
             let references = []
@@ -81,7 +83,7 @@ jobs:
                 }});
                 core.debug(`yq on ${package} ${folder} returned ${myOutput}`)
                 for (const [version, info] of Object.entries(JSON.parse(myOutput)))
-                    references.push({package,version, folder:info.folder})
+                    references.push({package,version, folder:info.folder, upload})
             }
 
             core.debug(`found references ${references}`)
@@ -99,5 +101,5 @@ jobs:
       package: ${{ matrix.package }}
       version: ${{ matrix.version }}
       folder: ${{ matrix.folder }}
-      upload: false
+      upload: ${{ matrix.upload == 'true'}}
     secrets: inherit
