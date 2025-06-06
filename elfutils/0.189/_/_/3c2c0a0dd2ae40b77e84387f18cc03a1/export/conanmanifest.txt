@@ -1,0 +1,4 @@
+1749230063
+conandata.yml: e0e73885668f19591f955e894019c05f
+conanfile.py: 8fd81500b1d37b19f8077bd9de6f5050
+export_source/patches/0.189-0002-add-enable-static-option-to-configure.patch: cc4ea88c727f0a2a1169cd18d942eae9
