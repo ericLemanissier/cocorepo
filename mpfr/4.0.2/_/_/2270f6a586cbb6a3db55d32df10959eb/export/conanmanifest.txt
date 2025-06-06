@@ -1,0 +1,5 @@
+1749221757
+conandata.yml: e93654e4ee1f0139d9478c303bb98f15
+conanfile.py: c736890f0f254ff11844bbf82e22078a
+export_source/CMakeLists.txt.in: bbe1757957cf4b73eedea0b32e302adc
+export_source/patches/4.0.2-0002-windows-header-dll.patch: 12be6349439b37e359198b913faf95d6
