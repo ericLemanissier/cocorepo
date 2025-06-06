@@ -1,0 +1,4 @@
+1749205197
+conandata.yml: 6f699c8aea6562ccd7042f94e9e7c170
+conanfile.py: 1749d2834b2d09fcd1e21712a8ba6906
+export_source/patches/0001-fix-find_package-qt.patch: 8347015a1300a53067598b28ef176552
