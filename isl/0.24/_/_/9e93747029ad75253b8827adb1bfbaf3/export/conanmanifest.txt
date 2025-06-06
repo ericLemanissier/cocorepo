@@ -1,0 +1,4 @@
+1749221771
+conandata.yml: 1bcd6b840888cfefbcc66b0b1fe6f4fa
+conanfile.py: c274965db5d9280fcaeafbf9bf3da5b5
+export_source/patches/0.24-0001-fix-ac_test_cflags.patch: ed5ddb543f4a61120c7a768f409912cf
