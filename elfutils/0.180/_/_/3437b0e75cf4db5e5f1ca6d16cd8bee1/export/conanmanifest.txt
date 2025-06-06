@@ -1,0 +1,5 @@
+1749230059
+conandata.yml: e0e73885668f19591f955e894019c05f
+conanfile.py: 8fd81500b1d37b19f8077bd9de6f5050
+export_source/patches/0.180-0001-remove-werror-configure-option.patch: 5f13a22518d57161893cd07664c4aad6
+export_source/patches/0.180-0002-add-enable-static-option-to-configure.patch: dc2ebb9d00a43d427012b5d4ad4de653
