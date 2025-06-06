@@ -42,12 +42,23 @@ runs:
       shell: bash
 
     - run: |
-        bun run --bun cocoserver --owner ${{ github.repository_owner }} --repo ${GITHUB_REPOSITORY#*/} --folder cocoremote &
-        sleep 10
-        if [[ -z $(jobs -p) ]]; then
-            echo "No background processes running."
-            exit 1
-        fi
+        for i in {1..10}
+        do
+          bun run --bun cocoserver --owner ${{ github.repository_owner }} --repo ${GITHUB_REPOSITORY#*/} --folder cocoremote >process.log &
+          pid=$!
+          for j in {1..30}
+          do
+            if grep -qi "listening" process.log
+            then
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "Timeout waiting for 'listening'. Dumping log:"
+          cat process.log
+        done
+        echo "Failed to start server after 10 attempts."
+        exit 1
       env:
         FILEN_EMAIL: ${{ inputs.filen-email }}
         FILEN_PASSWORD: ${{ inputs.filen-password }}
