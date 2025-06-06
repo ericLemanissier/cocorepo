@@ -1,0 +1,4 @@
+1749221789
+conandata.yml: 5c92a92a89b81539e58bb85dd8aef3e5
+conanfile.py: 1c4df1a7cb654d1f33a435e36f7f6c73
+export_source/patches/2.41-0001-no-texinfo.patch: 67db1f7a2d7d8c9293b517c21be68189
