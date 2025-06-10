@@ -10,6 +10,10 @@ jobs:
       references: ${{ steps.find_modified_refs.outputs.references }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      - run: npm ci
       - uses: actions/github-script@v7
         id: find_modified_refs
         with:
@@ -34,20 +38,18 @@ jobs:
               core.debug(`adding ${filepath[1]}/${filepath[2]}`)
               recipes.add(`${filepath[1]}/${filepath[2]}`)
             }
+            
+            const fs = require('node:fs/promises');
+            const yaml = require('js-yaml');
+
             references = []
             for(recipe of recipes) {
               [package, folder] = recipe.split("/")
-              let myOutput = '';
-              await exec.exec('yq', [`.versions | with_entries(select(.value.folder == "${folder}")) | keys`, `recipes/${package}/config.yml`, "--output-format=json"], {
-              listeners: {
-                stdout: (data) => {
-                  myOutput += data.toString();
-                },
-              }});
-              core.debug(`yq on ${package} ${folder} returned ${myOutput}`)
-              versions = JSON.parse(myOutput)
-              for(version of versions)
-                references.push({package,version,folder})
+              const fileContent = await fs.readFile(`recipes/${package}/config.yml`, 'utf8');
+              const config = yaml.load(fileContent);
+              for (const [version, info] of Object.entries(config.versions))
+                if(info.folder == folder)
+                  references.push({package,version,folder})
             }
             core.debug(`found references ${references}`)
             core.setOutput('references', references);

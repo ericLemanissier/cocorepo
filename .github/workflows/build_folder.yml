@@ -52,39 +52,28 @@ jobs:
       references: ${{ steps.find_versions.outputs.references }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      - run: npm ci
       - uses: actions/github-script@v7
         id: find_versions
         with:
           script: |
+            const fs = require('node:fs/promises');
+            const yaml = require('js-yaml');
+
             const package = process.env.PACKAGE
             const upload = process.env.UPLOAD
             const folder = core.getInput('folder')
+            
+            const fileContent = await fs.readFile(`recipes/${package}/config.yml`, 'utf8');
+            const config = yaml.load(fileContent);
 
             let references = []
-            if(folder) {
-                let myOutput = '';
-                await exec.exec('yq', [`.versions | with_entries(select(.value.folder == "${folder}")) | keys`, `recipes/${package}/config.yml`, "--output-format=json"], {
-                listeners: {
-                    stdout: (data) => {
-                        myOutput += data.toString();
-                },
-                }});
-                core.debug(`yq on ${package} ${folder} returned ${myOutput}`)
-                for(const version of JSON.parse(myOutput))
-                    references.push({package,version,folder})
-            }
-            else {
-                let myOutput = '';
-                await exec.exec('yq', [".versions", `recipes/${package}/config.yml`, "--output-format=json"], {
-                listeners: {
-                    stdout: (data) => {
-                        myOutput += data.toString();
-                },
-                }});
-                core.debug(`yq on ${package} ${folder} returned ${myOutput}`)
-                for (const [version, info] of Object.entries(JSON.parse(myOutput)))
-                    references.push({package,version, folder:info.folder, upload})
-            }
+            for (const [version, info] of Object.entries(config.versions))
+              if(folder == '' || info.folder == folder)
+                references.push({package,version, folder:info.folder, upload})
 
             core.debug(`found references ${references}`)
             core.setOutput('references', references);

@@ -36,7 +36,9 @@ runs:
     - run: conan remote remove "*"
       shell: bash
 
-    - run: bun install @ericlemanissier/cocoserver --production
+    - run: |
+        rm package*.json
+        bun install @ericlemanissier/cocoserver --production
       env:
         BUN_AUTH_TOKEN: ${{ inputs.github-token }}
       shell: bash
