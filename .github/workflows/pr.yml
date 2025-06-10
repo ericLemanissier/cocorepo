@@ -25,7 +25,9 @@ jobs:
               },
               (response) => response.data.map((file) => file.filename.split("/"))
             );
-            recipes = new Set();
+            const fs = require('node:fs/promises');
+            const yaml = require('js-yaml');
+            let references = new Set();
             for (filepath of files) {
               if (filepath.length < 4){
                 core.debug(`ignore file path too short : ${filepath}`)
@@ -35,24 +37,37 @@ jobs:
                 core.debug(`ignore file path not in recipes : ${filepath}`)
                 continue
               }
-              core.debug(`adding ${filepath[1]}/${filepath[2]}`)
-              recipes.add(`${filepath[1]}/${filepath[2]}`)
-            }
-            
-            const fs = require('node:fs/promises');
-            const yaml = require('js-yaml');
-
-            references = []
-            for(recipe of recipes) {
-              [package, folder] = recipe.split("/")
+              [, package, folder] = filepath
               const fileContent = await fs.readFile(`recipes/${package}/config.yml`, 'utf8');
               const config = yaml.load(fileContent);
+              core.debug(`file: ${filepath}`)
+              const path = filepath.join("/") 
+              if(path == `recipes/${package}/${folder}/conandata.yml`)
+              {
+                core.debug("conandata detected")
+                const newconandata = yaml.load(await fs.readFile(path, 'utf8'))
+                const response = await fetch(`${{ github.server_url }}/${{ github.event.pull_request.base.repo.owner.login }}/${{ github.event.pull_request.base.repo.name }}/raw/refs/heads/${{ github.event.pull_request.base.ref }}/${path}`)
+                if(response.ok) {
+                  core.debug("got old conandata successfully")
+                  const oldconandata = yaml.load(await response.text())
+                  for(const [version, info] of Object.entries(newconandata.sources)) 
+                    if(!(version in oldconandata.sources) || JSON.stringify(info) != JSON.stringify(oldconandata.sources[version]))
+                      references.add(JSON.stringify({package,version,folder}))
+                  const newPatches = newconandata.patches || {};
+                  const oldPatches = oldconandata.patches || {};
+                  for(const [version, info] of Object.entries(newPatches)) 
+                    if(!(version in oldPatches) || JSON.stringify(info) != JSON.stringify(oldPatches[version]))
+                      references.add(JSON.stringify({package,version,folder}))
+                  continue
+                } else {
+                  core.error(`error getting old conandata: ${response.status} ${response.statusText} ${response.body}`)
+                }
+              }
               for (const [version, info] of Object.entries(config.versions))
                 if(info.folder == folder)
-                  references.push({package,version,folder})
+                  references.add(JSON.stringify({package,version,folder}))
             }
-            core.debug(`found references ${references}`)
-            core.setOutput('references', references);
+            core.setOutput('references', Array.from(references).map(JSON.parse));
 
   build_refs:
     needs: find_modified_refs
