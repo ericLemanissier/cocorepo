@@ -70,10 +70,14 @@ jobs:
             const fileContent = await fs.readFile(`recipes/${package}/config.yml`, 'utf8');
             const config = yaml.load(fileContent);
 
-            let references = []
-            for (const [version, info] of Object.entries(config.versions))
-              if(folder == '' || info.folder == folder)
-                references.push({package,version, folder:info.folder, upload})
+            const references = Object.entries(config.versions)
+              .filter(([_, info]) => folder === '' || info.folder === folder)
+              .map(([version, info]) => ({
+                package,
+                version,
+                folder: info.folder,
+                upload
+              }))
 
             core.debug(`found references ${references}`)
             core.setOutput('references', references);
