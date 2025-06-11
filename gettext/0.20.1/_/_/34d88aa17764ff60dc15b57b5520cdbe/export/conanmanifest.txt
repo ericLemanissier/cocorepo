@@ -1,0 +1,6 @@
+1749636077
+conandata.yml: a35e402a0bb65014bac836d394691200
+conanfile.py: c4a8a6cbbb8a3ce9fa75e7236d5fdca4
+export_source/patches/0.20.1-0001-fix-build-errors-with-MSVC.patch: a3cd34e60ada92cfde63db6a56b0d113
+export_source/patches/0.20.1-0003-Reported-by-Gabor-Z.-Papp-gzp-papp.hu.patch: a5446384ef226361bf1d536c59274449
+export_source/patches/0004-autopoint-relocatable.patch: ac256486569c0cf137e588edcf843be6
