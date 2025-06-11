@@ -1,0 +1,4 @@
+1749656168
+conandata.yml: 645fddb92097fbbdfab66e9e8baf4c3c
+conanfile.py: 708db6d5e4e08d1ebeacfec9f57a1340
+export_source/patches/0001-fix-clang-20-build-issue.patch: e88a8421ca75c77676c8e042900a62d9
