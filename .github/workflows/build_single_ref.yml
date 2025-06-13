@@ -67,9 +67,11 @@ jobs:
         with:
           cmd: yq '.versions."${{ env.VERSION }}".folder' 'recipes/${{ env.PACKAGE }}/config.yml'
   
-  upload-recipe:
-    if: always() && github.ref == 'refs/heads/community_index'
+  prepare-matrix:
+    if: always()
     runs-on: ubuntu-latest
+    outputs:
+      result: ${{ steps.search_shared_option.outputs.result }}
     needs: find-folder
     env:
       FOLDER: recipes/${{ inputs.package || 'zlib' }}/${{ inputs.folder || needs.find-folder.outputs.result }}
@@ -87,13 +89,36 @@ jobs:
           filen-password: ${{ secrets.FILEN_PASSWORD }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: |
+      - uses: actions/github-script@v7
+        id: search_shared_option
+        with:
+          script: |
+            const {
+              exitCode,
+              stdout,
+              stderr
+            } = await exec.getExecOutput('conan', ['inspect', process.env.FOLDER, '--format=json']);
+            if( exitCode != 0 ) {
+              core.setFailed(`Could not parse recipe. error ${exitCode}: ${stderr}`);
+              return
+            }
+            const info = JSON.parse(stdout)
+            core.info(JSON.stringify(info))
+
+            return {
+              os: ['ubuntu-24.04', 'windows-2025', 'macos-14'],
+              shared: ( "shared" in info.options_definitions ) ? ['-o*/*:shared=False', '-o*/*:shared=True'] : [''],
+              build_type: ["Release"]
+            };
+
+      - if: always() && github.ref == 'refs/heads/community_index'
+        run: |
           conan export --version=$VERSION --no-remote ${{ env.FOLDER }}
           conan upload -r community $REF --confirm --only-recipe
 
   build:
     if: ${{ always() }}
-    needs: [find-folder, upload-recipe]
+    needs: [find-folder, prepare-matrix]
     env:
       FOLDER: recipes/${{ inputs.package || 'zlib' }}/${{ inputs.folder || needs.find-folder.outputs.result }}
       SHARED: ${{ matrix.shared }}
@@ -101,10 +126,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
-      matrix:
-        os: [ubuntu-24.04, windows-2025, macos-14]
-        shared: ["False", "True"]
-        build_type: [Release]
+      matrix: ${{ fromJson(needs.prepare-matrix.outputs.result) }}
     defaults:
       run:
         shell: bash
@@ -135,12 +157,12 @@ jobs:
             else
               ARG="-s compiler.cppstd=$cpp_std"
             fi
-            if ! conan profile show $ARG -sbuild_type=$BUILD_TYPE -o*/*:shared=$SHARED  -c:a tools.system.package_manager:mode=install -c:a tools.system.package_manager:sudo=True
+            if ! conan profile show $ARG -sbuild_type=$BUILD_TYPE $SHARED -c:a tools.system.package_manager:mode=install -c:a tools.system.package_manager:sudo=True
             then
               continue
             fi
             set +e
-            conan install $ARG --require=$REF -sbuild_type=$BUILD_TYPE -o*/*:shared=$SHARED --build=missing --build=$REF --format=json > create.json  -c:a tools.system.package_manager:mode=install -c:a tools.system.package_manager:sudo=True
+            conan install $ARG --require=$REF -sbuild_type=$BUILD_TYPE $SHARED --build=missing --build=$REF --format=json > create.json  -c:a tools.system.package_manager:mode=install -c:a tools.system.package_manager:sudo=True
             code=$?
             set -e
             echo "CODE=$code" >> "$GITHUB_OUTPUT"
@@ -157,7 +179,7 @@ jobs:
         name: Conan Install
 
       - run: |
-          conan test ${{ env.FOLDER }}/test_package/conanfile.py $REF -sbuild_type=$BUILD_TYPE -o*/*:shared=$SHARED  -c:a tools.system.package_manager:mode=install -c:a tools.system.package_manager:sudo=True
+          conan test ${{ env.FOLDER }}/test_package/conanfile.py $REF -sbuild_type=$BUILD_TYPE $SHARED  -c:a tools.system.package_manager:mode=install -c:a tools.system.package_manager:sudo=True
         if: ${{ steps.conan_install.outputs.CODE != 6 }}
       - run: conan upload -r community $REF --confirm
         if: ${{ steps.conan_install.outputs.CODE != 6 && inputs.upload }}
