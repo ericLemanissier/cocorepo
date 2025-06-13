@@ -1,0 +1,4 @@
+1749820127
+conandata.yml: d38df890dc5b3442e7c603bceaac8ee0
+conanfile.py: 81066dc005de1e18a5c5f0e135333187
+export_source/patches/0001-2.5.22-mingw-support.patch: 4980d6f625e05fc67c3b3b9661dc1324
