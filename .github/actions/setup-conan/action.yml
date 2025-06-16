@@ -8,11 +8,15 @@ inputs:
   github-token:
     description: 'Token to authenticate with GitHub'
     required: false
+  with-remote:
+    description: 'set up a cocoserver remote'
+    default: 'true'
 name: 'Setup Conan'
 runs:
   using: "composite"
   steps:
-    - uses: oven-sh/setup-bun@v2
+    - if: ${{ inputs.with-remote == 'true' }}
+      uses: oven-sh/setup-bun@v2
       with:
         bun-version: latest
         scope: ${{ github.repository_owner }}
@@ -36,14 +40,16 @@ runs:
     - run: conan remote remove "*"
       shell: bash
 
-    - run: |
+    - if: ${{ inputs.with-remote == 'true' }}
+      run: |
         rm package*.json
         bun install @ericlemanissier/cocoserver --production
       env:
         BUN_AUTH_TOKEN: ${{ inputs.github-token }}
       shell: bash
 
-    - run: |
+    - if: ${{ inputs.with-remote == 'true' }}
+      run: |
         for i in {1..10}
         do
           bun run --bun cocoserver --owner ${{ github.repository_owner }} --repo ${GITHUB_REPOSITORY#*/} --folder cocoremote >process.log &
@@ -66,7 +72,8 @@ runs:
         FILEN_PASSWORD: ${{ inputs.filen-password }}
       shell: bash
 
-    - run: |
+    - if: ${{ inputs.with-remote == 'true' }}
+      run: |
         conan remote add community http://localhost:9595
         conan remote auth community --format=json | pipx run yq ".community | has(\"error\")" | grep -q "false"
       env:
