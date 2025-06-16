@@ -75,6 +75,16 @@ jobs:
                 } else {
                   core.error(`error getting old conandata: ${response.status} ${response.statusText} ${response.body}`);
                 }
+              } else if (path.startsWith(`recipes/${package}/${folder}/patches/`)) {
+                const patchName = filepath.slice(3).join("/")
+                core.debug(`patch detected: ${patchName}`)
+                const newconandata = yaml.load(await fs.readFile(`recipes/${package}/${folder}/conandata.yml`, 'utf8'))
+                const newPatches = newconandata.patches || {};
+                Object.entries(newPatches)
+                  .filter(([version, patches]) => patches.some((patch) => patch.patch_file === patchName))
+                  .map(([version]) => JSON.stringify({ package, version, folder }))
+                  .forEach(ref => references.add(ref));
+                continue;
               }
               Object.entries(config.versions)
                 .filter(([_, info]) => info.folder === folder)
