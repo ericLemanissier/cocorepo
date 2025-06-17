@@ -68,7 +68,7 @@ jobs:
           cmd: yq '.versions."${{ env.VERSION }}".folder' 'recipes/${{ env.PACKAGE }}/config.yml'
   
   prepare-matrix:
-    if: success() || failure()
+    if: always()
     runs-on: ubuntu-latest
     outputs:
       result: ${{ steps.search_shared_option.outputs.result }}
@@ -112,13 +112,13 @@ jobs:
               build_type: ["Release"]
             };
 
-      - if: (success() || failure()) && github.ref == 'refs/heads/community_index'
+      - if: always() && github.ref == 'refs/heads/community_index'
         run: |
           conan export --version=$VERSION --no-remote ${{ env.FOLDER }}
           conan upload -r community $REF --confirm --only-recipe
 
   build:
-    if: success() || failure()
+    if: ${{ always() }}
     needs: [find-folder, prepare-matrix]
     env:
       FOLDER: recipes/${{ inputs.package || 'zlib' }}/${{ inputs.folder || needs.find-folder.outputs.result }}
