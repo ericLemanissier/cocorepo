@@ -1,0 +1,5 @@
+1750157514
+conandata.yml: b5902852d42054c8b47796ceb5a416df
+conanfile.py: 5baad233bccbda573788192724e71819
+export_source/patches/3.10.1-0002-remove-abi-suffixes.patch: a84b380ef5a0c6551d679a9ef3559c3a
+export_source/patches/3.10.2-0001-dirs.patch: 00ee5ab6a4d6e549c9bcd0d8e8354fd7
