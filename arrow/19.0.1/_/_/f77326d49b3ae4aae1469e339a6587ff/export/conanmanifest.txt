@@ -1,0 +1,6 @@
+1750148769
+conandata.yml: 33d085b0911f25150de1612bb4307320
+conanfile.py: 7c023336e76dc4c4cd49f8554707334d
+export_source/patches/19.0.1-0001-fix-cmake.patch: 24ccb020c464063b76be07430eb71da3
+export_source/patches/19.0.1-0002-fix-downloaded-mimalloc.patch: 83aab5aa05e6deef42ae74603d80d54c
+export_source/src/conan_cmake_project_include.cmake: 98e798abd81e1a780baf403fdf204edb
