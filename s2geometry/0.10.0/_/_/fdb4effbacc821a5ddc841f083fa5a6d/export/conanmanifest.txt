@@ -1,0 +1,5 @@
+1750180630
+conandata.yml: e527c813070895a09e605ca8e73899e2
+conanfile.py: 207cb0ba774ca25f0c10f2cbf6415a0a
+export_source/patches/0.10.0_dont_set_cmake_cxx_standard.patch: 04ac34a948161e88e6b14cf84301a0f2
+export_source/patches/add_message_to_static_assert.patch: 8c3a77b342174888f8a45dbd6db892e1
