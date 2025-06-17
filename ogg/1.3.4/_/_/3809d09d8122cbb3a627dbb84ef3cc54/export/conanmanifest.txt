@@ -1,0 +1,4 @@
+1750172493
+conandata.yml: ecf960a3c572b1d70fc1af22c493da7a
+conanfile.py: e2ac4d2fb11a3c14c79d24021b9808c1
+export_source/patches/001-fix-unsigned-typedefs-for-macos.patch: ad2ffc7bffa79ab4df787153f7f16c3c
