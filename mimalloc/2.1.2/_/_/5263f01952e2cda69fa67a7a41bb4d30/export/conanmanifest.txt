@@ -1,0 +1,5 @@
+1750152480
+conandata.yml: e53de795c4c5d874410c94a6ead8cc66
+conanfile.py: d58090010471999822f79428c519645c
+export_source/patches/2.1.2-0001-change-install-paths.patch: aef838ac5e82605eaba94ef089aebb5e
+export_source/patches/2.1.2-0002-support-older-compiler.patch: ebbb26df079862d3df4497ad25799525
