@@ -1,0 +1,5 @@
+1750156953
+conandata.yml: b5902852d42054c8b47796ceb5a416df
+conanfile.py: 5baad233bccbda573788192724e71819
+export_source/patches/3.7.2-0002-poly_use_std_define.patch: 424e23e6f3c8750c0ea51223e7fc91df
+export_source/patches/3.8.1-0001-dirs.patch: 107816f39a87e570470575e1e69594cc
