@@ -1,0 +1,7 @@
+1750158747
+conandata.yml: e9d556a5b81e1fb5edc69954be7956ff
+conanfile.py: 3207e5cc1ba3243ef506313d0dd12c3c
+export_source/patches/1.1.10-0001-fix-inlining-failure.patch: 6cb03205341775fe31a0bde99f0a52e8
+export_source/patches/1.1.10-0003-fix-clobber-list-older-llvm.patch: 1a9f123bf16b77943f2c9e7837078a2d
+export_source/patches/1.1.9-0002-no-Werror.patch: 1454a1b032fe65391ccba6d5533f6885
+export_source/patches/1.1.9-0004-rtti-by-default.patch: d82ca5602a8eeebcdbc64197c1337fcd
