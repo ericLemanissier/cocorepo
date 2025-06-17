@@ -1,0 +1,4 @@
+1750173120
+conandata.yml: c55d9e06b8d967f44c4d08f1b7bb6025
+conanfile.py: bb2b0a83c8cf1cadfc79a0e0a8bcd936
+export_source/patches/1.3.7-0001-mingw-shared-def.patch: 695665bbda32ec283d76f4fdb76c79cc
