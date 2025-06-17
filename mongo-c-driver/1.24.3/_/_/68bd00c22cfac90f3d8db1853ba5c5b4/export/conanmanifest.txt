@@ -1,0 +1,5 @@
+1750158199
+conandata.yml: 6de8a7d68181a2de120ef616f1870f79
+conanfile.py: e1212f19d46a984f314bee5df1af89ea
+export_source/patches/1.24.1-0001-disable-shared-when-static.patch: b19cf88d95e248296a088d21b4b3280b
+export_source/patches/1.24.1-0002-fix-uninitialized-warning.patch: 4ba7b43f0299654c25ec234b80a884eb
