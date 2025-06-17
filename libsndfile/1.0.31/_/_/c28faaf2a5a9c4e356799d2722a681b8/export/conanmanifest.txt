@@ -1,0 +1,4 @@
+1750178645
+conandata.yml: 2a2bbd941863a4a4ba285bc491100a07
+conanfile.py: b6329c3c4201397ed0fc0cf23cffbcbb
+export_source/patches/1.0.31-0001-fix-msvc-runtime-logic.patch: 2d6713de83d4e047269bad3e623e4552
