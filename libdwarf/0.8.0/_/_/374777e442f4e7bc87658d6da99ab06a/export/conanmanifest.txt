@@ -1,0 +1,4 @@
+1750152330
+conandata.yml: 5aac519df06e35b423f05b8d564894e6
+conanfile.py: 5e42d668cceff85e26e88a1f9f909ef1
+export_source/patches/0.8.0-0001-fixes.patch: 3e8a083ea3013bf0a64a6b4d2b024b43
