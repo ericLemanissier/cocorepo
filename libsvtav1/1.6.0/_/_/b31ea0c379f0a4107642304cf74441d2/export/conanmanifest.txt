@@ -1,0 +1,4 @@
+1750190259
+conandata.yml: 86c40b51c7f09f81475731b68fd222e9
+conanfile.py: 0deb2524f5793e600db16a0129fe0ae1
+export_source/patches/external-cpuinfo-1.6.0.patch: e7f8ce8c5fdd8ddf13e3d45ccfe3e88f
