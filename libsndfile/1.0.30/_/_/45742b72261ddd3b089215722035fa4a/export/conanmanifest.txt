@@ -1,0 +1,4 @@
+1750178649
+conandata.yml: 2a2bbd941863a4a4ba285bc491100a07
+conanfile.py: b6329c3c4201397ed0fc0cf23cffbcbb
+export_source/patches/1.0.30-0001-disable-static-libgcc-mingw.patch: 0c90477488c7fc5ef6dcbea04903d4a7
