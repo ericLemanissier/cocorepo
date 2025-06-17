@@ -1,0 +1,4 @@
+1750154934
+conandata.yml: f3893740e8675bce0e26a9905a600a3b
+conanfile.py: bdb996bc0e0008c858bf2ae9d10dd642
+export_source/patches/3.0.7-0001-libsigcpp.patch: c9be50b378edfdca4d56065b73f17c42
