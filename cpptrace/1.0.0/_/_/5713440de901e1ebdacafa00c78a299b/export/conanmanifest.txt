@@ -1,0 +1,4 @@
+1750148739
+conandata.yml: 7bf7b9646e157d4f2cb082a27d6defbf
+conanfile.py: ee1e83fb17a5f4f47c6d243e6d59a719
+export_source/patches/1.0.0/0001-static_assert.patch: fe785d5e27b3387dc7cde159ef54c9c6
