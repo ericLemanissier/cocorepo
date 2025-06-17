@@ -1,0 +1,4 @@
+1750180628
+conandata.yml: e527c813070895a09e605ca8e73899e2
+conanfile.py: 207cb0ba774ca25f0c10f2cbf6415a0a
+export_source/patches/0.11.1_dont_set_cmake_cxx_standard.patch: 045fb8a0271272787a7c85944df092ea
