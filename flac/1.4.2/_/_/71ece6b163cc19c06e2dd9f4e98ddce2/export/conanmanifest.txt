@@ -1,0 +1,4 @@
+1750178884
+conandata.yml: e82d66fa512eeb76b0948ac69842e5b3
+conanfile.py: 572aa1b5f748d04764916d358001b10b
+export_source/patches/1.4.2-002-ignore-dll_export-define.patch: ca6de7e8baf8569398256a35184a81e3
