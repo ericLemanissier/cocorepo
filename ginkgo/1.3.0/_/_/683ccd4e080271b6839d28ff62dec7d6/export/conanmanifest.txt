@@ -1,0 +1,5 @@
+1750245118
+conandata.yml: 9b922b2346880a3224951200b6c780c1
+conanfile.py: e23d00a65c19dea5abe506c5a3f97fa4
+export_source/patches/cmake-fixes.patch: 1bff112ab318c19ed7cca1a32c0f3126
+export_source/patches/windows-iterator.patch: a374c04887b2a58fc4ddef5848fd58b0
