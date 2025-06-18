@@ -22,10 +22,10 @@ on:
     secrets:
       FILEN_EMAIL:
         description: 'Email to authenticate with FileN'
-        required: true
+        required: false
       FILEN_PASSWORD:
         description: 'Password to authenticate with FileN'
-        required: true
+        required: false
 
   workflow_dispatch:
     inputs:
