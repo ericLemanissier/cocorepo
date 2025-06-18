@@ -49,7 +49,7 @@ jobs:
     name: Find Version of ${{ inputs.package || 'zlib' }}
     runs-on: ubuntu-latest
     outputs:
-      references: ${{ steps.find_versions.outputs.references }}
+      references: ${{ steps.find_versions.outputs.result }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -75,12 +75,11 @@ jobs:
               .map(([version, info]) => ({
                 package,
                 version,
-                folder: info.folder,
                 upload
               }))
 
             core.debug(`found references ${references}`)
-            core.setOutput('references', references);
+            return references;
 
   build_refs:
     needs: find_versions
@@ -93,6 +92,5 @@ jobs:
     with:
       package: ${{ matrix.package }}
       version: ${{ matrix.version }}
-      folder: ${{ matrix.folder }}
       upload: ${{ matrix.upload == 'true'}}
     secrets: inherit

@@ -7,7 +7,7 @@ jobs:
   find_modified_refs:
     runs-on: ubuntu-latest
     outputs:
-      references: ${{ steps.find_modified_refs.outputs.references }}
+      references: ${{ steps.find_modified_refs.outputs.result }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -54,7 +54,7 @@ jobs:
                       !(version in oldconandata.sources) || 
                       JSON.stringify(info) !== JSON.stringify(oldconandata.sources[version])
                     )
-                    .map(([version]) => JSON.stringify({ package, version, folder }))
+                    .map(([version]) => JSON.stringify({ package, version }))
                     .forEach(ref => references.add(ref));
 
                   const newPatches = newconandata.patches || {};
@@ -64,7 +64,7 @@ jobs:
                       !(version in oldPatches) || 
                       JSON.stringify(info) !== JSON.stringify(oldPatches[version])
                     )
-                    .map(([version]) => JSON.stringify({ package, version, folder }))
+                    .map(([version]) => JSON.stringify({ package, version }))
                     .forEach(ref => references.add(ref));
                     continue;
                 } else {
@@ -77,17 +77,17 @@ jobs:
                 const newPatches = newconandata.patches || {};
                 Object.entries(newPatches)
                   .filter(([version, patches]) => patches.some((patch) => patch.patch_file === patchName))
-                  .map(([version]) => JSON.stringify({ package, version, folder }))
+                  .map(([version]) => JSON.stringify({ package, version }))
                   .forEach(ref => references.add(ref));
                 continue;
               }
 
               Object.entries(config.versions)
                 .filter(([_, info]) => info.folder === folder)
-                .map(([version]) => JSON.stringify({ package, version, folder }))
+                .map(([version]) => JSON.stringify({ package, version }))
                 .forEach(ref => references.add(ref));
             }
-            core.setOutput('references', Array.from(references).map(JSON.parse));
+            return Array.from(references).map(JSON.parse);
 
   build_refs:
     needs: find_modified_refs
@@ -100,6 +100,5 @@ jobs:
     with:
       package: ${{ matrix.package }}
       version: ${{ matrix.version }}
-      folder: ${{ matrix.folder }}
       upload: false
     secrets: inherit
