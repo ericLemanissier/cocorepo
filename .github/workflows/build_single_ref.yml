@@ -65,11 +65,13 @@ jobs:
           cmd: yq '.versions."${{ env.VERSION }}".folder' 'recipes/${{ env.PACKAGE }}/config.yml'
 
       - uses: ./.github/actions/setup-conan
+
+      - uses: ./.github/actions/setup-remote
         with:
           filen-email: ${{ secrets.FILEN_EMAIL }}
           filen-password: ${{ secrets.FILEN_PASSWORD }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          with-remote: ${{ github.ref == 'refs/heads/community_index' && 'true' || 'false'}}
+        if: ${{ github.ref == 'refs/heads/community_index' }}
 
       - uses: actions/github-script@v7
         id: search_shared_option
@@ -120,11 +122,12 @@ jobs:
             ${{ env.FOLDER }}
 
       - uses: ./.github/actions/setup-conan
+          
+      - uses: ./.github/actions/setup-remote
         with:
           filen-email: ${{ secrets.FILEN_EMAIL }}
           filen-password: ${{ secrets.FILEN_PASSWORD }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          with-remote: true
 
       - run: conan export --version=$VERSION --no-remote ${{ env.FOLDER }}
 

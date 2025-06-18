@@ -17,10 +17,11 @@ jobs:
             requirements.txt
 
       - uses: ./.github/actions/setup-conan
+
+      - uses: ./.github/actions/setup-remote
         with:
           filen-email: ${{ secrets.FILEN_EMAIL }}
           filen-password: ${{ secrets.FILEN_PASSWORD }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          with-remote: true
 
       - run: conan remove '*/*#*:*#~latest' -c -r community

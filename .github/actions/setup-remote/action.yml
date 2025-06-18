@@ -1,0 +1,57 @@
+inputs:
+  filen-email:
+    description: 'Email to authenticate with FileN'
+    required: false
+  filen-password:
+    description: 'Password to authenticate with FileN'
+    required: false
+  github-token:
+    description: 'Token to authenticate with GitHub'
+    required: false
+name: 'Setup Conan'
+runs:
+  using: "composite"
+  steps:
+    - uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: latest
+        scope: ${{ github.repository_owner }}
+        registry-url: "https://npm.pkg.github.com/"
+
+    - run: |
+        rm package*.json
+        bun install @ericlemanissier/cocoserver --production
+      shell: bash
+      env:
+        BUN_AUTH_TOKEN: ${{ inputs.github-token }}
+
+    - run: |
+        for i in {1..10}
+        do
+          bun run --bun cocoserver --owner ${{ github.repository_owner }} --repo ${GITHUB_REPOSITORY#*/} --folder cocoremote >process.log &
+          pid=$!
+          for j in {1..30}
+          do
+            if grep -qi "listening" process.log
+            then
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "Timeout waiting for 'listening'. Dumping log:"
+          cat process.log
+        done
+        echo "Failed to start server after 10 attempts."
+        exit 1
+      env:
+        FILEN_EMAIL: ${{ inputs.filen-email }}
+        FILEN_PASSWORD: ${{ inputs.filen-password }}
+      shell: bash
+
+    - run: |
+        conan remote add community http://localhost:9595
+        conan remote auth community --format=json | jq ".community | has(\"error\")" | grep -q "false"
+      env:
+        CONAN_LOGIN_USERNAME_COMMUNITY: ${{ github.repository_owner }}
+        CONAN_PASSWORD_COMMUNITY: ${{ inputs.github-token }}
+      shell: bash
