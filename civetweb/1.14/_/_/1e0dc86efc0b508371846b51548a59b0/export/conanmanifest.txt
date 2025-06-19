@@ -1,0 +1,5 @@
+1750335504
+conandata.yml: 3815bc8f8c156605d1a932a50e83f013
+conanfile.py: e7b19b266a9ea59d884af94b99d54910
+export_source/patches/0001-fix-install-bundle.patch: 493aa9dc5f5cdbc566719ec5f9811b73
+export_source/patches/0002-1.14-fix-option-handling.patch: ede08758373f1522e57b9bfcb0afcaad
