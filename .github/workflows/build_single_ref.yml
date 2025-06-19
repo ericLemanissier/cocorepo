@@ -60,9 +60,10 @@ jobs:
             recipes/${{ env.PACKAGE }}
 
       - id: get_folder
-        uses: mikefarah/yq@v4.45.4
-        with:
-          cmd: yq '.versions."${{ env.VERSION }}".folder' 'recipes/${{ env.PACKAGE }}/config.yml'
+        run: |
+          folder=$(yq ".versions.\"${VERSION}\".folder" "recipes/${PACKAGE}/config.yml")
+          echo "result=$folder"
+          echo "result=$folder" >> "$GITHUB_OUTPUT"
 
       - uses: ./.github/actions/setup-conan
 
