@@ -1,0 +1,4 @@
+1750408063
+conandata.yml: 0223c05442ff7ad19220030d9489803b
+conanfile.py: 34181eceebb31982c9e3d12baea77c1d
+export_source/patches/4.2.1-0001-clang.patch: bf4bbb0fc3c8d90a14614c34ebbceb6a
