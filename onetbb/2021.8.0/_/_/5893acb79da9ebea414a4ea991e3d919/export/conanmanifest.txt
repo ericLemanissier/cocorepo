@@ -1,0 +1,4 @@
+1750407444
+conandata.yml: af26387d38e89a8a58d173dd98c5c47f
+conanfile.py: c0252dfb7542153ed70846363965f3e2
+export_source/patches/android-ndk25.patch: d5ab30fb2386cc30952f886b81f47ca7
