@@ -1,0 +1,5 @@
+1750407285
+conandata.yml: 98f6cdd3f912d03a0d8d6f53e9bae7fb
+conanfile.py: cb13c069b318e67c6e91647c0bb8edb6
+dependencies/dependencies-2025.2.0.yml: c41de362caa17de6457bb12e4f66bcb7
+export_source/patches/2025.2.0-dont-disable-macos-adhoc-codesign.patch: 6bbcc523f6e6da74a2f9c2c283352a2e
