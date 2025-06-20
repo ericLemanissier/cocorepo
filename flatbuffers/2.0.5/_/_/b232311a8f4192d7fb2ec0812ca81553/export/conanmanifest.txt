@@ -1,0 +1,6 @@
+1750409163
+conandata.yml: 80207f616a22953f4d1001dd5a75dbb8
+conanfile.py: 4643e121dc12e34bdd7e6748362be5d6
+export_source/cmake/FlatcTargets.cmake: 87f267f7795cfa4d36acf0cc5a771d8d
+export_source/patches/0002-apple-no-universal-build.patch: b68137c86bae619808b42030b7513b58
+export_source/patches/0003-no-flatc-execution-build-time.patch: 80873248d67b54cc24eb1f5a61be4fa1
