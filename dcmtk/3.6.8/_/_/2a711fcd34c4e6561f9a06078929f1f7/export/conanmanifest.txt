@@ -1,0 +1,8 @@
+1750418136
+conandata.yml: 717f15a716f70fd6fe92af87cb1eb406
+conanfile.py: 5cf76f7768c2ae00a27579f755c1894d
+export_source/patches/3.6.8-0001-cmake-robust-deps-handling.patch: 37611539fb40ae87945c3bc90ea2c846
+export_source/patches/3.6.8-0002-cmake-check-openssl-symbol.patch: 5d9e9303d7a1ac6dae976cb81d003e9b
+export_source/patches/3.6.8-0003-fix-two-segmentation-faults.patch: df154cb21c07bb9e678172697f31a021
+export_source/patches/3.6.8-0004-disable-oficonv-passthrough.patch: b6adb8c46e06ee59409bcda3135917ad
+export_source/src/arith_h_Macos_x86_64.h: e882b228912e53e9115a408a11e2ac31
