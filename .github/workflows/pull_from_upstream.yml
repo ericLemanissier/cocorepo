@@ -1,0 +1,35 @@
+name: Auto Merge from Upstream
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Runs every day at 3:00 AM UTC
+  workflow_dispatch:     # Also allows manual trigger
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+            fetch-depth: 300
+            token: ${{ secrets.PUSH_PAT }}
+
+      - name: Set up Git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Add upstream remote and fetch
+        run: |
+          git remote add upstream https://github.com/conan-io/conan-center-index.git
+          git fetch upstream
+
+      - run: git merge --no-edit upstream/HEAD
+
+      - name: Push if merge was successful
+        run: |
+          if git diff --quiet && git status --porcelain | grep -q "^UU"; then
+            echo "Merge conflicts detected, not pushing."
+            exit 1
+          fi
+          git push origin
