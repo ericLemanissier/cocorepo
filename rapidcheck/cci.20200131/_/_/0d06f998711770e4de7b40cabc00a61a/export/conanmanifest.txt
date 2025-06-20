@@ -1,0 +1,4 @@
+1750412919
+conandata.yml: 1b13b1372e9c84a614915112ef6d9891
+conanfile.py: 54471bc51173aff2030bf91de4838a82
+export_source/patches/0001-gtest-catch-integration-20200131.patch: 4e808ef17cf1e54919c5b511b22bbd98
