@@ -1,0 +1,8 @@
+1750418129
+conandata.yml: 717f15a716f70fd6fe92af87cb1eb406
+conanfile.py: 5cf76f7768c2ae00a27579f755c1894d
+export_source/patches/3.6.7-0001-cmake-robust-deps-handling.patch: fcc3b2cf77367ec45565570cf0fba6b0
+export_source/patches/3.6.7-0002-cmake-check-openssl-symbol.patch: 10c70afd33b86d7b36e39c8f5eaf79a8
+export_source/patches/3.6.7-0003-ambiguous-overload-operator-equal.patch: ad6ef29159cf22dd4adbd68faa10463c
+export_source/patches/3.6.7-0004-fix-two-segmentation-faults.patch: df154cb21c07bb9e678172697f31a021
+export_source/src/arith_h_Macos_x86_64.h: e882b228912e53e9115a408a11e2ac31
