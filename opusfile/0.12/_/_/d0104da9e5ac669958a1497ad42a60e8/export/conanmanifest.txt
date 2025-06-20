@@ -1,0 +1,4 @@
+1750414742
+conandata.yml: 3e7adcce277cd2b19abd0aa438c6af78
+conanfile.py: 348bd4d43d60f4f45dc3c08c2cc8f220
+export_source/patches/001-disable-cert-store-integration.patch: 5345c8de4c6dfa6b01ec571a87476e67
