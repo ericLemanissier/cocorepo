@@ -1,0 +1,4 @@
+1750666309
+conandata.yml: 31352d0c658a2a74b4079cbaf02f6521
+conanfile.py: 3b88e7966b3bbfaba38947f7bc6191d0
+export_source/patches/0001-darwin-exclude_semaphore_mutex_c_from_nsync_cpp_lib.patch: f92763e332ff8f6fc7981382d2038820
