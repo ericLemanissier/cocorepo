@@ -20,3 +20,15 @@ runs:
 
     - run: conan remote remove "*"
       shell: bash
+
+    - name: Create Conan hook to reduce conandata
+      shell: bash
+      run: |
+        HOOK_DIR="$(conan config home)/extensions/hooks"
+        HOOK_FILE="$HOOK_DIR/hook_reduce_conandata.py"
+
+        mkdir -p "$HOOK_DIR"
+        echo "from conan.tools.files import trim_conandata" > "$HOOK_FILE"
+        echo "def post_export(conanfile):" >> "$HOOK_FILE"
+        echo "  if conanfile.conan_data:" >> "$HOOK_FILE"
+        echo "    trim_conandata(conanfile)" >> "$HOOK_FILE"
