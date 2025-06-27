@@ -1,0 +1,4 @@
+1751027759
+conandata.yml: 25b784d02131dac2216ebe3961d8bf08
+conanfile.py: ba9ca1b3753de39e735d8f95033416fb
+export_source/patches/0004-2.0.20-ndk.patch: f6a15d34ebbb33d363e2bef867386646
