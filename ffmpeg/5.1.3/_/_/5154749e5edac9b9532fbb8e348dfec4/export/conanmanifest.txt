@@ -1,0 +1,8 @@
+1751020766
+conandata.yml: f8a1697022b7ea47c97da6e7e36742fb
+conanfile.py: adf81bdd2632a9ccf720800c7c7ad12e
+export_source/patches/5.0-0001-fix-hwcontext_vulkan.patch: ccb8b6bf711ce05bac102255c4acef4a
+export_source/patches/5.1-0001-fix-libsvtav1-compressed_ten_bit_format.patch: df1db9f4b670e56d4ba822750cece640
+export_source/patches/5.1-0002-fix-libsvtav1-vbv_bufsize-1.patch: aa9c6d74680a4d8d92cdb863709c0451
+export_source/patches/5.1-0003-fix-libsvtav1-vbv_bufsize-2.patch: ad8b70da2648e9d6d5f93ae17b321ed6
+export_source/patches/5.1-0004-fix-binutils.patch: fc73fc8c3336aec458a50d6cc5411b5a
