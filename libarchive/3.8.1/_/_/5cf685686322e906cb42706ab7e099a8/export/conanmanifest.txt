@@ -1,0 +1,6 @@
+1751048713
+conandata.yml: cfb5fdd2975eed566bbcbea1d5f3cac5
+conanfile.py: a36f7d5267be88f25b25b266241cb24f
+export_source/patches/0003-3.8.1-cmake.patch: 1ea73c7fc00ffbb8d3be20ada1d8a1ff
+export_source/patches/0005-3.8.1-try-compile-cmakedeps.patch: cdc2537c31ed3b0639f96bdab86dad08
+export_source/patches/0006-3.8.1-fix-msvc-build.patch: f2eee7e91c78c0d31f3b729f34aae660
