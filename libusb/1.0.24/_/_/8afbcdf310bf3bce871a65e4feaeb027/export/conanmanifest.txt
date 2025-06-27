@@ -1,0 +1,4 @@
+1751030078
+conandata.yml: 52d54b562027c43016897eee22e06243
+conanfile.py: 193d88801336042a6ff53236543196cc
+export_source/patches/1.0.24-0001-relax-windows-sdk-restriction.patch: 155dd3d8dfc3e6db92381cd387709555
