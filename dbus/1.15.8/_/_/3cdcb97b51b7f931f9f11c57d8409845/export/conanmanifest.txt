@@ -1,0 +1,4 @@
+1751030146
+conandata.yml: d064244ef58d07b7860840fa1228d7ca
+conanfile.py: 38420537e0e88bbb69b69394be14ea1e
+export_source/patches/0001-meson-Use-check_header-to-confirm-headers-work.patch: 51591fcbe3fcb18a48b764a0da517327
