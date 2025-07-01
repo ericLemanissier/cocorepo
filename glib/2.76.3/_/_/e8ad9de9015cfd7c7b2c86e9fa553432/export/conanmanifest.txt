@@ -1,0 +1,5 @@
+1751362619
+conandata.yml: e4c648b0f8aa1933557fe36462b00190
+conanfile.py: 180349f718556308fbb58b988f7964fa
+export_source/patches/libintl-discovery.patch: bd68b8c99955cd93c4155c67f60e09d3
+export_source/patches/remove-distutils.patch: ff46f3c8769470b1237b0ad56f989da3
