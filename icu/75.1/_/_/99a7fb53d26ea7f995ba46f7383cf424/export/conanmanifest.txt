@@ -1,0 +1,5 @@
+1751364789
+conandata.yml: 54eeb13c006cf35e79063ce1aed69776
+conanfile.py: 0dfb7d9299068bc340bc4627ac70da35
+export_source/patches/0001-69.1-fix-mingw.patch: fc7ac2351d39e09dbc6b4a4aeb0ec62b
+export_source/patches/0002-75.1-fix-emscripten.patch: d5fa720a605119df5c83d098c29e0222
