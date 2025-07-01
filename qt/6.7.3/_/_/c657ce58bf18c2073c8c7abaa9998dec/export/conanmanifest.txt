@@ -1,0 +1,5 @@
+1751360573
+conandata.yml: 3be12e85f715bf66d407cc1b6d587a1b
+conanfile.py: 55c4eb20aa5f8157826fecbfe8f4e077
+export_source/patches/c72097e_6.6.0.diff: c787a6ea03a17b7d4628ce8b6216ac04
+qtmodules6.7.3.conf: b9c6060b64c43d0df74fd7eaefaceba1
