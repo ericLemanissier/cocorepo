@@ -1,0 +1,6 @@
+1751371542
+conandata.yml: 3e5d360d980e08f18feee2924ccca6c9
+conanfile.py: 1327bdc48438f1864da7b68d0cfde896
+export_source/CMakeLists.txt: 74086749b6fbdbc1c9a06c6bf60f1579
+export_source/patches/0001-msvc.patch: ec1650cd64a13677105657ab24fd60ee
+export_source/patches/0002-macOS.patch: 2fe896d8ff7884ab497bab33ba8f1b77
