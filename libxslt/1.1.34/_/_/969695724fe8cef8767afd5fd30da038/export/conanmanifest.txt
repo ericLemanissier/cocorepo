@@ -1,0 +1,5 @@
+1751371256
+conandata.yml: 045c319241ce54b423b8c13a53e2fd7e
+conanfile.py: 4597defe14034ae13dea4ff93657c5e8
+export_source/patches/0001-allow-xsltproc-link-shared-mt.patch: f11d1351092dd2e50938765e4e4a7dc6
+export_source/patches/0002-Add-configuration-for-profiler.patch: 9026f77753de6dc624d7af9ced25a785
