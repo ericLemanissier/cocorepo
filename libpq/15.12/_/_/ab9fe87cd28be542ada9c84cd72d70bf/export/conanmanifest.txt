@@ -1,0 +1,4 @@
+1751362955
+conandata.yml: 299f5b88f1aa3b93afd4e17735e5b3d4
+conanfile.py: db46c18521470536bed387b1fd2c08e6
+export_source/patches/15/001-mingw-build-static-libraries.patch: ddca2f479c0d5f7f228c212fb2ab30aa
