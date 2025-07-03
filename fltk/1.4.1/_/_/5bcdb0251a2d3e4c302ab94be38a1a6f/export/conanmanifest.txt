@@ -1,0 +1,4 @@
+1751541372
+conandata.yml: 3a766115bb631b507ae30971b28e1417
+conanfile.py: 0f68c03152f5e4ed19126eae7741f2d0
+export_source/patches/1.4.1-0001-fix-resources.patch: f743cce2523f8618484e47b87bbe526e
