@@ -1,0 +1,6 @@
+1751541373
+conandata.yml: a3cd1314d75f7e4b9c32a70db426ea5a
+conanfile.py: 0f68c03152f5e4ed19126eae7741f2d0
+export_source/patches/1.3.9-0001-remove-fluid.patch: b50abb99feaa3e35ec171dc7e8d10403
+export_source/patches/1.3.9-0002-fix-resources.patch: bc82efac2e40d353b551ec3a74f03788
+export_source/patches/1.3.9-0003-build-static-only-on-static.patch: 9bcd481931686e523a9d367c2eac6527
