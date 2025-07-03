@@ -1,0 +1,6 @@
+1751532269
+conandata.yml: e6578bd72e2a5d86832c2624dafdecf6
+conanfile.py: 4db42b007e6b1ebbb4ebe2edf6ab0045
+export_source/patches/3.0.0-0001-fix-cmake.patch: 0179445df43b81273775ead39c08a0a4
+export_source/patches/3.0.0-0002-use-cci.patch: 28582bb69013f2519a1c2a91700cc245
+export_source/patches/3.0.0-0003-remove-compile-warnings-as-error.patch: 4df898507f5aecb0e71175ce7991fb61
