@@ -1,0 +1,6 @@
+1751549412
+conandata.yml: 3460371dcddd2a08d0dc6191c14e5765
+conanfile.py: 763081f5059661f8b3b4166c95e0ab59
+export_source/patches/0001-missing-stdlib-include.patch: e813b61d6424ed80c39819f92bf60960
+export_source/patches/disable_tixi_examples.patch: d4116666406537d70901c07fda38e2e0
+export_source/patches/link_curl.patch: ff5f833680f8d3d903078f83a274410a
