@@ -1,0 +1,5 @@
+1751630729
+conandata.yml: 5fc25fcba167f4f42716149e9e49a0bc
+conanfile.py: d1430eb73c39076c423fc3dff1f18875
+export_source/patches/0001-msvc-export-symbols.patch: 600928d613ca5c321d5127b58faf35f1
+export_source/patches/0002-cmake-read_api_version-fix.patch: f944e66793dfa42e93b657e61b7a7732
