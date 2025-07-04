@@ -1,0 +1,4 @@
+1751646097
+conandata.yml: 54d2570ae3dbd97e4c427e84862e44b9
+conanfile.py: 0fee7e1f71fd10d2cac02fd0c6005bae
+export_source/patches/1.0.x-0001-cmake-minimum-required.patch: 43a90feb05ab24be62a879da2a91ce9e
