@@ -1,0 +1,6 @@
+1751877679
+conandata.yml: 0b304331d4e39de60bdc4ef8471ef894
+conanfile.py: d1e7db3bbfc55167ab3eaaac6a5e2634
+dependencies/dependencies-1.2.1.yml: 10020e1935eea6bb4651ffbff6d665f3
+export_source/CMakeLists.txt: 7b2ccaa702c54630d44e0b4006e1a024
+export_source/patches/1.2.2-0001-MVKSmallVector-Make-iterator-const-correct.patch: a1b29fc89560d088249d7b6ed732ddb1
