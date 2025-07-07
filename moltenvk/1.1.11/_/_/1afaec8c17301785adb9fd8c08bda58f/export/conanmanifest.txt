@@ -1,0 +1,7 @@
+1751877686
+conandata.yml: d9fd4dd272a3ec3500e82acdccf92bfc
+conanfile.py: d1e7db3bbfc55167ab3eaaac6a5e2634
+dependencies/dependencies-1.1.11.yml: e3d4c49a493b4ed276e79586a020b1c2
+export_source/CMakeLists.txt: 7b2ccaa702c54630d44e0b4006e1a024
+export_source/patches/1.1.11-0001-vulkan-alias-private-extern.patch: 2b2e1b3199e592590a131b8bf546cb0e
+export_source/patches/1.1.11-fix-MVKSmallVector.patch: 4b159d5b29ad4a89e8190bd7acc572b7
