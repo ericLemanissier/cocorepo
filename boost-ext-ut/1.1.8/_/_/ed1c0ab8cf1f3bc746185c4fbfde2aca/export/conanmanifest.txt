@@ -1,0 +1,4 @@
+1752005179
+conandata.yml: 6519b4b118feb8cd3201a3784d7630b3
+conanfile.py: 17326436733ae00005608036e0b40642
+export_source/patches/license.patch: 00116e6f7af119845a4c38d0c24b57f5
