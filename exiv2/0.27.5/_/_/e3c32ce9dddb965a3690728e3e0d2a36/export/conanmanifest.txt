@@ -1,0 +1,5 @@
+1751962709
+conandata.yml: a4c04b8aba6e5bb3891d3fbe0b62e361
+conanfile.py: d6ccd09b9f0d166d2043fa37ab598107
+export_source/patches/0001-link-0.27.5.patch: a8cb74becd2aad3331710dd18ba6e0b8
+export_source/patches/0003-fix-ios.patch: b4e2ce6aa59608657486fc095387e667
