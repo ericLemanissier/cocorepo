@@ -1,0 +1,7 @@
+1752158600
+conandata.yml: ca15698382f00dbc87505f867c36ecf1
+conanfile.py: 5fc044768e7b0150b9ed11cd1af9b846
+export_source/patches/1.7.3-0001-meson-use-declare-dependencies.patch: e9b81fc3a766bebf7b81c83180801a5f
+export_source/patches/1.7.3-0002-clang-12-strndup-not-in-string-h.patch: 7260cc2dd20b77e6c397afddd452a268
+export_source/patches/1.7.3-0003-meson-use-library.patch: 875de91a5f66e50bc7c5731885466364
+export_source/patches/1.7.3-0004-PKG_CONF_PATH-allow-colon+semicolon-separator.patch: b2da3e21d5e25f51405dd09b50a0f205
