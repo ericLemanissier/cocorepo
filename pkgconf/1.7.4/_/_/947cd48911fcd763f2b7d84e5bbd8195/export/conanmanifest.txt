@@ -1,0 +1,6 @@
+1752158605
+conandata.yml: 8e6d35660377946f6cf45c7f6c1bc387
+conanfile.py: 5fc044768e7b0150b9ed11cd1af9b846
+export_source/patches/1.7.4-0001-clang-12-strndup-not-in-string-h.patch: 938be1257236fa77176126f1b6a1950e
+export_source/patches/1.7.4-0002-fix-static-link.patch: 80721252f9908f46bc7ea8ec62cf6bc7
+export_source/patches/1.7.4-0003-PKG_CONF_PATH-allow-colon+semicolon-separator.patch: 0968e7dca337c05fbe3f9b527735a056
