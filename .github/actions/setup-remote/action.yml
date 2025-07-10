@@ -17,7 +17,7 @@ runs:
         bun-version: latest
         scope: ${{ github.repository_owner }}
         registry-url: "https://npm.pkg.github.com/"
-
+        bun-download-url:  ${{ (runner.os == 'Windows' && runner.arch == 'ARM64') && 'https://github.com/oven-sh/bun/releases/latest/download/bun-windows-x64-baseline.zip' || '' }}
     - run: |
         rm package*.json
         bun install @ericlemanissier/cocoserver --production
