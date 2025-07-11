@@ -107,6 +107,7 @@ jobs:
       FOLDER: recipes/${{ inputs.package || 'zlib' }}/${{ needs.prepare-matrix.outputs.folder }}
       SHARED: ${{ matrix.shared }}
       BUILD_TYPE: ${{ matrix.build_type }}
+      CLI_ARGS: -sbuild_type=${{ matrix.build_type }} ${{ matrix.shared }} -c:a tools.system.package_manager:mode=install -c:a tools.system.package_manager:sudo=True -s:a msys2/*:arch=x86_64 -s:a strawberryperl/*:arch=x86_64
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -143,12 +144,12 @@ jobs:
             else
               ARG="-s compiler.cppstd=$cpp_std"
             fi
-            if ! conan profile show $ARG -sbuild_type=$BUILD_TYPE $SHARED -c:a tools.system.package_manager:mode=install -c:a tools.system.package_manager:sudo=True
+            if ! conan profile show $ARG ${{ env.CLI_ARGS }}
             then
               continue
             fi
             set +e
-            conan install $ARG --require=$REF -sbuild_type=$BUILD_TYPE $SHARED --build=missing --build=$REF --format=json > create.json  -c:a tools.system.package_manager:mode=install -c:a tools.system.package_manager:sudo=True
+            conan install $ARG --require=$REF --build=missing --build=$REF --format=json > create.json  ${{ env.CLI_ARGS }}
             code=$?
             set -e
             echo "CODE=$code" >> "$GITHUB_OUTPUT"
@@ -165,7 +166,7 @@ jobs:
         name: Conan Install
 
       - run: |
-          conan test ${{ env.FOLDER }}/test_package/conanfile.py $REF -sbuild_type=$BUILD_TYPE $SHARED  -c:a tools.system.package_manager:mode=install -c:a tools.system.package_manager:sudo=True
+          conan test ${{ env.FOLDER }}/test_package/conanfile.py $REF ${{ env.CLI_ARGS }}
         if: ${{ steps.conan_install.outputs.CODE != 6 }}
       - run: conan upload -r community $REF --confirm
         if: ${{ steps.conan_install.outputs.CODE != 6 && inputs.upload }}
