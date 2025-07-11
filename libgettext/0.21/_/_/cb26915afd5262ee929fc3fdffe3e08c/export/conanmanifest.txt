@@ -1,0 +1,4 @@
+1752224125
+conandata.yml: 93b22ab43088fad479619e0cf253f099
+conanfile.py: 680b32ded55fac32a0c8614ea724a7a6
+export_source/patches/0002-memmove-is-intrinsic-function-on-MSVC.patch: 1d2033fc8ee55093bacfa206add4376b
