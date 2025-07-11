@@ -1,0 +1,6 @@
+1752224104
+conandata.yml: a5b2190a62dfbc719c54849817aa6aa4
+conanfile.py: 680b32ded55fac32a0c8614ea724a7a6
+export_source/patches/0001-build-Fix-build-errors-with-MSVC.patch: a3cd34e60ada92cfde63db6a56b0d113
+export_source/patches/0002-memmove-is-intrinsic-function-on-MSVC.patch: 1d2033fc8ee55093bacfa206add4376b
+export_source/patches/0003-Reported-by-Gabor-Z.-Papp-gzp-papp.hu.patch: a5446384ef226361bf1d536c59274449
