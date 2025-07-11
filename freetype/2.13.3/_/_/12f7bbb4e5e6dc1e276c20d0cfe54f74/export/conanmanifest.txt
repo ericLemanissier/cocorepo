@@ -1,0 +1,4 @@
+1752224183
+conandata.yml: 76dfeb993f7d36e60121017dcbf5c391
+conanfile.py: 5d66f22d474eeb44692c429da9a982d9
+export_source/patches/2.13.3-0002-meson-Fix-static-windows.patch: a6930c48f703bcd613d5c5aee3b38e91
