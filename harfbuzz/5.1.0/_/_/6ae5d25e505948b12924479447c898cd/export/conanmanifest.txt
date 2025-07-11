@@ -1,0 +1,4 @@
+1752224607
+conandata.yml: 80fc14250a77ca9f7049cbb615ff04e8
+conanfile.py: b5a6773b29506744aaa50ece5631591b
+export_source/patches/0000-fix-freetype-lookup-5.1.0.patch: b00b5ae3dc6cd73b731d27d552a82e68
