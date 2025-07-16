@@ -1,0 +1,6 @@
+1752683070
+conandata.yml: 9b0cb40e428dd014cada04631507cbb2
+conanfile.py: 3962a1bfb55cc3a48af06d957a0e430f
+export_source/patches/0.4.0-0001-no-template-export.patch: 31d2b919d4daf559130aa98c295ffa45
+export_source/patches/0.4.0-0002-cppstd.patch: 8b3677fef8a0c5c6bc891394501b7f56
+export_source/patches/0.4.0-0003-clean-rpath.patch: 27d8c89bfde6b66024c26097b9136429
