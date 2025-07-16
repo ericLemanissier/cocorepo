@@ -1,0 +1,5 @@
+1752701992
+conandata.yml: 6c74891aafd8fbf2b8dceab294a3d58d
+conanfile.py: f3957c3dcff9e0fa6dc6ddd901bff25b
+export_source/patches/0003-rpath-macos-4.3.5.patch: 2a3f840869d08113dc4bc16a0bfed320
+export_source/patches/0004-cmake-minimum-required-first.patch: 2edb2908a0153b34ffb5cbccc1495d09
