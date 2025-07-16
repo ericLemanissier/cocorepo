@@ -1,0 +1,4 @@
+1752683051
+conandata.yml: f8d567c8f285604daf009516cb2802eb
+conanfile.py: 5bea2d6e5561314aa37b6ed1c607577a
+export_source/patches/cmake-0.15.0.patch: 2c3c1bda03eea2003d9057c5ffad4688
