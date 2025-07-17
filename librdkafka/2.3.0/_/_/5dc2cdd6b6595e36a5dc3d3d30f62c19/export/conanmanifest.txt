@@ -1,0 +1,5 @@
+1752733714
+conandata.yml: b26e511fee02aa0f354feee43899f52d
+conanfile.py: 5c66ebfc2bc8c731461f667f2fd21e26
+export_source/patches/0001-Change-library-names-1-9-1.patch: bd2befd26fa8610f6ad53c46a59d952c
+export_source/patches/0002-Change-library-targets-and-result-variables-2-3-0.patch: 257d9b59fb0415fdfd595b8ecefccaf4
