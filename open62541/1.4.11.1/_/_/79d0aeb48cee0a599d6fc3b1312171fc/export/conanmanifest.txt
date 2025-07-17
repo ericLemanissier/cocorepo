@@ -1,0 +1,11 @@
+1752746225
+conandata.yml: d1f97ed3c741e90debd00366dd35000f
+conanfile.py: 55a96cd90d6d82a4e648413436fcbf57
+export_source/patches/0004-include-iphlpapi.patch: a8640071eb594277b753588de3e3795d
+export_source/patches/0005-fix-config-in-qnx.patch: 8dbb53242ec3585cbaf0858dd2657584
+export_source/patches/0006-fix-eventloop-header-qnx.patch: 0224f3ceef05ee650f0e9b1431058f91
+export_source/patches/0008-fix-posix-qnx.patch: 2895e46d33891593237e322703d7dc7f
+export_source/patches/0009-use-external-libxml2.patch: 7429ded4eb445d8660c9444824d6359d
+export_source/patches/1.4.11.1-0001-use-external-mdnsd.patch: c69ca1eea25d657a914e0abfb75e19fc
+export_source/patches/1.4.11.1-0007-fix-eventloop-udp-qnx.patch: 1a7730074b2eb2eb2799650d8101e5b3
+submoduledata.yml: 08486872864295b5db4ece6ae4681dba
