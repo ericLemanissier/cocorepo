@@ -1,0 +1,7 @@
+1752746224
+conandata.yml: e0da9b49e44c84bdb7af5332493da7a5
+conanfile.py: 55a96cd90d6d82a4e648413436fcbf57
+export_source/patches/0001-disable-sanitizers-1_4_x.patch: 9d2e63fdb84c9bc3c26267a1c1b74b08
+export_source/patches/0004-include-iphlpapi.patch: a8640071eb594277b753588de3e3795d
+export_source/patches/1.4.6-0001-use-external-mdnsd.patch: b52d515e225dbda0a3df75d9088b813e
+submoduledata.yml: 08486872864295b5db4ece6ae4681dba
