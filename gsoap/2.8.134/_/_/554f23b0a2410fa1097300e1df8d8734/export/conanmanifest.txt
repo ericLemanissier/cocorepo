@@ -1,0 +1,7 @@
+1752843618
+conandata.yml: d1fe82296731e1fb66debbb27b746b50
+conanfile.py: 915001220b5e7aee79678927c7b7e9c6
+export_source/CMakeLists.txt: f623981e862ca89ed461e1919cd3b8db
+export_source/cmake/gsoap.cmake: b12b041aaf44064d9bdcaa2a63520150
+export_source/cmake/soapcpp2.cmake: 4998c8c5ccc811212c19621c49730087
+export_source/cmake/wsdl2h.cmake: be5ed6de2feccec291065af7e2b9e63e
