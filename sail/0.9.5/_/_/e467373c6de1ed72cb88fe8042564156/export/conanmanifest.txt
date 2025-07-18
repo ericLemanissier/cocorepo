@@ -1,0 +1,4 @@
+1752831710
+conandata.yml: 3cda70b99e140b4c8bd4e876cd83a9fb
+conanfile.py: d8f8a68d068e8dba6fc051741f6c3747
+export_source/patches/0.9.1-fix-libjxl-find.patch: e70a89085726401252d3f38e9358ef7b
