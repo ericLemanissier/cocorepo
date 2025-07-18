@@ -1,0 +1,4 @@
+1752833095
+conandata.yml: 1017ee19cb8e3d10cbc717eb79b169bf
+conanfile.py: a07242d3cf25c1257f579c8a86af87db
+export_source/patches/4.2.0-0003-deterministic-libname.patch: c061dee2d818785a0acd0d92358c032a
