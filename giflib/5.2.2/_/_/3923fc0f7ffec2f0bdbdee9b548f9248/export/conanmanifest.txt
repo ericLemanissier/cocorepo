@@ -1,0 +1,6 @@
+1752832260
+conandata.yml: bbebacaec5182801349304a090756bea
+conanfile.py: e90a23c87afdba94539a970a6ad2b658
+export_source/CMakeLists.txt: fc410ff4d302be06bf2fd3054529ce7a
+export_source/patches/0000-msvc-strtok_r.patch: bf1d88e4a3514a2d67334a08ae375460
+export_source/patches/5.2.2-0001-msvc-export.patch: 341a857928f7cd205140a6a75fe471aa
