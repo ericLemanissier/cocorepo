@@ -1,0 +1,4 @@
+1752832410
+conandata.yml: 5222fca10021671dd109fce70fa34370
+conanfile.py: 0b412b2d147219dd6a8790f4d96d7b6b
+export_source/patches/0001-allow-usage-in-multiple-compilation-units.patch: 70d1503f66f33ac54df5b336262e5f7d
