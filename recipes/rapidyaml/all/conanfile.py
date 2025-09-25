@@ -61,9 +61,9 @@ class RapidYAMLConan(ConanFile):
 
     def requirements(self):
         if Version(self.version) < "0.6.0":
-            self.requires("c4core/0.1.11", transitive_headers=True)
+            self.requires("c4core/0.2.5", transitive_headers=True)
         else:
-            self.requires("c4core/0.2.0", transitive_headers=True)
+            self.requires("c4core/0.2.5", transitive_headers=True)
 
     def validate(self):
         if self.info.settings.compiler.cppstd:
