@@ -44,7 +44,7 @@ class WaveletBufferConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("blaze/3.8", transitive_headers=True)
+        self.requires("blaze/3.8.2", transitive_headers=True)
         self.requires("cimg/[~3.3.2]") # version range covers up to last patch of 3.3.x
         if self.options.jpeg == "libjpeg-turbo":
             self.requires("libjpeg-turbo/[>=3.0.1 <4]")
