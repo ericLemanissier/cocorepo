@@ -66,7 +66,7 @@ class Mosquitto(ConanFile):
         if self.options.ssl:
             self.requires("openssl/[>=1.1 <4]")
         if self.options.get_safe("cjson"):
-            self.requires("cjson/1.7.16")
+            self.requires("cjson/1.7.19")
         if self.options.get_safe("websockets"):
             self.requires("libwebsockets/4.3.2")
         if self.options.get_safe("threading") and self.settings.os == "Windows" and Version(self.version) >= "2.0.21":
