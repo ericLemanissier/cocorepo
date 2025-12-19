@@ -23,6 +23,9 @@ class TestPackageConan(ConanFile):
             if not self.conf.get("tools.microsoft.bash:path", check_type=str):
                 self.tool_requires("msys2/cci.latest")
 
+    def requirements(self):
+        self.requires("libiconv/1.17")
+
     def build(self):
         cmake = CMake(self)
         cmake.configure()
