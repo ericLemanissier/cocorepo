@@ -1,12 +1,14 @@
 from conan import ConanFile
+from conan.tools.build import cross_building
 from conan.tools.cmake import CMake, cmake_layout
+from conan.tools.env import VirtualBuildEnv, VirtualRunEnv, Environment
 from conan.tools.microsoft import unix_path
 import os
 
 
 class TestPackageConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
-    generators = "CMakeToolchain", "VirtualBuildEnv", "VirtualRunEnv"
+    generators = "CMakeToolchain"
     test_type = "explicit"
     win_bash = True
 
@@ -17,6 +19,32 @@ class TestPackageConan(ConanFile):
     def layout(self):
         cmake_layout(self)
 
+    def generate(self):
+        vbe = VirtualBuildEnv(self)
+        vbe.generate()
+        if not cross_building(self):
+            vre = VirtualRunEnv(self)
+            vre.generate(scope="build")
+        env = Environment()
+        # Tell Python to assume UTF-8 encoding to work around character encoding issues while building Qt WebEngine on Polish locale on Windows.
+        env.define("PYTHONUTF8", "1")
+        # TODO: to remove when properly handled by conan (see https://github.com/conan-io/conan/issues/11962)
+        env.unset("VCPKG_ROOT")
+        env.prepend_path("PKG_CONFIG_PATH", self.generators_folder)
+        env.vars(self).save_script("conanbuildenv_pkg_config_path")
+        if self.settings_build.os == "Macos":
+            # On macOS, SIP resets DYLD_LIBRARY_PATH injected by VirtualBuildEnv & VirtualRunEnv
+            dyld_library_path = "$DYLD_LIBRARY_PATH"
+            dyld_library_path_build = vbe.vars().get("DYLD_LIBRARY_PATH")
+            if dyld_library_path_build:
+                dyld_library_path = f"{dyld_library_path_build}:{dyld_library_path}"
+            if not cross_building(self):
+                dyld_library_path_host = vre.vars().get("DYLD_LIBRARY_PATH")
+                if dyld_library_path_host:
+                    dyld_library_path = f"{dyld_library_path_host}:{dyld_library_path}"
+            save(self, "bash_env", f'export DYLD_LIBRARY_PATH="{dyld_library_path}"')
+            env.define_path("BASH_ENV", os.path.abspath("bash_env"))
+        
     def build_requirements(self):
         self.tool_requires(self.tested_reference_str)
         if self._settings_build.os == "Windows":
