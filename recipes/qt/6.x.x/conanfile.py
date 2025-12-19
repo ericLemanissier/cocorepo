@@ -676,6 +676,8 @@ class QtConan(ConanFile):
         with_egl = self.options.get_safe("with_egl", False)
         tc.variables["CMAKE_DISABLE_FIND_PACKAGE_EGL"] = not with_egl
 
+        tc.cache_variables['Python_FIND_UNVERSIONED_NAMES'] = 'FIRST'
+
         tc.generate()
 
     def package_id(self):
