@@ -120,7 +120,7 @@ class GetTextConan(ConanFile):
             # rather than a C compiler flag
             env.prepend("CPPFLAGS", f"-I{iconv_includedir}")
 
-            if str(self.settings.arch) in ("x86", "x86_64"):
+            if str(self.settings.arch) in ("x86", "x86_64", "armv8"):
                 windres_arch = {
                     "x86": "i686",
                     "x86_64": "x86-64",
