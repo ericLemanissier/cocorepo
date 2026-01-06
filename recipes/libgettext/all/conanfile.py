@@ -143,19 +143,14 @@ class GetTextConan(ConanFile):
         env = tc.environment()
         if is_msvc(self) or self._is_clang_cl:
             def programs():
-                rc = None
-                if self.settings.arch == "x86_64":
-                    rc = "windres --target=pe-x86-64"
-                elif self.settings.arch == "x86":
-                    rc = "windres --target=pe-i386"
                 if self._is_clang_cl:
                     return os.environ.get("CC", "clang-cl"), os.environ.get("AR", "llvm-lib"), os.environ.get("LD", "lld-link"), rc
                 if is_msvc(self):
-                    return "cl -nologo", "lib", "link", rc
+                    return "cl -nologo", "lib", "link"
 
             compile_wrapper = unix_path(self, self.conf.get("user.automake:compile-wrapper", check_type=str))
             ar_wrapper = unix_path(self, self.conf.get("user.automake:lib-wrapper", check_type=str))
-            cc, ar, link, rc = programs()
+            cc, ar, link = programs()
             env.define("CC", f"{compile_wrapper} {cc}")
             env.define("CXX", f"{compile_wrapper} {cc}")
             env.define("LD", link)
@@ -163,9 +158,8 @@ class GetTextConan(ConanFile):
             env.define("NM", "dumpbin -symbols")
             env.define("RANLIB", ":")
             env.define("STRIP", ":")
-            if rc is not None:
-                env.define("RC", rc)
-                env.define("WINDRES", rc)
+            env.define("RC", "rc.exe")
+            env.define("WINDRES", "rc.exe")
         tc.generate(env)
 
         if is_msvc(self) or self._is_clang_cl:

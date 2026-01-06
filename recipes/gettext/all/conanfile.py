@@ -120,12 +120,8 @@ class GetTextConan(ConanFile):
             # rather than a C compiler flag
             env.prepend("CPPFLAGS", f"-I{iconv_includedir}")
 
-            if str(self.settings.arch) in ("x86", "x86_64", "armv8"):
-                windres_arch = {
-                    "x86": "i686",
-                    "x86_64": "x86-64",
-                    "armv8": "arm64"}[str(self.settings.arch)]
-                env.define("RC", f"windres --target=pe-{windres_arch}")
+            env.define("RC", "rc.exe")
+            env.define("WINRES", "rc.exe")
             env.vars(self).save_script("conanbuild_msvc")
 
     def build(self):
