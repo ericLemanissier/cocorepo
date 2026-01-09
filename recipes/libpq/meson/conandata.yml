@@ -1,4 +1,7 @@
 sources:
+  "18.1":
+    url: "https://ftp.postgresql.org/pub/source/v18.1/postgresql-18.1.tar.bz2"
+    sha256: "ff86675c336c46e98ac991ebb306d1b67621ece1d06787beaade312c2c915d54"
   "17.7":
     url: "https://ftp.postgresql.org/pub/source/v17.7/postgresql-17.7.tar.bz2"
     sha256: "ef9e343302eccd33112f1b2f0247be493cb5768313adeb558b02de8797a2e9b5"
@@ -6,6 +9,8 @@ sources:
     url: "https://ftp.postgresql.org/pub/source/v17.5/postgresql-17.5.tar.bz2"
     sha256: "fcb7ab38e23b264d1902cb25e6adafb4525a6ebcbd015434aeef9eda80f528d8"
 patches:
+  "18.1":
+    - patch_file: "patches/17.5-pgflex-preserve-environment-variables.patch"
   "17.7":
     - patch_file: "patches/17.5-pgflex-preserve-environment-variables.patch"
   "17.5":
