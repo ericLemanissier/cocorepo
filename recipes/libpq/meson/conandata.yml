@@ -10,7 +10,7 @@ sources:
     sha256: "fcb7ab38e23b264d1902cb25e6adafb4525a6ebcbd015434aeef9eda80f528d8"
 patches:
   "18.1":
-    - patch_file: "patches/17.5-pgflex-preserve-environment-variables.patch"
+    - patch_file: "patches/18.1-pgflex-preserve-environment-variables.patch"
   "17.7":
     - patch_file: "patches/17.5-pgflex-preserve-environment-variables.patch"
   "17.5":
