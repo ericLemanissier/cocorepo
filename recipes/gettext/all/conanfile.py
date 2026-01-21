@@ -31,9 +31,6 @@ class GetTextConan(ConanFile):
     def layout(self):
         basic_layout(self, src_folder="src")
 
-    def requirements(self):
-        self.requires("libiconv/1.17")
-
     def package_id(self):
         del self.info.settings.compiler
 
@@ -54,13 +51,11 @@ class GetTextConan(ConanFile):
         env.generate()
 
         tc = AutotoolsToolchain(self)
-        libiconv = self.dependencies["libiconv"]
-        libiconv_root = unix_path(self, libiconv.package_folder)
         tc.configure_args.extend([
             "HELP2MAN=/bin/true",
             "EMACS=no",
             "--datarootdir=${prefix}/res",
-            "--with-libiconv-prefix={}".format(libiconv_root),
+            "--without-libiconv-prefix",
             "--disable-shared",
             "--disable-static",
             "--disable-nls",
@@ -94,14 +89,6 @@ class GetTextConan(ConanFile):
             if self.settings.build_type == "Debug":
                 tc.configure_args.extend(['gl_cv_func_printf_directive_n=no'])
 
-
-            # The flag above `--with-libiconv-prefix` fails to correctly detect libiconv on windows+msvc
-            # so it needs an extra nudge. We could use `AutotoolsDeps` but it's currently affected by the
-            # following outstanding issue: https://github.com/conan-io/conan/issues/12784
-            iconv_includedir = unix_path(self, libiconv.cpp_info.aggregated_components().includedirs[0])
-            iconv_libdir = unix_path(self, libiconv.cpp_info.aggregated_components().libdirs[0])
-            tc.extra_cflags.append(f"-I{iconv_includedir}")
-            tc.extra_ldflags.append(f"-L{iconv_libdir}")
         tc.generate()
 
         if is_msvc(self):
@@ -115,10 +102,6 @@ class GetTextConan(ConanFile):
             env.define("STRIP", ":")
             env.define("AR", "{} lib".format(unix_path(self, lib_wrapper)))
             env.define("RANLIB", ":")
-
-            # One of the checks performed by the configure script requires this as a preprocessor flag
-            # rather than a C compiler flag
-            env.prepend("CPPFLAGS", f"-I{iconv_includedir}")
 
             if str(self.settings.arch) in ("x86", "x86_64"):
                 windres_arch = {"x86": "i686", "x86_64": "x86-64"}[str(self.settings.arch)]
