@@ -682,8 +682,9 @@ class QtConan(ConanFile):
             # Get CMake to find PipEnv's Python first to ensure html5lib is found
             tc.cache_variables['Python_FIND_UNVERSIONED_NAMES'] = 'FIRST'
             tc.cache_variables['Python_FIND_STRATEGY'] = 'LOCATION'
-            tc.cache_variables['Python_FIND_VIRTUALENV'] = 'FIRST'
+            tc.cache_variables['Python_FIND_VIRTUALENV'] = 'ONLY'
             tc.cache_variables['Python_FIND_REGISTRY'] = 'NEVER'
+            tc.cache_variables['Python_FIND_FRAMEWORK'] = 'NEVER'
         tc.generate()
 
     def package_id(self):
