@@ -841,7 +841,7 @@ class QtConan(ConanFile):
             save(self, ".qmake.stash", "")
             save(self, ".qmake.super", "")
         cmake = CMake(self)
-        cmake.configure(cli_args=['--debug-find-pkg=Python'])
+        cmake.configure(cli_args=['--debug-find-pkg=Python3'])
         cmake.build()
 
     @property
