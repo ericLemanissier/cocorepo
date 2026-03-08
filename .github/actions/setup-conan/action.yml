@@ -43,6 +43,7 @@ runs:
           echo "tools.system.package_manager:sudo=True" >> "$DEFAULT_PROFILE"
         elif [[ "$RUNNER_OS" == "Windows" ]]; then
           echo "user.openssl:windows_use_jom=True" >> "$DEFAULT_PROFILE"
+          echo "tools.cmake.cmaketoolchain:generator=Ninja" >> "$DEFAULT_PROFILE"
         fi
 
       shell: bash
