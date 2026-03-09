@@ -113,8 +113,6 @@ jobs:
     needs: [prepare-matrix]
     env:
       FOLDER: recipes/${{ inputs.package || 'zlib' }}/${{ needs.prepare-matrix.outputs.folder }}
-      SHARED: ${{ matrix.shared }}
-      BUILD_TYPE: ${{ matrix.build_type }}
       CLI_ARGS: -sbuild_type=${{ matrix.build_type }} ${{ matrix.shared }}
       REQ: ${{ inputs.package == 'msys2' && '-s:b arch=x86_64 --tool-require' || '--require' }}
     runs-on: ${{ matrix.os }}
@@ -139,34 +137,14 @@ jobs:
       - run: conan export --version=${{ env.VERSION }} --no-remote ${{ env.FOLDER }}
 
       - run: |
-          CONAN_PATH=$(conan config home)
-          PROFILE_PATH=$(conan profile path autodetected)
-          COMPILER=$(awk -F "=" '/^compiler=/ {print $2}' $PROFILE_PATH)
-          CPP_STDS=$(python3 -c "import yaml;import sys;print(*yaml.safe_load(sys.stdin)['compiler']['$COMPILER']['cppstd'])" < $CONAN_PATH/settings.yml)
-          for cpp_std in $CPP_STDS; do
-            if [ "$cpp_std" = "None" ]; then
-              ARG=""
-            else
-              ARG="-s compiler.cppstd=$cpp_std"
-            fi
-            if ! conan profile show $ARG ${{ env.CLI_ARGS }}
-            then
-              continue
-            fi
-            conan graph info $ARG ${{ env.REQ }}=${{ env.REF }} --build=compatible --build=${{ env.REF }} ${{ env.CLI_ARGS }} --format=json > graph.json
-            if jq -e 'any(.graph.nodes[]; .binary == "Invalid")' graph.json
-            then
-              continue
-            else
-              if [ "$cpp_std" != "None" ]
-              then
-                echo "compiler.cppstd=$cpp_std" >> $PROFILE_PATH
-              fi
-              echo "CODE=0" >> "$GITHUB_OUTPUT"
-              exit 0
-            fi
-          done
-          echo "CODE=6" >> "$GITHUB_OUTPUT"
+          conan profile show ${{ env.CLI_ARGS }}
+          conan graph info ${{ env.REQ }}=${{ env.REF }} --build=compatible --build=${{ env.REF }} ${{ env.CLI_ARGS }} --format=json > graph.json
+          if jq -e 'any(.graph.nodes[]; .binary == "Invalid")' graph.json
+          then
+            echo "CODE=6" >> "$GITHUB_OUTPUT"
+          else
+            echo "CODE=0" >> "$GITHUB_OUTPUT"
+          fi
         id: conan_install
         name: Conan Graph
         shell: bash

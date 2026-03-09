@@ -16,6 +16,8 @@ runs:
       shell: bash
     
     - run: |
+        echo "core.graph:compatibility_mode=optimized" >> "$(conan config home)/global.conf"
+
         DEFAULT_PROFILE="$(conan config home)/profiles/default"
         echo "include(autodetected)" > "$DEFAULT_PROFILE"
         echo "[replace_requires]" >> "$DEFAULT_PROFILE"
