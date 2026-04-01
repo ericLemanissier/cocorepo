@@ -54,7 +54,7 @@ class TesseractConan(ConanFile):
 
     def requirements(self):
         if Version(self.version) >= "5.2.0":
-            self.requires("leptonica/1.83.1")
+            self.requires("leptonica/1.85.0")
         else:
             self.requires("leptonica/1.82.0")
         if self.settings.os == "Windows":
