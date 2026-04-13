@@ -74,7 +74,7 @@ jobs:
           artifactory-token: ${{ secrets.ARTIFACTORY_TOKEN }}
         if: ${{ github.ref == 'refs/heads/community_index' }}
 
-      - uses: actions/github-script@v8
+      - uses: actions/github-script@v9
         id: search_shared_option
         with:
           script: |

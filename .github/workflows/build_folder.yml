@@ -57,7 +57,7 @@ jobs:
         with:
           cache: 'npm'
       - run: npm ci
-      - uses: actions/github-script@v8
+      - uses: actions/github-script@v9
         id: find_versions
         env:
           INPUT_FOLDER: "${{ inputs.folder }}"
