@@ -47,6 +47,8 @@ runs:
           echo "user.openssl:windows_use_jom=True" >> "$DEFAULT_PROFILE"
           echo "tools.cmake.cmaketoolchain:generator=Ninja" >> "$DEFAULT_PROFILE"
         fi
+        echo "[buildenv]" >> "$DEFAULT_PROFILE"
+        echo "CMAKE_POLICY_VERSION_MINIMUM=3.5" >> "$DEFAULT_PROFILE"
 
       shell: bash
 
