@@ -1,5 +1,5 @@
 name: Build single ref
-run-name: Build ${{ inputs.package || 'zlib' }}/${{ inputs.version || '1.3.1' }}
+run-name: Build ${{ inputs.package || 'hello-conan' }}/${{ inputs.version ||   '0.0.1.cci.20241029' }}
 
 on:
   push:
@@ -42,9 +42,9 @@ on:
         default: false
 
 env:
-  PACKAGE: ${{ inputs.package || 'zlib' }}
-  VERSION: ${{ inputs.version || '1.3.1' }}
-  REF: ${{ inputs.package || 'zlib' }}/${{ inputs.version || '1.3.1' }}
+  PACKAGE: ${{ inputs.package || 'hello-conan' }}
+  VERSION: ${{ inputs.version || '0.0.1.cci.20241029' }}
+  REF: ${{ inputs.package || 'hello-conan' }}/${{ inputs.version || '0.0.1.cci.20241029' }}
 
 jobs:  
   prepare-matrix:
