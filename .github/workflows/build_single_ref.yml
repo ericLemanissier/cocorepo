@@ -112,7 +112,7 @@ jobs:
   build:
     needs: [prepare-matrix]
     env:
-      FOLDER: recipes/${{ inputs.package || 'zlib' }}/${{ needs.prepare-matrix.outputs.folder }}
+      FOLDER: recipes/${{ inputs.package || 'hello-conan' }}/${{ needs.prepare-matrix.outputs.folder }}
       CLI_ARGS: -sbuild_type=${{ matrix.build_type }} ${{ matrix.shared }}
       REQ: ${{ inputs.package == 'msys2' && '-s:b arch=x86_64 --tool-require' || '--require' }}
     runs-on: ${{ matrix.os }}
