@@ -1,5 +1,5 @@
 name: Build all versions of package
-run-name: Build ${{ inputs.package || 'zlib' }}
+run-name: Build ${{ inputs.package || 'hello-conan' }}
 
 on:
   push:
@@ -42,12 +42,12 @@ on:
         default: false
 
 env:
-  PACKAGE: ${{ inputs.package || 'zlib' }}
+  PACKAGE: ${{ inputs.package || 'hello-conan' }}
   UPLOAD: ${{ inputs.upload || 'false' }}
 
 jobs:
   find_versions:
-    name: Find Version of ${{ inputs.package || 'zlib' }}
+    name: Find Version of ${{ inputs.package || 'hello-conan' }}
     runs-on: ubuntu-slim
     outputs:
       references: ${{ steps.find_versions.outputs.result }}
