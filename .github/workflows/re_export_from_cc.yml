@@ -46,7 +46,8 @@ jobs:
         with:
           sparse-checkout: |
             .github
-            requirements.txt
+            pyproject.toml
+            uv.lock
 
       - uses: ./.github/actions/setup-conan
 

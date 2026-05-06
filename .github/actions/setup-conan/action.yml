@@ -3,13 +3,12 @@ description: "Install and configure conan"
 runs:
   using: "composite"
   steps:
-    - uses: actions/setup-python@v6
+    - uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
       with:
-        python-version: "3.12"
-        cache: 'pip'
-        cache-dependency-path: 'requirements.txt'
+        version: "0.11.8"
+        activate-environment: true
 
-    - run: pip3 install -r requirements.txt
+    - run: uv sync --locked
       shell: bash
 
     - run: conan profile detect --name autodetected --force

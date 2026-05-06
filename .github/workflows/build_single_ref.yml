@@ -57,7 +57,8 @@ jobs:
         with:
           sparse-checkout: |
             .github
-            requirements.txt
+            pyproject.toml
+            uv.lock
             recipes/${{ env.PACKAGE }}
 
       - id: get_folder
@@ -124,7 +125,8 @@ jobs:
         with:
           sparse-checkout: |
             .github
-            requirements.txt
+            pyproject.toml
+            uv.lock
             ${{ env.FOLDER }}
 
       - uses: ./.github/actions/setup-conan
@@ -140,7 +142,7 @@ jobs:
           CONAN_PATH=$(conan config home)
           PROFILE_PATH=$(conan profile path autodetected)
           COMPILER=$(awk -F "=" '/^compiler=/ {print $2}' $PROFILE_PATH)
-          CPP_STDS=$(python3 -c "import yaml;import sys;print(*yaml.safe_load(sys.stdin)['compiler']['$COMPILER']['cppstd'])" < $CONAN_PATH/settings.yml)
+          CPP_STDS=$(uv run python -c "import yaml;import sys;print(*yaml.safe_load(sys.stdin)['compiler']['$COMPILER']['cppstd'])" < $CONAN_PATH/settings.yml)
           for cpp_std in $CPP_STDS; do
             if [ "$cpp_std" = "None" ]; then
               ARG=""
