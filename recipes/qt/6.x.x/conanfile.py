@@ -25,8 +25,8 @@ class QtConan(ConanFile):
                    "qtmultimedia", "qtlocation", "qtsensors", "qtconnectivity", "qtserialbus",
                    "qtserialport", "qtwebsockets", "qtwebchannel", "qtwebengine", "qtwebview",
                    "qtremoteobjects", "qtpositioning", "qtlanguageserver",
-                   "qtspeech", "qthttpserver", "qtquick3dphysics", "qtgrpc", "qtquickeffectmaker"]
-    _submodules += ["qtgraphs"] # new modules for qt 6.6.0
+                   "qtspeech", "qthttpserver", "qtquick3dphysics", "qtgrpc", "qtquickeffectmaker",
+                   "qtgraphs", "qttasktree", "qtopenapi", "qtcanvaspainter"]
 
     _module_statuses = ["essential", "addon", "deprecated", "preview"]
 
@@ -898,6 +898,8 @@ class QtConan(ConanFile):
             targets.extend(["macdeployqt"])
         if self.settings.os == "Windows":
             targets.extend(["windeployqt"])
+        if Version(self.version) >= "6.11.0":
+            targets.extend(["wasmdeployqt"])
         if self.options.qttools:
             if "qtattributionsscanner" not in disabled_features:
                 targets.extend(["qtattributionsscanner"])
@@ -1505,6 +1507,17 @@ class QtConan(ConanFile):
         if self.options.get_safe("qtgrpc"):
             _create_module("Protobuf", [])
             _create_module("Grpc", ["Core", "Protobuf", "Network"])
+
+        if self.options.get_safe("qttasktree"):
+            _create_module("TaskTree", [])
+
+        if self.options.get_safe("qtcanvaspainter") and self.options.gui:
+            canvas_reqs = ["Gui"]
+            if self.options.get_safe("qtdeclarative") and qt_quick_enabled:
+                canvas_reqs.append("Quick")
+            if self.options.widgets:
+                canvas_reqs.append("Widgets")
+            _create_module("CanvasPainter", canvas_reqs)
 
         if self.settings.os in ["Windows", "iOS"]:
             if self.settings.os == "Windows":
