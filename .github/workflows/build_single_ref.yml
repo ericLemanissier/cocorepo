@@ -193,6 +193,9 @@ jobs:
           done
           wait
 
+      - name: Conan graph outdated
+        run: conan graph outdated ${{ env.REQ }}=${{ env.REF }} --build=missing --build=${{ env.REF }} ${{ env.CLI_ARGS }}
+
       - run: conan install ${{ env.REQ }}=${{ env.REF }} --build=missing --build=${{ env.REF }} ${{ env.CLI_ARGS }}
         name: Conan Install
         if: ${{ steps.conan_install.outputs.CODE != 6 }}
