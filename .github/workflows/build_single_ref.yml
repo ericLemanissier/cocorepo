@@ -171,6 +171,18 @@ jobs:
         name: Conan Graph
         shell: bash
 
+      - name: Conan graph outdated
+        run: conan graph info ${{ env.REQ }}=${{ env.REF }} --build=missing --build=${{ env.REF }} ${{ env.CLI_ARGS }} --format=html > graph.html
+
+      - uses: actions/upload-artifact@v7
+        with:
+          path: graph.html
+          overwrite: true
+          archive: false
+
+      - name: Generate conan graph
+        run: conan graph outdated ${{ env.REQ }}=${{ env.REF }} --build=missing --build=${{ env.REF }} ${{ env.CLI_ARGS }}
+
       - if: ${{ steps.conan_install.outputs.CODE != 6 }}
         name: Remove system OpenSSL directory
         shell: bash
@@ -192,9 +204,6 @@ jobs:
             rm -rf "$path" &
           done
           wait
-
-      - name: Conan graph outdated
-        run: conan graph outdated ${{ env.REQ }}=${{ env.REF }} --build=missing --build=${{ env.REF }} ${{ env.CLI_ARGS }}
 
       - run: conan install ${{ env.REQ }}=${{ env.REF }} --build=missing --build=${{ env.REF }} ${{ env.CLI_ARGS }}
         name: Conan Install
