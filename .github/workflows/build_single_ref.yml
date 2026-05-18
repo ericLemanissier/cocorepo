@@ -172,11 +172,11 @@ jobs:
         shell: bash
 
       - name: Conan graph outdated
-        run: conan graph info ${{ env.REQ }}=${{ env.REF }} --build=missing --build=${{ env.REF }} ${{ env.CLI_ARGS }} --format=html > graph.html
+        run: conan graph info ${{ env.REQ }}=${{ env.REF }} --build=missing --build=${{ env.REF }} ${{ env.CLI_ARGS }} --format=html > graph-${{ env.PACKAGE }}-${{ matrix.os }}.html
 
       - uses: actions/upload-artifact@v7
         with:
-          path: graph.html
+          path: graph-${{ env.PACKAGE }}-${{ matrix.os }}.html
           overwrite: true
           archive: false
 
