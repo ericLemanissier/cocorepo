@@ -45,3 +45,6 @@
 - jom
 - strawberryperl
 - winflexbison
+- fmt
+- gtest
+- nlohmann_json
