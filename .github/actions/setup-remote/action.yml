@@ -23,4 +23,5 @@ runs:
     - run: |
         GLOBAL_CONF="$(conan config home)/global.conf"
         echo "core.graph:compatibility_mode=optimized" >> "$GLOBAL_CONF"
+        echo "core.sources:download_urls=[\"origin\", \"https://c3i.jfrog.io/artifactory/conan-center-backup-sources\"]" >> "$GLOBAL_CONF"
       shell: bash
