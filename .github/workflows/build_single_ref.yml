@@ -45,6 +45,7 @@ env:
   PACKAGE: ${{ inputs.package || 'hello-conan' }}
   VERSION: ${{ inputs.version || '0.0.1.cci.20241029' }}
   REF: ${{ inputs.package || 'hello-conan' }}/${{ inputs.version || '0.0.1.cci.20241029' }}
+  UPLOAD_BINARY: ${{ inputs.upload }}
 
 jobs:  
   prepare-matrix:
@@ -59,6 +60,7 @@ jobs:
             .github
             pyproject.toml
             uv.lock
+            packages_to_upload.yml
             recipes/${{ env.PACKAGE }}
 
       - id: get_folder
@@ -73,8 +75,13 @@ jobs:
         with:
           artifactory-user: ${{ secrets.ARTIFACTORY_USER }}
           artifactory-token: ${{ secrets.ARTIFACTORY_TOKEN }}
+          artifactory-server:  ${{ vars.ARTIFACTORY_URL }}
         if: ${{ github.ref == 'refs/heads/community_index' }}
 
+      - uses: actions/setup-node@v6
+        with:
+          cache: 'npm'
+      - run: npm ci
       - uses: actions/github-script@v9
         id: search_shared_option
         with:
@@ -91,10 +98,20 @@ jobs:
             const info = JSON.parse(stdout)
             core.info(JSON.stringify(info))
 
+            const homepage = (info.homepage ?? "")
+            const upload_sources = homepage.includes("gnu.org/") || homepage.includes("freedesktop.org/")
+
+            const fs = require('node:fs/promises');
+            const yaml = require('js-yaml');
+            const fileContent = await fs.readFile(`packages_to_upload.yml`, 'utf8');
+            const packages_to_upload = yaml.load(fileContent)
+            const upload_binary = process.env.UPLOAD_BINARY == 'true' || packages_to_upload.includes(process.env.PACKAGE)
             return {
               os: ['ubuntu-24.04', 'windows-2025-vs2026', 'macos-14', 'ubuntu-24.04-arm', 'windows-11-arm'],
               shared: ( "shared" in info.options_definitions ) ? ['-o*/*:shared=False', '-o*/*:shared=True'] : (info.package_type == 'shared-library') ? ['-o*/*:shared=True'] : [''],
-              build_type: ["Release"]
+              build_type: ["Release"],
+              upload_sources: [upload_sources ? "true" : "false"],
+              upload_binary: [upload_binary ? "true": "false"]
             };
 
       - if: github.ref == 'refs/heads/community_index'
@@ -135,6 +152,7 @@ jobs:
         with:
           artifactory-user: ${{ secrets.ARTIFACTORY_USER }}
           artifactory-token: ${{ secrets.ARTIFACTORY_TOKEN }}
+          artifactory-server:  ${{ vars.ARTIFACTORY_URL }}
 
       - run: conan export --version=${{ env.VERSION }} --no-remote ${{ env.FOLDER }}
 
@@ -205,14 +223,24 @@ jobs:
           done
           wait
 
-      - run: conan install ${{ env.REQ }}=${{ env.REF }} --build=missing --build=${{ env.REF }} ${{ env.CLI_ARGS }}
+      - run: conan install ${{ env.REQ }}=${{ env.REF }} --build=missing --build=${{ env.REF }} ${{ env.CLI_ARGS }} --format=json > create.json
         name: Conan Install
         if: ${{ steps.conan_install.outputs.CODE != 6 }}
 
+      - run: conan cache backup-upload
+        if: ${{ !cancelled() && matrix.upload_sources == 'true' }}
+
       - run: conan test ${{ env.FOLDER }}/test_package/conanfile.py ${{ env.REF }} --build=missing ${{ env.CLI_ARGS }}
         if: ${{ steps.conan_install.outputs.CODE != 6 }}
-      - run: conan upload -r community ${{ env.REF }} --confirm
-        if: ${{ steps.conan_install.outputs.CODE != 6 && inputs.upload }}
+
+      - name: Conan upload
+        if: ${{ steps.conan_install.outputs.CODE != 6 && matrix.upload_binary == 'true' }}
+        run: |
+          echo "core.sources:exclude_urls=[\"\"]" >> "$(conan config home)/global.conf"
+          conan list --graph=create.json --graph-binaries=build --format=json > pkglist.json
+          conan upload -r community --list=pkglist.json --confirm
+        shell: bash
+
       - name: Collect logs
         if: failure()
         run: cat process.log || echo "No log file found"

@@ -55,6 +55,7 @@ jobs:
         with:
           artifactory-user: ${{ secrets.ARTIFACTORY_USER }}
           artifactory-token: ${{ secrets.ARTIFACTORY_TOKEN }}
+          artifactory-server:  ${{ vars.ARTIFACTORY_URL }}
 
 
       - run: |
