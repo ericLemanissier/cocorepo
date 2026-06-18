@@ -1,0 +1,71 @@
+name: 'Setup Conan'
+description: "Install and configure conan"
+runs:
+  using: "composite"
+  steps:
+    - uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+      with:
+        version: "0.11.8"
+        activate-environment: true
+
+    - run: uv sync --locked
+      shell: bash
+
+    - run: conan profile detect --name autodetected --force
+      shell: bash
+    
+    - run: |
+        echo "core.graph:compatibility_mode=optimized" >> "$(conan config home)/global.conf"
+        echo "tools.cmake.cmaketoolchain:extra_variables={\"FETCHCONTENT_FULLY_DISCONNECTED\": {\"value\": \"ON\", \"type\": \"BOOL\"}}" >> "$(conan config home)/global.conf"
+
+        DEFAULT_PROFILE="$(conan config home)/profiles/default"
+        echo "include(autodetected)" > "$DEFAULT_PROFILE"
+        echo "[replace_requires]" >> "$DEFAULT_PROFILE"
+        echo "boost/1.83.0: boost/1.84.0" >> "$DEFAULT_PROFILE"
+        echo "geos/3.12.0: geos/3.13.0" >> "$DEFAULT_PROFILE"
+        echo "zulu-openjdk/21.0.1: zulu-openjdk/21.0.9" >> "$DEFAULT_PROFILE"
+        echo "[replace_tool_requires]" >> "$DEFAULT_PROFILE"
+        echo "zulu-openjdk/21.0.1: zulu-openjdk/21.0.9" >> "$DEFAULT_PROFILE"
+
+        echo "[options]" >> "$DEFAULT_PROFILE"
+        echo "boost/*:pch=False" >> "$DEFAULT_PROFILE"
+        echo "boost/*:extra_b2_flags=-d2" >> "$DEFAULT_PROFILE"
+        echo "*/*:without_cobalt=True" >> "$DEFAULT_PROFILE"
+        if [[ "$RUNNER_OS" == "Windows" ]]; then
+          if [[ "$RUNNER_ARCH" == "ARM64" ]]; then
+            echo "xnnpack/*:assembly=False" >> "$DEFAULT_PROFILE"
+          fi
+        fi
+
+        echo "[settings]" >> "$DEFAULT_PROFILE"
+        if [[ "$RUNNER_OS" == "Windows" && "$RUNNER_ARCH" == "ARM64" ]]; then
+          echo "strawberryperl/*:arch=x86_64" >> "$DEFAULT_PROFILE"
+        fi
+
+        echo "[conf]" >> "$DEFAULT_PROFILE"
+        if [[ "$RUNNER_OS" == "Linux" ]]; then
+          echo "tools.system.package_manager:mode=install" >> "$DEFAULT_PROFILE"
+          echo "tools.system.package_manager:sudo=True" >> "$DEFAULT_PROFILE"
+        elif [[ "$RUNNER_OS" == "Windows" ]]; then
+          echo "user.openssl:windows_use_jom=True" >> "$DEFAULT_PROFILE"
+          echo "tools.cmake.cmaketoolchain:generator=Ninja" >> "$DEFAULT_PROFILE"
+        fi
+        echo "[buildenv]" >> "$DEFAULT_PROFILE"
+        echo "CMAKE_POLICY_VERSION_MINIMUM=3.5" >> "$DEFAULT_PROFILE"
+
+      shell: bash
+
+    - run: conan remote remove "*"
+      shell: bash
+
+    - name: Create Conan hook to reduce conandata
+      shell: bash
+      run: |
+        HOOK_DIR="$(conan config home)/extensions/hooks"
+        HOOK_FILE="$HOOK_DIR/hook_reduce_conandata.py"
+
+        mkdir -p "$HOOK_DIR"
+        echo "from conan.tools.files import trim_conandata" > "$HOOK_FILE"
+        echo "def post_export(conanfile):" >> "$HOOK_FILE"
+        echo "  if conanfile.conan_data:" >> "$HOOK_FILE"
+        echo "    trim_conandata(conanfile)" >> "$HOOK_FILE"
