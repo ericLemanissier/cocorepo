@@ -48,3 +48,4 @@
 - fmt
 - gtest
 - nlohmann_json
+- b2
