@@ -2,7 +2,6 @@ from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.files import copy, get
 from conan.tools.layout import basic_layout
-from conan.tools.microsoft import is_msvc
 import os
 
 
@@ -21,7 +20,7 @@ class PackageConan(ConanFile):
     no_copy_source = True
 
     def layout(self):
-        basic_layout(self, src_folder=".")
+        basic_layout(self, src_folder="src")
 
     def package_id(self):
         self.info.clear()
@@ -44,6 +43,3 @@ class PackageConan(ConanFile):
     def package_info(self):
         self.cpp_info.bindirs = []
         self.cpp_info.libdirs = []
-        if is_msvc(self):
-            # cf https://github.com/DLTcollab/sse2neon/blob/v1.9.1/sse2neon.h#L365
-            self.cpp_info.cxxflags.append("/Zc:preprocessor")
