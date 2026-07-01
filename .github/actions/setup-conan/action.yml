@@ -83,5 +83,5 @@ runs:
         echo "  if conanfile.package_type == 'header-library':" >> "$HOOK_FILE"
         echo "    for folder in ('lib', 'bin'):" >> "$HOOK_FILE"
         echo "      for root, dirs, files in os.walk(os.path.join(conanfile.package_folder, folder)):" >> "$HOOK_FILE"
-        echo "        if files:" >> "$HOOK_FILE"
+        echo "        if any(not f.endswith('.cmake') for f in files):" >> "$HOOK_FILE"
         echo "          raise ConanException(f'header-only package {conanfile.name} has libs in {root}: {files}')" >> "$HOOK_FILE"
