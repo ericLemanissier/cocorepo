@@ -69,3 +69,19 @@ runs:
         echo "def post_export(conanfile):" >> "$HOOK_FILE"
         echo "  if conanfile.conan_data:" >> "$HOOK_FILE"
         echo "    trim_conandata(conanfile)" >> "$HOOK_FILE"
+
+    - name: Create Conan hook to check package content
+      shell: bash
+      run: |
+        HOOK_DIR="$(conan config home)/extensions/hooks"
+        HOOK_FILE="$HOOK_DIR/hook_check_package_content.py"
+
+        mkdir -p "$HOOK_DIR"
+        echo "import os" > "$HOOK_FILE"
+        echo "from conan.errors import ConanException" >> "$HOOK_FILE"
+        echo "def post_package(conanfile):" >> "$HOOK_FILE"
+        echo "  if conanfile.package_type == 'header-library':" >> "$HOOK_FILE"
+        echo "    for folder in ('lib', 'bin'):" >> "$HOOK_FILE"
+        echo "      for root, dirs, files in os.walk(os.path.join(conanfile.package_folder, folder)):" >> "$HOOK_FILE"
+        echo "        if files:" >> "$HOOK_FILE"
+        echo "          raise ConanException(f'header-only package {conanfile.name} has libs in {root}: {files}')" >> "$HOOK_FILE"
