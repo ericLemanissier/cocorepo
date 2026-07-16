@@ -443,9 +443,6 @@ class QtConan(ConanFile):
             self.tool_requires(f"qt/{self.version}")
 
     def generate(self):
-        ms = VirtualBuildEnv(self)
-        ms.generate()
-
         tc = CMakeDeps(self)
         tc.set_property("libdrm", "cmake_file_name", "Libdrm")
         tc.set_property("libdrm::libdrm_libdrm", "cmake_target_name", "Libdrm::Libdrm")
@@ -474,8 +471,6 @@ class QtConan(ConanFile):
         pc = PkgConfigDeps(self)
         pc.generate()
 
-        vbe = VirtualBuildEnv(self)
-        vbe.generate()
         if not cross_building(self):
             vre = VirtualRunEnv(self)
             vre.generate(scope="build")
@@ -489,13 +484,10 @@ class QtConan(ConanFile):
         if self.settings_build.os == "Macos":
             # On macOS, SIP resets DYLD_LIBRARY_PATH injected by VirtualBuildEnv & VirtualRunEnv
             dyld_library_path = "$DYLD_LIBRARY_PATH"
+            vbe = VirtualBuildEnv(self)
             dyld_library_path_build = vbe.vars().get("DYLD_LIBRARY_PATH")
             if dyld_library_path_build:
                 dyld_library_path = f"{dyld_library_path_build}:{dyld_library_path}"
-            if not cross_building(self):
-                dyld_library_path_host = vre.vars().get("DYLD_LIBRARY_PATH")
-                if dyld_library_path_host:
-                    dyld_library_path = f"{dyld_library_path_host}:{dyld_library_path}"
             save(self, "bash_env", f'export DYLD_LIBRARY_PATH="{dyld_library_path}"')
             env.define_path("BASH_ENV", os.path.abspath("bash_env"))
 
