@@ -78,7 +78,7 @@ jobs:
           artifactory-server:  ${{ vars.ARTIFACTORY_URL }}
         if: ${{ github.ref == 'refs/heads/community_index' }}
 
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           cache: 'npm'
       - run: npm ci
