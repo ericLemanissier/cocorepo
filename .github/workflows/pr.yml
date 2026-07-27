@@ -28,7 +28,7 @@ jobs:
               (response) => response.data.map((file) => file.filename.split("/"))
             );
             const fs = require('node:fs/promises');
-            const yaml = require('js-yaml');
+            const { load } = require('js-yaml');
             let references = new Set();
             for (const filepath of files) {
               if (filepath.length < 4) {
@@ -48,8 +48,8 @@ jobs:
                 if (response.ok) {
                   core.debug("got old conandata successfully");
                   try {
-                    const newconandata = yaml.load(await fs.readFile(path, 'utf8'), { filename: path });
-                    const oldconandata = yaml.load(await response.text(), { filename: "conandata.yml" });
+                    const newconandata = load(await fs.readFile(path, 'utf8'), { filename: path });
+                    const oldconandata = load(await response.text(), { filename: "conandata.yml" });
                     Object.entries(newconandata.sources)
                       .filter(([version, info]) => 
                         !(version in oldconandata.sources) || 
@@ -78,7 +78,7 @@ jobs:
                 const patchName = filepath.slice(3).join("/")
                 core.debug(`patch detected: ${patchName}`)
                 try {
-                  const newconandata = yaml.load(await fs.readFile(`recipes/${package}/${folder}/conandata.yml`, 'utf8'), { filename: `recipes/${package}/${folder}/conandata.yml` })
+                  const newconandata = load(await fs.readFile(`recipes/${package}/${folder}/conandata.yml`, 'utf8'), { filename: `recipes/${package}/${folder}/conandata.yml` })
                   const newPatches = newconandata.patches || {};
                   Object.entries(newPatches)
                     .filter(([version, patches]) => patches.some((patch) => patch.patch_file === patchName))
@@ -91,7 +91,7 @@ jobs:
               }
               try {
                 const fileContent = await fs.readFile(`recipes/${package}/config.yml`, 'utf8');
-                const config = yaml.load(fileContent, { filename: `recipes/${package}/config.yml` });
+                const config = load(fileContent, { filename: `recipes/${package}/config.yml` });
                 Object.entries(config.versions)
                   .filter(([_, info]) => info.folder === folder)
                   .map(([version]) => JSON.stringify({ package, version }))

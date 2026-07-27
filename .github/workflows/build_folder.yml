@@ -64,14 +64,14 @@ jobs:
         with:
           script: |
             const fs = require('node:fs/promises');
-            const yaml = require('js-yaml');
+            const { load } = require('js-yaml');
 
             const package = process.env.PACKAGE
             const upload = process.env.UPLOAD
             const folder = core.getInput('folder')
             
             const fileContent = await fs.readFile(`recipes/${package}/config.yml`, 'utf8');
-            const config = yaml.load(fileContent);
+            const config = load(fileContent);
 
             const references = Object.entries(config.versions)
               .filter(([_, info]) => folder === '' || info.folder === folder)

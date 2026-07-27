@@ -102,9 +102,9 @@ jobs:
             const upload_sources = homepage.includes("gnu.org/") || homepage.includes("freedesktop.org/")
 
             const fs = require('node:fs/promises');
-            const yaml = require('js-yaml');
+            const { load } = require('js-yaml');
             const fileContent = await fs.readFile(`packages_to_upload.yml`, 'utf8');
-            const packages_to_upload = yaml.load(fileContent)
+            const packages_to_upload = load(fileContent)
             const upload_binary = process.env.UPLOAD_BINARY == 'true' || packages_to_upload.includes(process.env.PACKAGE)
             return {
               os: ['ubuntu-24.04', 'windows-2025-vs2026', 'macos-14', 'ubuntu-24.04-arm', 'windows-11-arm'],
