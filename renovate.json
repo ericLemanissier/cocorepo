@@ -8,7 +8,7 @@
     "enabled": false
   },
   "lockFileMaintenance": {
-    "enabled": true,
-  }
+    "enabled": true
+  },
   "forkProcessing": "enabled"
 }
