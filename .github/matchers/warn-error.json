@@ -2,10 +2,10 @@
   "problemMatcher": [
     {
       "owner": "conan-error-matcher",
+      "severity": "warning",
       "pattern": [
         {
           "regexp": "^(WARN|ERROR): (.*)$",
-          "severity": 1,
           "message": 2
         }
       ]
