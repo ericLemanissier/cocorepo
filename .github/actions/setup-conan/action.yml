@@ -14,6 +14,9 @@ runs:
     - run: conan profile detect --name autodetected --force
       shell: bash
     
+    - run: echo "::add-matcher::.github/matchers/warn-error.json"
+      shell: bash
+
     - run: |
         echo "core.graph:compatibility_mode=optimized" >> "$(conan config home)/global.conf"
         echo "tools.cmake.cmaketoolchain:extra_variables={\"FETCHCONTENT_FULLY_DISCONNECTED\": {\"value\": \"ON\", \"type\": \"BOOL\"}}" >> "$(conan config home)/global.conf"
