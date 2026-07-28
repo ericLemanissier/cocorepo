@@ -17,6 +17,7 @@ runs:
     - run: |
         echo "core.graph:compatibility_mode=optimized" >> "$(conan config home)/global.conf"
         echo "tools.cmake.cmaketoolchain:extra_variables={\"FETCHCONTENT_FULLY_DISCONNECTED\": {\"value\": \"ON\", \"type\": \"BOOL\"}}" >> "$(conan config home)/global.conf"
+        echo "core:policies=[\"required_conan_version>=2.30\"]" >> "$(conan config home)/global.conf"
 
         DEFAULT_PROFILE="$(conan config home)/profiles/default"
         echo "include(autodetected)" > "$DEFAULT_PROFILE"
