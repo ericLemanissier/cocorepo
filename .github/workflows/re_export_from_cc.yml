@@ -1,0 +1,72 @@
+name: Re export from conan-center to community
+run-name: Re-Export ${{ inputs.package || 'hello-conan' }}/${{ inputs.version || '0.0.1.cci.20241029' }} from conan-center to community
+
+on:
+  push:
+    paths-ignore:
+      - 'recipes/**'
+  pull_request:
+    paths-ignore:
+      - 'recipes/**'
+  workflow_call:
+    inputs:
+      package:
+        type: string
+        required: true
+      version:
+        type: string
+        required: true
+    secrets:
+      ARTIFACTORY_USER:
+        description: 'User to authenticate with Artifactory'
+        required: true
+      ARTIFACTORY_TOKEN:
+        description: 'API Key to authenticate with Artifactory'
+        required: true
+
+  workflow_dispatch:
+    inputs:
+      package:
+        type: string
+        required: true
+      version:
+        type: string
+        required: true
+
+env:
+  PACKAGE: ${{ inputs.package || 'hello-conan' }}
+  VERSION: ${{ inputs.version || '0.0.1.cci.20241029' }}
+  REF: ${{ inputs.package || 'hello-conan' }}/${{ inputs.version || '0.0.1.cci.20241029' }}
+
+jobs:  
+  re_export:
+    runs-on: ubuntu-slim
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          sparse-checkout: |
+            .github
+            pyproject.toml
+            uv.lock
+
+      - uses: ./.github/actions/setup-conan
+
+      - uses: ./.github/actions/setup-remote
+        with:
+          artifactory-user: ${{ secrets.ARTIFACTORY_USER }}
+          artifactory-token: ${{ secrets.ARTIFACTORY_TOKEN }}
+          artifactory-server:  ${{ vars.ARTIFACTORY_URL }}
+
+
+      - run: |
+          conan remote add conan-center https://center2.conan.io
+          conan download $REF -r conan-center --only-recipe
+          conan upload -r community $REF --confirm --only-recipe
+      - name: Collect logs
+        if: failure()
+        run: cat process.log || echo "No log file found"
+        shell: bash
+      - run: gh api rate_limit || echo "could not get gh rate limits"
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
