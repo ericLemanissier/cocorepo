@@ -654,6 +654,15 @@ class QtConan(ConanFile):
 
         tc.generate()
 
+        if self.settings_build.os == "Windows" and not cross_building(self):
+            # moc.exe, uic.exe, etc are built first and used subsequently during the build
+            # and have DLL dependencies through QtCore library - copy the DLLs so that they
+            # are found at runtime to avoid exposing the "host" runenv to the build environment
+            dest_folder = os.path.join(self.build_folder, "qtbase", "bin") 
+            for dep in self.dependencies.host.values():
+                for bindir in dep.cpp_info.bindirs:
+                    copy(self, pattern="*.dll", src=bindir, dst=dest_folder, keep_path=False)
+
     def package_id(self):
         del self.info.options.cross_compile
         del self.info.options.sysroot
