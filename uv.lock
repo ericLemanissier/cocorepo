@@ -57,7 +57,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "conan", specifier = "==2.31.1" },
+    { name = "conan", specifier = "==2.31.2" },
     { name = "pyyaml", specifier = ">=6.0.3" },
 ]
 
@@ -72,7 +72,7 @@ wheels = [
 
 [[package]]
 name = "conan"
-version = "2.31.1"
+version = "2.31.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "colorama" },
@@ -85,9 +85,9 @@ dependencies = [
     { name = "requests" },
     { name = "urllib3" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/2b/07/71544561c3466f18752da2334ec6453af473b17c1162e399b9d478b1a50e/conan-2.31.1.tar.gz", hash = "sha256:2dc04ec9c0cdc9d0e025b1aa356c4990cee73ac5b00210aedb2d6ec6f57066ec", size = 586945, upload-time = "2026-07-24T11:55:16.716Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/f0/2f/f88c73d7042b87924e482cf2081645dfdc4ee4c20071f3d3b4aa08ca2f5e/conan-2.31.2.tar.gz", hash = "sha256:d820e9f5ac44eca1567874f6a7c83586c16a3df5ebca006d9c0c6933fbb375b1", size = 587648, upload-time = "2026-08-04T19:10:50.334Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/7b/c0/88a09c0c04811cd8d0696fcd83a92223a8e0a07a2e31349dd50429f64350/conan-2.31.1-py3-none-any.whl", hash = "sha256:9134d7cfe79ea45ff9934cf912db3bd76cfd06c1b89d408a147e3e87b0adaa9f", size = 728606, upload-time = "2026-07-24T11:55:15.367Z" },
+    { url = "https://files.pythonhosted.org/packages/91/a8/95abd79b1171ab3fe9403f4a432c0475ae4ad448238143b152ba0328f554/conan-2.31.2-py3-none-any.whl", hash = "sha256:87a8ae0b492c4fd4291d4146bf80522a00d6157637bed7ec055787e1a51f75d6", size = 729425, upload-time = "2026-08-04T19:10:48.792Z" },
 ]
 
 [[package]]
