@@ -7,5 +7,3 @@ versions:
   # C++17
   "22.0.0":
     folder: all
-  "19.0.1":
-    folder: all

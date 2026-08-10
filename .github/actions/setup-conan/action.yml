@@ -1,0 +1,91 @@
+name: 'Setup Conan'
+description: "Install and configure conan"
+runs:
+  using: "composite"
+  steps:
+    - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+      with:
+        version: "0.12.3"
+        activate-environment: true
+
+    - run: uv sync --locked
+      shell: bash
+
+    - run: conan profile detect --name autodetected --force
+      shell: bash
+    
+    - run: echo "::add-matcher::.github/matchers/warn-error.json"
+      shell: bash
+
+    - run: |
+        echo "core.graph:compatibility_mode=optimized" >> "$(conan config home)/global.conf"
+        echo "tools.cmake.cmaketoolchain:extra_variables={\"FETCHCONTENT_FULLY_DISCONNECTED\": {\"value\": \"ON\", \"type\": \"BOOL\"}}" >> "$(conan config home)/global.conf"
+        echo "core:policies=[\"required_conan_version>=2.30\"]" >> "$(conan config home)/global.conf"
+
+        DEFAULT_PROFILE="$(conan config home)/profiles/default"
+        echo "include(autodetected)" > "$DEFAULT_PROFILE"
+        echo "[replace_requires]" >> "$DEFAULT_PROFILE"
+        echo "boost/1.83.0: boost/1.84.0" >> "$DEFAULT_PROFILE"
+        echo "geos/3.12.0: geos/3.13.0" >> "$DEFAULT_PROFILE"
+        echo "zulu-openjdk/21.0.1: zulu-openjdk/21.0.9" >> "$DEFAULT_PROFILE"
+        echo "[replace_tool_requires]" >> "$DEFAULT_PROFILE"
+        echo "zulu-openjdk/21.0.1: zulu-openjdk/21.0.9" >> "$DEFAULT_PROFILE"
+
+        echo "[options]" >> "$DEFAULT_PROFILE"
+        echo "boost/*:pch=False" >> "$DEFAULT_PROFILE"
+        echo "boost/*:extra_b2_flags=-d2" >> "$DEFAULT_PROFILE"
+        echo "*/*:without_cobalt=True" >> "$DEFAULT_PROFILE"
+        if [[ "$RUNNER_OS" == "Windows" ]]; then
+          if [[ "$RUNNER_ARCH" == "ARM64" ]]; then
+            echo "xnnpack/*:assembly=False" >> "$DEFAULT_PROFILE"
+          fi
+        fi
+
+        echo "[settings]" >> "$DEFAULT_PROFILE"
+        if [[ "$RUNNER_OS" == "Windows" && "$RUNNER_ARCH" == "ARM64" ]]; then
+          echo "strawberryperl/*:arch=x86_64" >> "$DEFAULT_PROFILE"
+        fi
+
+        echo "[conf]" >> "$DEFAULT_PROFILE"
+        if [[ "$RUNNER_OS" == "Linux" ]]; then
+          echo "tools.system.package_manager:mode=install" >> "$DEFAULT_PROFILE"
+          echo "tools.system.package_manager:sudo=True" >> "$DEFAULT_PROFILE"
+        elif [[ "$RUNNER_OS" == "Windows" ]]; then
+          echo "user.openssl:windows_use_jom=True" >> "$DEFAULT_PROFILE"
+          echo "tools.cmake.cmaketoolchain:generator=Ninja" >> "$DEFAULT_PROFILE"
+        fi
+        echo "[buildenv]" >> "$DEFAULT_PROFILE"
+        echo "CMAKE_POLICY_VERSION_MINIMUM=3.5" >> "$DEFAULT_PROFILE"
+
+      shell: bash
+
+    - run: conan remote remove "*"
+      shell: bash
+
+    - name: Create Conan hook to reduce conandata
+      shell: bash
+      run: |
+        HOOK_DIR="$(conan config home)/extensions/hooks"
+        HOOK_FILE="$HOOK_DIR/hook_reduce_conandata.py"
+
+        mkdir -p "$HOOK_DIR"
+        echo "from conan.tools.files import trim_conandata" > "$HOOK_FILE"
+        echo "def post_export(conanfile):" >> "$HOOK_FILE"
+        echo "  if conanfile.conan_data:" >> "$HOOK_FILE"
+        echo "    trim_conandata(conanfile)" >> "$HOOK_FILE"
+
+    - name: Create Conan hook to check package content
+      shell: bash
+      run: |
+        HOOK_DIR="$(conan config home)/extensions/hooks"
+        HOOK_FILE="$HOOK_DIR/hook_check_package_content.py"
+
+        mkdir -p "$HOOK_DIR"
+        echo "import os" > "$HOOK_FILE"
+        echo "from conan.errors import ConanException" >> "$HOOK_FILE"
+        echo "def post_package(conanfile):" >> "$HOOK_FILE"
+        echo "  if conanfile.package_type == 'header-library':" >> "$HOOK_FILE"
+        echo "    for folder in ('lib', 'bin'):" >> "$HOOK_FILE"
+        echo "      for root, dirs, files in os.walk(os.path.join(conanfile.package_folder, folder)):" >> "$HOOK_FILE"
+        echo "        if any(not f.endswith('.cmake') for f in files):" >> "$HOOK_FILE"
+        echo "          raise ConanException(f'header-only package {conanfile.name} has libs in {root}: {files}')" >> "$HOOK_FILE"
