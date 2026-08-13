@@ -97,6 +97,10 @@ class GobjectIntrospectionConan(ConanFile):
                 )
             os.chmod(launcher_path, 0o755)
             env.define_path("GI_CROSS_LAUNCHER", launcher_path)
+        if self.settings_build.os == "Windows" and not cross_building(self):
+            for dep in self.dependencies.host.values():
+                for bindir in dep.cpp_info.bindirs:
+                    env.append_path("GI_EXTRA_BASE_DLL_DIRS", bindir)
         envvars = env.vars(self)
         envvars.save_script("pkg_config_env")
 
