@@ -29,7 +29,7 @@ class TestPackageConan(ConanFile):
               self.dependencies["gobject-introspection"].cpp_info.bindirs[0])
         
         pyenv = PyEnv(self)
-        pyenv.install(["setuptools~=82.0.0"])
+        pyenv.install(["setuptools<81.0.0"])
         pyenv.generate()
 
     def build(self):

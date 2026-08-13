@@ -51,6 +51,13 @@ class GobjectIntrospectionConan(ConanFile):
             # fatal error LNK1104: cannot open file 'python37_d.lib'
             raise ConanInvalidConfiguration(
                 f"{self.ref} debug build on Windows is disabled due to debug version of Python libs likely not being available. Contributions to fix this are welcome.")
+        if self.options.build_introspection_data and not self.dependencies["glib"].options.shared:
+            # FIXME: tools/g-ir-scanner fails to load glib
+            # tools/g-ir-scanner --output=gir/GLib-2.0.gir ...
+            # ERROR: can't resolve libraries to shared libraries: glib-2.0, gobject-2.0
+            raise ConanInvalidConfiguration(f"{self.ref} requires shared glib to be built as shared. Use -o 'glib/*:shared=True'.")
+        if self.options.build_introspection_data and cross_building(self):
+            raise ConanInvalidConfiguration(f"{self.ref} build_introspection_data is not supported when cross-building. Use '&:build_introspection_data=False'.")
 
     def build_requirements(self):
         self.tool_requires("meson/[>=1.2.3 <2]")
@@ -75,13 +82,12 @@ class GobjectIntrospectionConan(ConanFile):
         tc = MesonToolchain(self)
         if cross_building(self):
             tc.project_options["gi_cross_use_prebuilt_gi"] = "false"
-        tc.project_options["build_introspection_data"] = self.options.build_introspection_data
+        tc.project_options["build_introspection_data"] = bool(self.options.build_introspection_data)
         tc.project_options["datadir"] = "res"
         tc.project_options["python"] = pyenv.env_exe
         if self.settings.os == "Linux":
             tc.extra_ldflags.append("-Wl,--disable-new-dtags")
         tc.generate()
-
         deps = PkgConfigDeps(self)
         deps.generate()
         # INFO: g-ir-scanner uses PKG_CONFIG_PATH directly instead of pkg-config Meson module
@@ -101,6 +107,8 @@ class GobjectIntrospectionConan(ConanFile):
             for dep in self.dependencies.host.values():
                 for bindir in dep.cpp_info.bindirs:
                     env.append_path("GI_EXTRA_BASE_DLL_DIRS", bindir)
+                for libdir in dep.cpp_info.libdirs:
+                    env.append_path("LIB", libdir)
         envvars = env.vars(self)
         envvars.save_script("pkg_config_env")
 
