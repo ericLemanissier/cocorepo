@@ -87,9 +87,7 @@ class GobjectIntrospectionConan(ConanFile):
         tc.project_options["python"] = pyenv.env_exe
         if self.settings.os == "Linux":
             tc.extra_ldflags.append("-Wl,--disable-new-dtags")
-        tc.generate()
-        deps = PkgConfigDeps(self)
-        deps.generate()
+
         # INFO: g-ir-scanner uses PKG_CONFIG_PATH directly instead of pkg-config Meson module
         env = Environment()
         env.define_path("PKG_CONFIG_PATH", self.generators_folder)
@@ -104,6 +102,7 @@ class GobjectIntrospectionConan(ConanFile):
                     )
                 os.chmod(launcher_path, 0o755)
                 env.define_path("GI_CROSS_LAUNCHER", launcher_path)
+                tc.project_options["gi_cross_binary_wrapper"] = launcher_path
             elif self.settings.os == "Windows":
                 launcher_path = os.path.join(self.generators_folder, "gi-cross-launcher.bat")
                 with open(launcher_path, "w") as f:
@@ -114,6 +113,7 @@ class GobjectIntrospectionConan(ConanFile):
                         'exit /b %errorlevel%\n'
                     )
                 env.define_path("GI_CROSS_LAUNCHER", launcher_path)
+                tc.project_options["gi_cross_binary_wrapper"] = launcher_path
 
             if self.settings_build.os == "Windows" and not cross_building(self):
                 for dep in self.dependencies.host.values():
@@ -121,6 +121,9 @@ class GobjectIntrospectionConan(ConanFile):
                         env.append_path("GI_EXTRA_BASE_DLL_DIRS", bindir)
                     for libdir in dep.cpp_info.libdirs:
                         env.append_path("LIB", libdir)
+        tc.generate()
+        deps = PkgConfigDeps(self)
+        deps.generate()
         envvars = env.vars(self)
         envvars.save_script("pkg_config_env")
 
