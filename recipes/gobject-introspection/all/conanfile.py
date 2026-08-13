@@ -93,22 +93,34 @@ class GobjectIntrospectionConan(ConanFile):
         # INFO: g-ir-scanner uses PKG_CONFIG_PATH directly instead of pkg-config Meson module
         env = Environment()
         env.define_path("PKG_CONFIG_PATH", self.generators_folder)
-        if self.settings.os == "Linux" and self.options.get_safe("build_introspection_data"):
-            launcher_path = os.path.join(self.generators_folder, "gi-cross-launcher.sh")
-            with open(launcher_path, "w") as f:
-                f.write(
-                    "#!/bin/sh\n"
-                    '. "$(dirname "$0")/conanrun.sh" >/dev/null\n'
-                    'exec "$@"\n'
-                )
-            os.chmod(launcher_path, 0o755)
-            env.define_path("GI_CROSS_LAUNCHER", launcher_path)
-        if self.settings_build.os == "Windows" and not cross_building(self):
-            for dep in self.dependencies.host.values():
-                for bindir in dep.cpp_info.bindirs:
-                    env.append_path("GI_EXTRA_BASE_DLL_DIRS", bindir)
-                for libdir in dep.cpp_info.libdirs:
-                    env.append_path("LIB", libdir)
+        if self.options.get_safe("build_introspection_data"):
+            if self.settings.os == "Linux":
+                launcher_path = os.path.join(self.generators_folder, "gi-cross-launcher.sh")
+                with open(launcher_path, "w") as f:
+                    f.write(
+                        "#!/bin/sh\n"
+                        '. "$(dirname "$0")/conanrun.sh" >/dev/null\n'
+                        'exec "$@"\n'
+                    )
+                os.chmod(launcher_path, 0o755)
+                env.define_path("GI_CROSS_LAUNCHER", launcher_path)
+            elif self.settings.os == "Windows":
+                launcher_path = os.path.join(self.generators_folder, "gi-cross-launcher.bat")
+                with open(launcher_path, "w") as f:
+                    f.write(
+                        '@echo off\n'
+                        'call "%~dp0conanrun.bat"\n'
+                        '%*\n'
+                        'exit /b %errorlevel%\n'
+                    )
+                env.define_path("GI_CROSS_LAUNCHER", launcher_path)
+
+            if self.settings_build.os == "Windows" and not cross_building(self):
+                for dep in self.dependencies.host.values():
+                    for bindir in dep.cpp_info.bindirs:
+                        env.append_path("GI_EXTRA_BASE_DLL_DIRS", bindir)
+                    for libdir in dep.cpp_info.libdirs:
+                        env.append_path("LIB", libdir)
         envvars = env.vars(self)
         envvars.save_script("pkg_config_env")
 
