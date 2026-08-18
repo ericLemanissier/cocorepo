@@ -30,6 +30,9 @@ runs:
         echo "zulu-openjdk/21.0.1: zulu-openjdk/21.0.9" >> "$DEFAULT_PROFILE"
         echo "[replace_tool_requires]" >> "$DEFAULT_PROFILE"
         echo "zulu-openjdk/21.0.1: zulu-openjdk/21.0.9" >> "$DEFAULT_PROFILE"
+        if [[ "$RUNNER_OS" == "Linux" ]]; then
+          echo "gettext/*: gettext/[>=1 <2]" >> "$DEFAULT_PROFILE"
+        fi
 
         echo "[options]" >> "$DEFAULT_PROFILE"
         echo "boost/*:pch=False" >> "$DEFAULT_PROFILE"
