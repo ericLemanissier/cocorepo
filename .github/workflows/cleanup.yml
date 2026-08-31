@@ -1,0 +1,41 @@
+name: Clean old binaries
+
+on:
+  push:
+    paths-ignore:
+      - 'recipes/**'
+  pull_request:
+    paths-ignore:
+      - 'recipes/**'
+  workflow_dispatch:
+  schedule:
+    - cron: '15 14 * * *'
+
+jobs:
+  clean-binaries:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          sparse-checkout: |
+            .github
+            pyproject.toml
+            uv.lock
+
+      - uses: ./.github/actions/setup-conan
+
+      - uses: ./.github/actions/setup-remote
+        with:
+          artifactory-user: ${{ secrets.ARTIFACTORY_USER }}
+          artifactory-token: ${{ secrets.ARTIFACTORY_TOKEN }}
+          artifactory-server:  ${{ vars.ARTIFACTORY_URL }}
+
+      - run: conan remove '*/*#*:*#~latest' -c -r community
+      - name: Collect logs
+        if: failure()
+        run: cat process.log || echo "No log file found"
+        shell: bash
+      - run: gh api rate_limit || echo "could not get gh rate limits"
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
