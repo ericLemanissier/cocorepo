@@ -87,8 +87,8 @@ jobs:
             import { readFile, appendFile } from "node:fs/promises";
             import { load } from "js-yaml";
 
-            const stdout = await $`conan inspect recipes/${process.env.PACKAGE}/${{ steps.get_folder.outputs.result }} --format=json`;
-            const info = JSON.parse(stdout.toString())
+            const result = await $`conan inspect recipes/${process.env.PACKAGE}/${{ steps.get_folder.outputs.result }} --format=json`;
+            const info = JSON.parse(result.stdout.toString())
             console.log(JSON.stringify(info));
 
             const homepage = (info.homepage ?? "")
