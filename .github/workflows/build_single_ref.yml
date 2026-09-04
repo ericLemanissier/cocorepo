@@ -78,41 +78,33 @@ jobs:
           artifactory-server:  ${{ vars.ARTIFACTORY_URL }}
         if: ${{ github.ref == 'refs/heads/community_index' }}
 
-      - uses: actions/setup-node@v7
-        with:
-          cache: 'npm'
-      - run: npm ci
-      - uses: actions/github-script@v9
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+      - run: bun install
+      - shell: bun {0}
         id: search_shared_option
-        with:
-          script: |
-            const {
-              exitCode,
-              stdout,
-              stderr
-            } = await exec.getExecOutput('conan', ['inspect', `recipes/${process.env.PACKAGE}/${{ steps.get_folder.outputs.result }}`, '--format=json']);
-            if( exitCode != 0 ) {
-              core.setFailed(`Could not parse recipe. error ${exitCode}: ${stderr}`);
-              return
-            }
+        run: |
+            import { $ } from "bun";
+            import { readFile, appendFile } from "node:fs/promises";
+            import { load } from "js-yaml";
+
+            const stdout = await $`conan inspect recipes/${process.env.PACKAGE}/${{ steps.get_folder.outputs.result }} --format=json`;
             const info = JSON.parse(stdout)
-            core.info(JSON.stringify(info))
+            console.log(JSON.stringify(info));
 
             const homepage = (info.homepage ?? "")
             const upload_sources = homepage.includes("gnu.org/") || homepage.includes("freedesktop.org/")
 
-            const fs = require('node:fs/promises');
-            const { load } = require('js-yaml');
-            const fileContent = await fs.readFile(`packages_to_upload.yml`, 'utf8');
+            const fileContent = await readFile(`packages_to_upload.yml`, 'utf8');
             const packages_to_upload = load(fileContent)
             const upload_binary = process.env.UPLOAD_BINARY == 'true' || packages_to_upload.includes(process.env.PACKAGE)
-            return {
+            const matrix = {
               os: ['ubuntu-26.04', 'windows-2025-vs2026', 'macos-26-intel', 'ubuntu-26.04-arm', 'windows-11-vs2026-arm', 'macos-26'],
               shared: ( "shared" in info.options_definitions ) ? ['-o*/*:shared=False', '-o*/*:shared=True'] : (info.package_type == 'shared-library') ? ['-o*/*:shared=True'] : [''],
               build_type: ["Release"],
               upload_sources: [upload_sources ? "true" : "false"],
               upload_binary: [upload_binary ? "true": "false"]
             };
+            await appendFile(process.env.GITHUB_OUTPUT, `result<<__ghadelim__\n${JSON.stringify(matrix)}\n__ghadelim__\n`);
 
       - if: github.ref == 'refs/heads/community_index'
         run: |
