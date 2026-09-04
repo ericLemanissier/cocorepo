@@ -59,10 +59,10 @@ jobs:
         run: |
           references=$(
             yq -o=json '.versions' "recipes/${PACKAGE}/config.yml" \
-            | jq -c --arg package "$PACKAGE" --arg folder "${INPUT_FOLDER:-}" '
+            | jq -c --arg package "$PACKAGE" --arg upload "$UPLOAD" --arg folder "${INPUT_FOLDER:-}" '
                 to_entries
                 | map(select($folder == "" or .value.folder == $folder))
-                | map({package: $package, version: .key})
+                | map({package: $package, version: .key, upload: $upload})
               '
           )
 
@@ -80,5 +80,5 @@ jobs:
     with:
       package: ${{ matrix.package }}
       version: ${{ matrix.version }}
-      upload: ${{ env.UPLOAD == 'true'}}
+      upload: ${{ matrix.upload == 'true'}}
     secrets: inherit

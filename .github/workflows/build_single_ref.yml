@@ -88,7 +88,7 @@ jobs:
             import { load } from "js-yaml";
 
             const stdout = await $`conan inspect recipes/${process.env.PACKAGE}/${{ steps.get_folder.outputs.result }} --format=json`;
-            const info = JSON.parse(stdout)
+            const info = JSON.parse(stdout.toString())
             console.log(JSON.stringify(info));
 
             const homepage = (info.homepage ?? "")
