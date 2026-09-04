@@ -79,23 +79,20 @@ jobs:
         if: ${{ github.ref == 'refs/heads/community_index' }}
 
       - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
-      - run: bun install
       - shell: bun {0}
         id: search_shared_option
         run: |
-            import { $ } from "bun";
+            import { $, YAML } from "bun";
             import { readFile, appendFile } from "node:fs/promises";
-            import { load } from "js-yaml";
 
-            const result = await $`conan inspect recipes/${process.env.PACKAGE}/${{ steps.get_folder.outputs.result }} --format=json`;
+            const result = await $`conan inspect recipes/${process.env.PACKAGE}/${{ steps.get_folder.outputs.result }} --format=json`.quiet();
             const info = JSON.parse(result.stdout.toString())
-            console.log(JSON.stringify(info));
 
             const homepage = (info.homepage ?? "")
             const upload_sources = homepage.includes("gnu.org/") || homepage.includes("freedesktop.org/")
 
             const fileContent = await readFile(`packages_to_upload.yml`, 'utf8');
-            const packages_to_upload = load(fileContent)
+            const packages_to_upload = YAML.parse(fileContent)
             const upload_binary = process.env.UPLOAD_BINARY == 'true' || packages_to_upload.includes(process.env.PACKAGE)
             const matrix = {
               os: ['ubuntu-26.04', 'windows-2025-vs2026', 'macos-26-intel', 'ubuntu-26.04-arm', 'windows-11-vs2026-arm', 'macos-26'],
