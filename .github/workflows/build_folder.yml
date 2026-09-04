@@ -53,36 +53,21 @@ jobs:
       references: ${{ steps.find_versions.outputs.result }}
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
-        with:
-          cache: 'npm'
-      - run: npm ci
-      - uses: actions/github-script@v9
-        id: find_versions
+      - id: find_versions
         env:
           INPUT_FOLDER: "${{ inputs.folder }}"
-        with:
-          script: |
-            const fs = require('node:fs/promises');
-            const { load } = require('js-yaml');
+        run: |
+          references=$(
+            yq -o=json '.versions' "recipes/${PACKAGE}/config.yml" \
+            | jq -c --arg package "$PACKAGE" --arg upload "$UPLOAD" --arg folder "${INPUT_FOLDER:-}" '
+                to_entries
+                | map(select($folder == "" or .value.folder == $folder))
+                | map({package: $package, version: .key, upload: $upload})
+              '
+          )
 
-            const package = process.env.PACKAGE
-            const upload = process.env.UPLOAD
-            const folder = core.getInput('folder')
-            
-            const fileContent = await fs.readFile(`recipes/${package}/config.yml`, 'utf8');
-            const config = load(fileContent);
-
-            const references = Object.entries(config.versions)
-              .filter(([_, info]) => folder === '' || info.folder === folder)
-              .map(([version, info]) => ({
-                package,
-                version,
-                upload
-              }))
-
-            core.debug(`found references ${references}`)
-            return references;
+          echo "::debug::found references ${references}"
+          echo "result=${references}" >> "$GITHUB_OUTPUT"
 
   build_refs:
     needs: find_versions
