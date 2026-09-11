@@ -1,0 +1,84 @@
+name: Build all versions of package
+run-name: Build ${{ inputs.package || 'hello-conan' }}
+
+on:
+  push:
+    paths-ignore:
+      - 'recipes/**'
+  pull_request:
+    paths-ignore:
+      - 'recipes/**'
+  workflow_call:
+    inputs:
+      package:
+        type: string
+        required: true
+      folder:
+        type: string
+        required: false
+      upload:
+        type: boolean
+        required: false
+        default: false
+    secrets:
+      ARTIFACTORY_USER:
+        description: 'User to authenticate with Artifactory'
+        required: true
+      ARTIFACTORY_TOKEN:
+        description: 'API Key to authenticate with Artifactory'
+        required: true
+
+  workflow_dispatch:
+    inputs:
+      package:
+        type: string
+        required: true
+      folder:
+        type: string
+        required: false
+      upload:
+        type: boolean
+        required: true
+        default: false
+
+env:
+  PACKAGE: ${{ inputs.package || 'hello-conan' }}
+  UPLOAD: ${{ inputs.upload || 'false' }}
+
+jobs:
+  find_versions:
+    name: Find Version of ${{ inputs.package || 'hello-conan' }}
+    runs-on: ubuntu-slim
+    outputs:
+      references: ${{ steps.find_versions.outputs.result }}
+    steps:
+      - uses: actions/checkout@v7
+      - id: find_versions
+        env:
+          INPUT_FOLDER: "${{ inputs.folder }}"
+        run: |
+          references=$(
+            yq -o=json '.versions' "recipes/${PACKAGE}/config.yml" \
+            | jq -c --arg package "$PACKAGE" --arg upload "$UPLOAD" --arg folder "${INPUT_FOLDER:-}" '
+                to_entries
+                | map(select($folder == "" or .value.folder == $folder))
+                | map({package: $package, version: .key, upload: $upload})
+              '
+          )
+
+          echo "::debug::found references ${references}"
+          echo "result=${references}" >> "$GITHUB_OUTPUT"
+
+  build_refs:
+    needs: find_versions
+    if: ${{ needs.find_versions.outputs.references != '[]' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJson(needs.find_versions.outputs.references) }}
+    uses: ./.github/workflows/build_single_ref.yml
+    with:
+      package: ${{ matrix.package }}
+      version: ${{ matrix.version }}
+      upload: ${{ matrix.upload == 'true'}}
+    secrets: inherit
