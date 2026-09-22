@@ -204,6 +204,8 @@ class AprConan(ConanFile):
         if not self.options.shared:
             self.cpp_info.defines = ["APR_DECLARE_STATIC"]
             if self.settings.os in ["Linux", "FreeBSD"]:
-                self.cpp_info.system_libs = ["crypt", "dl", "pthread", "rt"]
+                self.cpp_info.system_libs = ["dl", "pthread", "rt"]
             if self.settings.os == "Windows":
                 self.cpp_info.system_libs = ["mswsock", "rpcrt4", "ws2_32"]
+        if self.settings.os in ["Linux", "FreeBSD"]:
+            self.cpp_info.system_libs.append("crypt")
