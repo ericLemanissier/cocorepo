@@ -10,5 +10,13 @@
   "lockFileMaintenance": {
     "enabled": true
   },
-  "forkProcessing": "enabled"
+  "forkProcessing": "enabled",
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true
+    }
+  ]
 }
