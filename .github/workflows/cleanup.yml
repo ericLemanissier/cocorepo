@@ -31,11 +31,3 @@ jobs:
           artifactory-server:  ${{ vars.ARTIFACTORY_URL }}
 
       - run: conan remove '*/*#*:*#~latest' -c -r community
-      - name: Collect logs
-        if: failure()
-        run: cat process.log || echo "No log file found"
-        shell: bash
-      - run: gh api rate_limit || echo "could not get gh rate limits"
-        if: failure()
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

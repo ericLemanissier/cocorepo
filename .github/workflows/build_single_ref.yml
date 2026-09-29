@@ -107,14 +107,6 @@ jobs:
         run: |
           conan export --version=$VERSION --no-remote recipes/$PACKAGE/${{ steps.get_folder.outputs.result }}
           conan upload -r community $REF --confirm --only-recipe
-      - name: Collect logs
-        if: failure()
-        run: cat process.log || echo "No log file found"
-        shell: bash
-      - run: gh api rate_limit || echo "could not get gh rate limits"
-        if: failure()
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build:
     needs: [prepare-matrix]
@@ -229,12 +221,3 @@ jobs:
           conan list --graph=create.json --graph-binaries=build --format=json > pkglist.json
           conan upload -r community --list=pkglist.json --confirm
         shell: bash
-
-      - name: Collect logs
-        if: failure()
-        run: cat process.log || echo "No log file found"
-        shell: bash
-      - run: gh api rate_limit || echo "could not get gh rate limits"
-        if: failure()
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
