@@ -1,0 +1,49 @@
+name: Auto Merge from Upstream
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Runs every day at 3:00 AM UTC
+  workflow_dispatch:     # Also allows manual trigger
+
+jobs:
+  merge:
+    runs-on: ubuntu-slim
+    steps:
+      - uses: actions/checkout@v7
+        with:
+            fetch-depth: 300
+            token: ${{ secrets.PUSH_PAT }}
+
+      - name: Set up Git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Add upstream remote and fetch
+        run: |
+          git remote add upstream https://github.com/conan-io/conan-center-index.git
+          git fetch upstream HEAD:upstream-head
+
+      - name: Attempt merge
+        env:
+          GH_TOKEN: ${{ secrets.PUSH_PAT }}
+        run: |
+          if git merge --no-edit upstream-head; then
+            git push origin
+          else
+            echo "Merge conflict detected, aborting merge."
+            git merge --abort
+            
+            git push origin upstream-head:refs/heads/upstream-head
+
+            if ! gh pr view upstream-head >/dev/null 2>&1; then
+              gh pr create \
+                --repo "${GITHUB_REPOSITORY}" \
+                --base "${GITHUB_REF_NAME}" \
+                --head upstream-head \
+                --title "Merge conflict: upstream sync needs manual resolution" \
+                --body "Automatic merge from upstream (conan-io/conan-center-index) hit a conflict, so this PR was opened directly from upstream's branch without merging. Resolve the conflicts using the 'Resolve conflicts' button on this PR, then merge it in."
+            else
+              echo "PR already exists for upstream-head, skipping creation."
+            fi
+          fi

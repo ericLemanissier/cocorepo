@@ -1,0 +1,47 @@
+inputs:
+  artifactory-token:
+    description: 'Password to authenticate with Artifactory'
+    required: false
+  artifactory-user:
+    description: 'User to authenticate with Artifactory'
+    required: false
+  artifactory-server:
+    description: 'Artifactory server URL'
+    required: true
+name: 'Setup Remote'
+description: Sets up the conan remote
+runs:
+  using: "composite"
+  steps:
+    - run: conan remote add community ${{ inputs.artifactory-server }}/api/conan/conan-local -vtrace
+      shell: bash
+
+    - run: |
+        conan remote auth community --format=json -vtrace --force | jq ".community | has(\"error\")" | grep -q "false"
+      env:
+        CONAN_LOGIN_USERNAME_COMMUNITY: ${{ inputs.artifactory-user }}
+        CONAN_PASSWORD_COMMUNITY: ${{ inputs.artifactory-token }}
+      shell: bash
+      if: ${{ inputs.artifactory-user && inputs.artifactory-token }}
+
+    - run: |
+        CONFIG_HOME=$(conan config home)
+        GLOBAL_CONF="$CONFIG_HOME/global.conf"
+        echo "core.graph:compatibility_mode=optimized" >> "$GLOBAL_CONF"
+        echo "core.sources:download_urls=[\"origin\", \"${{ inputs.artifactory-server }}/backup-sources\", \"https://c3i.jfrog.io/artifactory/conan-center-backup-sources\"]" >> "$GLOBAL_CONF"
+        echo "core.sources:upload_url=${{ inputs.artifactory-server }}/backup-sources" >> "$GLOBAL_CONF"
+
+        SOURCE_CREDENTIALS="$CONFIG_HOME/source_credentials.json"
+        echo "{" > "$SOURCE_CREDENTIALS"
+        echo "    \"credentials\": [" >> "$SOURCE_CREDENTIALS"
+        echo "        {" >> "$SOURCE_CREDENTIALS"
+        echo "            \"url\": \"${{ inputs.artifactory-server }}/backup-sources\"," >> "$SOURCE_CREDENTIALS"
+        echo "            \"user\": \"$ARTIFACTORY_USER\"," >> "$SOURCE_CREDENTIALS"
+        echo "            \"password\": \"$ARTIFACTORY_TOKEN\"" >> "$SOURCE_CREDENTIALS"
+        echo "        }" >> "$SOURCE_CREDENTIALS"
+        echo "    ]" >> "$SOURCE_CREDENTIALS"
+        echo "}" >> "$SOURCE_CREDENTIALS"
+      env:
+        ARTIFACTORY_USER: ${{ inputs.artifactory-user }}
+        ARTIFACTORY_TOKEN: ${{ inputs.artifactory-token }}
+      shell: bash
