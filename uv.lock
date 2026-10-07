@@ -116,8 +116,8 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "conan", specifier = "==2.33.0" },
-    { name = "pyyaml", specifier = ">=6.0.3" },
+    { name = "conan", specifier = "~=2.33" },
+    { name = "pyyaml", specifier = "~=6.0" },
 ]
 
 [[package]]
