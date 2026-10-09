@@ -33,6 +33,8 @@ runs:
         if [[ "$RUNNER_OS" == "Linux" ]]; then
           echo "gettext/*: gettext/[>=1 <2]" >> "$DEFAULT_PROFILE"
         fi
+        echo "autoconf/2.71: autoconf/2.72" >> "$DEFAULT_PROFILE"
+        echo "automake/1.16.5: automake/1.19 >> "$DEFAULT_PROFILE"
 
         echo "[options]" >> "$DEFAULT_PROFILE"
         echo "boost/*:pch=False" >> "$DEFAULT_PROFILE"
