@@ -89,7 +89,7 @@ jobs:
             const info = JSON.parse(result.stdout.toString())
 
             const homepage = (info.homepage ?? "")
-            const upload_sources = homepage.includes("gnu.org/") || homepage.includes("freedesktop.org/")
+            const upload_sources = homepage.includes("gnu.org/") || homepage.includes("freedesktop.org/") || homepage.includes("x.org/")
 
             const fileContent = await readFile(`packages_to_upload.yml`, 'utf8');
             const packages_to_upload = YAML.parse(fileContent)
