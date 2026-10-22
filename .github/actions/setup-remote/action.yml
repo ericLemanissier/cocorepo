@@ -28,7 +28,7 @@ runs:
         CONFIG_HOME=$(conan config home)
         GLOBAL_CONF="$CONFIG_HOME/global.conf"
         echo "core.graph:compatibility_mode=optimized" >> "$GLOBAL_CONF"
-        echo "core.sources:download_urls=[\"origin\", \"${{ inputs.artifactory-server }}/backup-sources\", \"https://c3i.jfrog.io/artifactory/conan-center-backup-sources\"]" >> "$GLOBAL_CONF"
+        echo "core.sources:download_urls=[\"origin\", \"${{ inputs.artifactory-server }}/backup-sources\"]" >> "$GLOBAL_CONF"
         echo "core.sources:upload_url=${{ inputs.artifactory-server }}/backup-sources" >> "$GLOBAL_CONF"
 
         SOURCE_CREDENTIALS="$CONFIG_HOME/source_credentials.json"
