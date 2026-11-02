@@ -23,10 +23,10 @@ on:
     secrets:
       ARTIFACTORY_USER:
         description: 'User to authenticate with Artifactory'
-        required: true
+        required: false
       ARTIFACTORY_TOKEN:
         description: 'API Key to authenticate with Artifactory'
-        required: true
+        required: false
 
   workflow_dispatch:
     inputs:
